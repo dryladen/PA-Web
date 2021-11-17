@@ -40,7 +40,7 @@ if (isset($_POST['submit-manga'])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../../style.css">
     <title>Tambah</title>
 </head>
 
@@ -48,7 +48,6 @@ if (isset($_POST['submit-manga'])) {
     <a href="/">Beranda</a>
     <select class="select choose-type" class="choose-type" name="type" id="table">
         <option value="manga">Manga</option>
-        <option value="magazine">Magazine</option>
         <option value="author">Author</option>
     </select>
     <!-- Manga Form -->
@@ -63,28 +62,13 @@ if (isset($_POST['submit-manga'])) {
         <select class="select" name="author-name" id="authorlist">
             <option value="1"> -- None -- </option>
             <?php while ($author = mysqli_fetch_array($authors)) : ?>
-                <?php if ($author['nama'] != "Other") : ?>
-                    <option value="<?= $author['id'] ?>"><?= $author['nama'] ?></option>
+                <?php if ($author['name'] != "Other") : ?>
+                    <option value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
                 <?php endif ?>
             <?php endwhile ?>
         </select>
-        <label for="authorlist">Magazine </label>
-        <select class="select" name="magazine-name" id="magazinelist">
-            <option value="1"> -- None -- </option>
-            <?php while ($magazine = mysqli_fetch_array($magazines)) : ?>
-                <?php if ($magazine['nama'] != "Other") : ?>
-                    <option value="<?= $magazine['id'] ?>"><?= $magazine['nama'] ?></option>
-                <?php endif ?>
-            <?php endwhile ?>
-        </select>
+        
         <button class="button" name="submit-manga" type="submit">Tambahkan Manga</button>
-    </form>
-
-    <!-- Magazine Form -->
-    <form method="POST" action="/create/" class="form magazine hidden">
-        <label>Nama Magazine</label>
-        <input class="input" type="text" name="nama-magazine">
-        <button class="button" name="submit-magazine" type="submit">Tambahkan Magazine</button>
     </form>
 
     <!-- Author Form -->
