@@ -39,11 +39,13 @@
             $result = mysqli_query($mysqli, $query);
             $row = mysqli_fetch_array($result);
             $count = $row["cntUser"];
+            
+            $queryAdmin = "SELECT count(*) AS cntAdmin FROM users WHERE email='$email' AND password='$passwd'";
+            $resAdmin = $mysqli->query($queryAdmin);
+            $rowAdmin = mysqli_fetch_array($resAdmin);
+            $countAdmin = $rowAdmin["cntAdmin"];
 
-            var_dump($count);
-            var_dump($email);
-
-            if ($count > 0 && $email == "admin@mail.com") :
+            if ($countAdmin == 1 && $email == "admin@mail.com") :
                 session_start();
                 $_SESSION['email'] = $email;
                 header("Location: /admin");
@@ -54,7 +56,7 @@
             else :
                 $_POST["login"] = "Salah" ?>
                 <script>
-                    alert("Email dan Password tidak cocok")
+                    alert("Email dan Password tidak cocok ")
                 </script>
             <?php endif ?>
         <?php endif ?>

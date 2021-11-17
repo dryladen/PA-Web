@@ -30,6 +30,32 @@ body {
     color: white;
 }
 
+.container {
+    flex-grow: 1;
+    margin: 0 auto;
+    position: relative;
+    width: auto
+}
+
+.container.is-fluid {
+    max-width: none!important;
+    padding-left: 32px;
+    padding-right: 32px;
+    width: 100%
+}
+
+.navbar {
+    background-color: #fff;
+    min-height: 3.25rem;
+    position: relative;
+    z-index: 30
+}
+
+.navbar.is-white {
+    background-color: #fff;
+    color: #0a0a0a
+}
+
 .main {
     margin-top: 2em;
     height: 100vh;
@@ -53,6 +79,11 @@ body {
     color: #1e1e1e;
     font-weight: bold;
     margin: 10px 0;
+}
+
+.button:disabled {
+    filter: brightness(.4);
+    cursor: not-allowed;
 }
 
 .button:hover {
@@ -133,7 +164,7 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    width:  1.4em;
+    width: 1.4em;
     height: 1.4em;
     border: 1px solid #aaa;
     background: #FFF;

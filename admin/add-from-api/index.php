@@ -43,6 +43,7 @@ require("../../config.php");
 </head>
 
 <body>
+    <a href="/admin">Kembali</a>
     <?php foreach ($response_data->top as $response) :
     ?>
         <div style="margin-bottom: 40px">

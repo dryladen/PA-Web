@@ -1,3 +1,40 @@
+<?php
+function formSubmit()
+{
+    if (isset($_POST["btn-reg"])) :
+        $nama = $_POST['nama-reg'];
+        $email = $_POST['email-reg'];
+        $pass = $_POST['pass-reg'];
+        $pass_decr = md5($pass);
+        $confirm_pass = $_POST['pass-confirm'];
+
+        if ($pass != $confirm_pass) : ?>
+            <script>
+                alert("Password dan Konfirmasi tidak cocok")
+            </script>
+        <?php return;
+        endif ?>
+
+        <?php include("../config.php");
+        $query = mysqli_query($mysqli, "SELECT * FROM users WHERE email='$email'");
+        if (mysqli_num_rows($query) != 0) : ?>
+            <script>
+                alert("Email Terdaftar")
+            </script>
+        <?php return;
+        endif  ?>
+
+        <?php include_once("../config.php");
+        $result = mysqli_query($mysqli, "INSERT INTO users(nama, email, password) VALUES ('$nama', '$email', '$pass_decr')");
+        ?>
+        <script>
+            alert("Pendaftaran Berhasil")
+        </script>
+        <?php header("Location: /login") ?>
+<?php endif;
+} ?>
+
+<?php formSubmit() ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,44 +47,7 @@
 </head>
 
 <body>
-    <?php
 
-    function formSubmit()
-    {
-        if (isset($_POST["btn-reg"])) :
-            $nama = $_POST['nama-reg'];
-            $email = $_POST['email-reg'];
-            $pass = $_POST['pass-reg'];
-            $pass_decr = md5($pass);
-            $confirm_pass = $_POST['pass-confirm'];
-
-            if ($pass != $confirm_pass) : ?>
-                <script>
-                    alert("Password dan Konfirmasi tidak cocok")
-                </script>
-            <?php return;
-            endif ?>
-
-            <?php include("../config.php");
-            $query = mysqli_query($mysqli, "SELECT * FROM users WHERE email='$email'");
-            if (mysqli_num_rows($query) != 0) : ?>
-                <script>
-                    alert("Email Terdafter")
-                </script>
-            <?php return;
-            endif  ?>
-
-            <?php include_once("../config.php");
-            $result = mysqli_query($mysqli, "INSERT INTO users(nama, email, password) VALUES ('$nama', '$email', '$pass_decr')");
-            ?>
-            <script>
-                alert("Pendaftaran Berhasil")
-            </script>
-            <?php header("Location: /login") ?>
-    <?php endif;
-    } ?>
-
-    <?php formSubmit() ?>
     <main class="main">
         <section class="section2">
             <h1>Register</h1>

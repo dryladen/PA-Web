@@ -7,15 +7,8 @@ if (isset($_POST['logout']) || !isset($_SESSION['email']) && $_SESSION['email'] 
     header("Location: /login");
 }
 
-// $mangas = mysqli_query(
-//     $mysqli,
-//     "SELECT mangas.id, mangas.nama as name, mangas.chapter, 
-// mangas.url_gambar, authors.nama as author, magazines.nama as magazine
-// from mangas 
-// inner join authors on mangas.author_id=authors.id 
-// inner join magazines on mangas.magazine_id=magazines.id
-// order by mangas.nama"
-// );
+$animes = $mysqli->query("SELECT * FROM animes ORDER BY title");
+
 ?>
 
 <!DOCTYPE html>
@@ -32,21 +25,36 @@ if (isset($_POST['logout']) || !isset($_SESSION['email']) && $_SESSION['email'] 
 </head>
 
 <body>
-    <main class="main">
+    <main class=" container">
         <h1>Admin</h1>
         <section class="section2">
+            <?php while ($anime = mysqli_fetch_array($animes)) : ?>
+                <img width="100" src="<?= $anime["image"] ?>" alt="gambar">
+                <h3><?= $anime["title"] ?></h3>
+                <h4>Synopsis</h4>
+                <p><?= $anime["synopsis"] ?></p>
+                <h4>Episodes</h4>
+                <span><?= $anime["episodes"] ?></span>
+                <h4>Score </h4>
+                <span><?= $anime["score"] ?></span>
+                <h4>Season </h4>
+                <span><?= $anime["season"] ?></span>
+                <h4>Year </h4>
+                <span><?= $anime["year"] ?></span>
+                <h4>Studio </h4>
+                <span><?= $anime["studio"] ?></span>
+
+            <?php endwhile ?>
         </section>
         <a href="/admin/create/">
             <button class="button">Tambah</button>
         </a>
         <a href="/admin/add-from-api?page=1&subtype=tv">
-            <button class="button">Tambah dari API</button>
+            <button class="button">Tambah dari API (tidak penting)</button>
         </a>
-
         <form action="" method="POST" class="form">
             <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
         </form>
-
     </main>
 </body>
 
