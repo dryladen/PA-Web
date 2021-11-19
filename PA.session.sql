@@ -25,16 +25,7 @@ CREATE TABLE mangas (
     FOREIGN KEY (author_id) REFERENCES authors(id)
 )
 
---@block
 
--- ! Buat Table Genre Mangas
-
-CREATE TABLE genre_mangas (
-    id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL,
-    manga_id int,
-    FOREIGN KEY (manga_id) REFERENCES mangas(id)
-)
 
 --@block
 
@@ -90,13 +81,15 @@ CREATE TABLE fav_animes (
 
 --@block
 
--- ! Buat Table Genre Anime 
+-- ! Buat Table Genre 
 
-CREATE TABLE genre_animes(
+CREATE TABLE genres(
     id int PRIMARY KEY NOT NULL AUTO_INCREMENT,
     name varchar(50),
     anime_id int, 
-    FOREIGN KEY (anime_id) REFERENCES animes(id)
+    manga_id int,
+    FOREIGN KEY (anime_id) REFERENCES animes(id),
+    FOREIGN KEY (manga_id) REFERENCES mangas(id)
 )
 
 

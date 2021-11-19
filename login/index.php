@@ -1,3 +1,38 @@
+<?php require("../config.php");
+if (isset($_POST['btn-login'])) :
+    $email = mysqli_real_escape_string($mysqli, $_POST['email-login']);
+    $passwd = mysqli_real_escape_string($mysqli, $_POST['pass-login']);
+    $pass_decr = md5($passwd);
+
+    if ($email != "" && $passwd != "") :
+
+        $query = "SELECT count(*) AS cntUser FROM users WHERE email='$email' AND password='$pass_decr'";
+        $result = mysqli_query($mysqli, $query);
+        $row = mysqli_fetch_array($result);
+        $count = $row["cntUser"];
+
+        $queryAdmin = "SELECT count(*) AS cntAdmin FROM users WHERE email='$email' AND password='$passwd'";
+        $resAdmin = $mysqli->query($queryAdmin);
+        $rowAdmin = mysqli_fetch_array($resAdmin);
+        $countAdmin = $rowAdmin["cntAdmin"];
+
+        
+        if ($countAdmin == 1 && $email == "admin@mail.com") :
+            session_start();
+            $_SESSION['email'] = $email;
+            header("Location: /admin");
+        elseif ($count > 0) :
+            session_start();
+            $_SESSION['email'] = $email;
+            header("Location: /");
+        else :
+            $_POST["login"] = "Salah" ?>
+            <script>
+                alert("Email dan Password tidak cocok ")
+            </script>
+        <?php endif ?>
+    <?php endif ?>
+<?php endif ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,40 +62,7 @@
             <a href="/register/">Sign Up</a>
         </p>
     </main>
-    <?php require("../config.php");
-    if (isset($_POST['btn-login'])) :
-        $email = mysqli_real_escape_string($mysqli, $_POST['email-login']);
-        $passwd = mysqli_real_escape_string($mysqli, $_POST['pass-login']);
-        $pass_decr = md5($passwd);
 
-        if ($email != "" && $passwd != "") :
-
-            $query = "SELECT count(*) AS cntUser FROM users WHERE email='$email' AND password='$pass_decr'";
-            $result = mysqli_query($mysqli, $query);
-            $row = mysqli_fetch_array($result);
-            $count = $row["cntUser"];
-            
-            $queryAdmin = "SELECT count(*) AS cntAdmin FROM users WHERE email='$email' AND password='$passwd'";
-            $resAdmin = $mysqli->query($queryAdmin);
-            $rowAdmin = mysqli_fetch_array($resAdmin);
-            $countAdmin = $rowAdmin["cntAdmin"];
-
-            if ($countAdmin == 1 && $email == "admin@mail.com") :
-                session_start();
-                $_SESSION['email'] = $email;
-                header("Location: /admin");
-            elseif ($count > 0) :
-                session_start();
-                $_SESSION['email'] = $email;
-                header("Location: /");
-            else :
-                $_POST["login"] = "Salah" ?>
-                <script>
-                    alert("Email dan Password tidak cocok ")
-                </script>
-            <?php endif ?>
-        <?php endif ?>
-    <?php endif ?>
 
     <script src="../script.js"></script>
 </body>

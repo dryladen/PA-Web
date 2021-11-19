@@ -28,8 +28,6 @@ require("../../config.php");
 }
 
 ?>
-<?php
-?>
 
 <!DOCTYPE html>
 <html lang="en">

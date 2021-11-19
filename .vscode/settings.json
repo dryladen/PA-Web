@@ -26,5 +26,6 @@
             "database": "oal",
             "username": "root"
         }
-    ]
+    ],
+    "discord.enabled": false
 }

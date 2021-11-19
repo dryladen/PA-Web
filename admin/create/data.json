@@ -1,0 +1,240 @@
+{
+    "studio": [
+        {
+            "name": "Toei Animation"
+        },
+        {
+            "name": "TMS Entertainment"
+        },
+        {
+            "name": "A-1 Pictures"
+        },
+        {
+            "name": "Bones"
+        },
+        {
+            "name": "Satelight"
+        },
+        {
+            "name": "Arms"
+        },
+        {
+            "name": "Studio 4C"
+        },
+        {
+            "name": "Gallop"
+        },
+        {
+            "name": "Ajia-Do"
+        },
+        {
+            "name": "TNK"
+        },
+        {
+            "name": "Sunrise"
+        },
+        {
+            "name": "Studio Deen"
+        },
+        {
+            "name": "Shin-Ei Animation"
+        },
+        {
+            "name": "Gonzo"
+        },
+        {
+            "name": "Brain's Base"
+        },
+        {
+            "name": "Magic Bus"
+        },
+        {
+            "name": "Zexcs"
+        },
+        {
+            "name": "Studio Hibari"
+        },
+        {
+            "name": "Kachidoki Studio"
+        },
+        {
+            "name": "P.A. Works"
+        },
+        {
+            "name": "Production I.G"
+        },
+        {
+            "name": "Studio Pierrot"
+        },
+        {
+            "name": "Tatsunako Production"
+        },
+        {
+            "name": "Shaft"
+        },
+        {
+            "name": "Production Reed"
+        },
+        {
+            "name": "Seven"
+        },
+        {
+            "name": "MAPPA"
+        },
+        {
+            "name": "Studio Comet"
+        },
+        {
+            "name": "Lerche"
+        },
+        {
+            "name": "Diomedea"
+        },
+        {
+            "name": "J.C.Staff"
+        },
+        {
+            "name": "OLM"
+        },
+        {
+            "name": "DLE"
+        },
+        {
+            "name": "Kyoto Animation"
+        },
+        {
+            "name": "Dogo Kobo"
+        },
+        {
+            "name": "LIDENFILMS"
+        },
+        {
+            "name": "feel."
+        },
+        {
+            "name": "Haoliners Animation League"
+        },
+        {
+            "name": "Actas"
+        },
+        {
+            "name": "Studio 9 Maiami"
+        },
+        {
+            "name": "Madhouse"
+        },
+        {
+            "name": "Nippon Animation"
+        },
+        {
+            "name": "Xebec"
+        },
+        {
+            "name": "SILVER LINK."
+        },
+        {
+            "name": "Gainax"
+        },
+        {
+            "name": "Mushi Production"
+        },
+        {
+            "name": "Wit Studio"
+        },
+        {
+            "name": "Asahi Procution"
+        },
+        {
+            "name": "Kinema Citrus"
+        }
+    ],
+    "genre" : [
+        {
+            "name": "Action"
+        },
+        {
+            "name": "Comedy"
+        },
+        {
+            "name": "Horror"
+        },
+        {
+            "name": "Sports"
+        },
+        {
+            "name": "Adventure"
+        },
+        {
+            "name": "Drama"
+        },
+        {
+            "name": "Mystery"
+        },
+        {
+            "name": "Supernatural"
+        },
+        {
+            "name": "Fantasy"
+        },
+        {
+            "name": "Romance"
+        },
+        {
+            "name": "Suspense"
+        },
+        {
+            "name": "Sci-Fi"
+        },
+        {
+            "name": "Work Life"
+        },
+        {
+            "name": "Gourmet"
+        },
+        {
+            "name": "Slice of Life"
+        },
+        {
+            "name": "Harem"
+        },
+        {
+            "name": "Pychological"
+        },
+        {
+            "name": "Mecha"
+        },
+        {
+            "name": "Vampire"
+        },
+        {
+            "name": "Ecchi"
+        },
+        {
+            "name": "Martial Arts"
+        },
+        {
+            "name": "Super Power"
+        },
+        {
+            "name": "Music"
+        },
+        {
+            "name": "School"
+        },
+        {
+            "name": "Historical"
+        },
+        {
+            "name": "Shonen"
+        },
+        {
+            "name": "Seinen"
+        },
+        {
+            "name": "Shoujo"
+        },
+        {
+            "name": "Josei"
+        }
+    ]
+}

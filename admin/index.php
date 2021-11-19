@@ -7,8 +7,7 @@ if (isset($_POST['logout']) || !isset($_SESSION['email']) && $_SESSION['email'] 
     header("Location: /login");
 }
 
-$animes = $mysqli->query("SELECT * FROM animes ORDER BY title");
-
+$animes = $mysqli->query("SELECT * FROM animes ORDER BY score DESC");
 ?>
 
 <!DOCTYPE html>
@@ -18,7 +17,7 @@ $animes = $mysqli->query("SELECT * FROM animes ORDER BY title");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/../style.css">
     <title>
         Admin
     </title>
@@ -27,6 +26,12 @@ $animes = $mysqli->query("SELECT * FROM animes ORDER BY title");
 <body>
     <main class=" container">
         <h1>Admin</h1>
+        <a href="/admin/create/">
+            <button class="button">Tambah</button>
+        </a>
+        <a href="/admin/add-from-api?page=1&subtype=tv">
+            <button class="button">Tambah dari API (tidak penting)</button>
+        </a>
         <section class="section2">
             <?php while ($anime = mysqli_fetch_array($animes)) : ?>
                 <img width="100" src="<?= $anime["image"] ?>" alt="gambar">
@@ -46,12 +51,7 @@ $animes = $mysqli->query("SELECT * FROM animes ORDER BY title");
 
             <?php endwhile ?>
         </section>
-        <a href="/admin/create/">
-            <button class="button">Tambah</button>
-        </a>
-        <a href="/admin/add-from-api?page=1&subtype=tv">
-            <button class="button">Tambah dari API (tidak penting)</button>
-        </a>
+
         <form action="" method="POST" class="form">
             <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
         </form>

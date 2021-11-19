@@ -13,10 +13,6 @@ a {
     color: var(--accent-color);
 }
 
-a:hover {
-    text-decoration: underline;
-}
-
 h3 {
     color: var(--accent-color);
 }
@@ -28,7 +24,15 @@ span {
 body {
     background-color: #1e1e1e;
     color: white;
+    margin: 0;
+    overflow-x: hidden;
+    font-size: 1rem;
+    line-height: 1.9;
+    word-wrap: break-word;
+    -webkit-font-smoothing: antialiased;
 }
+
+
 
 .container {
     flex-grow: 1;
@@ -38,7 +42,7 @@ body {
 }
 
 .container.is-fluid {
-    max-width: none!important;
+    max-width: none !important;
     padding-left: 32px;
     padding-right: 32px;
     width: 100%
@@ -164,8 +168,8 @@ body {
     position: absolute;
     left: 0;
     top: 0;
-    width: 1.4em;
-    height: 1.4em;
+    width: 1.0em;
+    height: 1.0em;
     border: 1px solid #aaa;
     background: #FFF;
     border-radius: .2em;
