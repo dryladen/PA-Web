@@ -15,6 +15,39 @@ if (!isset($_SESSION['email']) && $_SESSION['email'] != "admin@mail.com") {
 $authors = mysqli_query($mysqli, "SELECT * FROM authors");
 $magazines = mysqli_query($mysqli, "SELECT * FROM magazines");
 
+if (isset($_POST['submit-anime'])) {
+    $title = $_POST['nama-anime'];
+    $image = $_POST['url-img-anime'];
+    $synopsis = $_POST['synopsis-anime'];
+    $episodes = (int) $_POST['episode-anime'];
+    $score = $_POST['score-anime'];
+    $season = $_POST['season-anime'];
+    $year = $_POST['year-anime'];
+    $studio = $_POST['studio-anime'];
+    
+    $checkExist = $mysqli->query("SELECT * FROM animes WHERE title='{$title}'");
+    if (mysqli_num_rows($checkExist) === 0) {
+        var_dump("Disini");
+        $insert = $mysqli->query("INSERT INTO animes (title, image, synopsis, episodes, score, season, year, studio)
+        VALUES ('$title', '$image', '$synopsis', $episodes, '$score', '$season', '$year', '$studio')");
+        echo mysqli_error($mysqli);
+    }
+    $genres = $_POST['genreAnime'];
+    var_dump($genre);
+    if (!empty($genre)) {
+        foreach ($genres as $genre) {
+            var_dump($genre);
+        }
+    }
+
+
+    $getId = mysqli_fetch_array($mysqli->query("SELECT id FROM animes WHERE title='$title'"));
+    $id = $getId['id'];
+    var_dump($id);
+
+    // $insert_genre = $mysqli->query("INSERT INTO genres ")
+}
+
 // ! Insert Data Manga
 if (isset($_POST['submit-manga'])) {
     var_dump($_POST);
@@ -68,27 +101,24 @@ else if (isset($_POST['submit-author'])) {
         <label>Sinopsis</label>
         <textarea class="input" name="synopsis-anime" cols="30" rows="10"></textarea>
         <label>Total Episode</label>
-        <input class="input" type="number" name="episode-anime" placeholder="Banyak Episode saat ini">
+        <input class="input" value="0" type="number" name="episode-anime" placeholder="Banyak Episode saat ini">
         <label>Skor</label>
-        <input type="number" name="score-anime" class="input" placeholder="Skor Anime">
+        <input type="number" value="0.0" name="score-anime" class="input" placeholder="Skor Anime">
         <label>Season</label>
         <input type="text" name="season-anime" class="input" placeholder="Season Anime">
         <label>Tahun</label>
-        <input type="Number" name="year-anime" class="input" placeholder="Tahun Anime">
+        <input type="Number" value="2000" name="year-anime" class="input" placeholder="Tahun Anime">
         <label for="authorlist">Studio </label>
-        <select class="select" name="studio-name">
+        <select class="select" name="studio-anime">
             <option value="0"> -- None -- </option>
             <?php foreach ($json->studio as $studio) : ?>
                 <option value="<?= $studio->name ?>"><?= $studio->name ?></option>
             <?php endforeach ?>
         </select>
         <label for="authorlist">Genre </label>
-        <select class="select" name="genre-name">
-            <option value="0"> -- None -- </option>
-            <?php foreach ($json->genre as $genre) : ?>
-                <option value="<?= $genre->name ?>"><?= $genre->name ?></option>
-            <?php endforeach ?>
-        </select>
+        <?php foreach ($json->genre as $genre) : ?>
+            <input class="input" type="checkbox" value="<?= $genre->name ?>" name="genreAnime[]" /> <?= $genre->name ?> <br>
+        <?php endforeach ?>
         <button class="button" name="submit-anime" type="submit">Tambahkan Manga</button>
     </form>
 

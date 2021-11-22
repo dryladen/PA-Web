@@ -24,5 +24,13 @@
 		"prefix": "?=",
 		"body": "<?= $${1:Variable} ?>",
 		"description": "Tag Untuk Echo"
+	},
+	"For Each Ku": {
+		"prefix": "foreach",
+		"body": [
+			"<?php foreach($${1:Array} as $${2:Satuan}): ?>",
+			"    $3",
+			"<?php endforeach ?>"
+		]
 	}
 }
