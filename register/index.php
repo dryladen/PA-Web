@@ -25,12 +25,13 @@ function formSubmit()
         endif  ?>
 
         <?php include_once("../config.php");
-        $result = mysqli_query($mysqli, "INSERT INTO users(nama, email, password) VALUES ('$nama', '$email', '$pass_decr')");
+        $result = $mysqli->query("INSERT INTO users(username, email, password) VALUES ('$nama', '$email', '$pass_decr')");
+        var_dump(mysqli_error($mysqli));
         ?>
         <script>
             alert("Pendaftaran Berhasil")
-        </script>
-        <?php header("Location: /login") ?>
+            </script>
+            <!-- <?php header("Location: /login") ?> -->
 <?php endif;
 } ?>
 

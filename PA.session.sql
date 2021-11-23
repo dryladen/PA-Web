@@ -103,3 +103,8 @@ CREATE TABLE genres(
 
 INSERT INTO authors (name, image)
 VALUES ("Unknown", "")
+
+--@block
+
+-- ! Join Anime
+SELECT FROM animes.id, animes.title, animes.image, animes.synopsis,

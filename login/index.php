@@ -7,7 +7,7 @@ if (isset($_POST['btn-login'])) :
     if ($email != "" && $passwd != "") :
 
         $query = "SELECT count(*) AS cntUser FROM users WHERE email='$email' AND password='$pass_decr'";
-        $result = mysqli_query($mysqli, $query);
+        $result = $mysqli->query($query);
         $row = mysqli_fetch_array($result);
         $count = $row["cntUser"];
 

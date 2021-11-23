@@ -1,6 +1,6 @@
 <?php include("../../config.php");
 
-$file = file_get_contents("./data.json");
+$file = file_get_contents("../data.json");
 $json = json_decode($file);
 
 session_start();
@@ -15,6 +15,7 @@ if (!isset($_SESSION['email']) && $_SESSION['email'] != "admin@mail.com") {
 $authors = mysqli_query($mysqli, "SELECT * FROM authors");
 $magazines = mysqli_query($mysqli, "SELECT * FROM magazines");
 
+// ! Insert Table Anime
 if (isset($_POST['submit-anime'])) {
     $title = $_POST['nama-anime'];
     $image = $_POST['url-img-anime'];
@@ -24,6 +25,7 @@ if (isset($_POST['submit-anime'])) {
     $season = $_POST['season-anime'];
     $year = $_POST['year-anime'];
     $studio = $_POST['studio-anime'];
+    $genres = $_POST['genreAnime'];
     
     $checkExist = $mysqli->query("SELECT * FROM animes WHERE title='{$title}'");
     if (mysqli_num_rows($checkExist) === 0) {
@@ -40,12 +42,15 @@ if (isset($_POST['submit-anime'])) {
         }
     }
 
-
+    // Get ID of anime that recently being added
     $getId = mysqli_fetch_array($mysqli->query("SELECT id FROM animes WHERE title='$title'"));
     $id = $getId['id'];
-    var_dump($id);
 
-    // $insert_genre = $mysqli->query("INSERT INTO genres ")
+    
+    foreach($genres as $genre) {
+        $insert_genre = $mysqli->query("INSERT INTO genres (name, anime_id) VALUES ('$genre', '$id')");
+    }
+
 }
 
 // ! Insert Data Manga

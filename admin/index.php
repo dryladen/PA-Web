@@ -24,7 +24,7 @@ $animes = $mysqli->query("SELECT * FROM animes ORDER BY score DESC");
 </head>
 
 <body>
-    <main class=" container">
+    <main class="container">
         <h1>Admin</h1>
         <a href="/admin/create/">
             <button class="button">Tambah</button>
@@ -34,20 +34,28 @@ $animes = $mysqli->query("SELECT * FROM animes ORDER BY score DESC");
         </a>
         <section class="section2">
             <?php while ($anime = mysqli_fetch_array($animes)) : ?>
-                <img width="100" src="<?= $anime["image"] ?>" alt="gambar">
-                <h3><?= $anime["title"] ?></h3>
-                <h4>Synopsis</h4>
-                <p><?= $anime["synopsis"] ?></p>
-                <h4>Episodes</h4>
-                <span><?= $anime["episodes"] ?></span>
-                <h4>Score </h4>
-                <span><?= $anime["score"] ?></span>
-                <h4>Season </h4>
-                <span><?= $anime["season"] ?></span>
-                <h4>Year </h4>
-                <span><?= $anime["year"] ?></span>
-                <h4>Studio </h4>
-                <span><?= $anime["studio"] ?></span>
+                <div class="card">
+                        <img width="210" src="<?= $anime["image"] ?>" alt="gambar">
+                    <div class="description">
+                        <h3>
+                            <a href="/admin/update-anime?id=<?= $anime["id"] ?>">
+                                <?= $anime["title"] ?>
+                            </a>
+                        </h3>
+                        <h4>Synopsis</h4>
+                        <p><?= $anime["synopsis"] ?></p>
+                        <h4>Episodes</h4>
+                        <span><?= $anime["episodes"] ?></span>
+                        <h4>Score </h4>
+                        <span><?= $anime["score"] ?></span>
+                        <h4>Season </h4>
+                        <span><?= $anime["season"] ?></span>
+                        <h4>Year </h4>
+                        <span><?= $anime["year"] ?></span>
+                        <h4>Studio </h4>
+                        <span><?= $anime["studio"] ?></span>
+                    </div>
+                </div>
 
             <?php endwhile ?>
         </section>

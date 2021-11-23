@@ -10,7 +10,6 @@
 
 a {
     text-decoration: none;
-    color: var(--accent-color);
 }
 
 h3 {
@@ -102,11 +101,25 @@ body {
 }
 
 .section2 {
+    color: white;
+    margin: 40px;
+    padding: 20px;
+    border-radius: 20px;
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
+.card {
+    display: flex;
+}
+
+.description {
+    background-color: var(--accent-color);
+    width : 400px;
+    padding: 20px;
+
+}
 .list {
     display: flex;
     justify-content: start;
