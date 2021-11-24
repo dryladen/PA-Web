@@ -14,4 +14,5 @@
             "username": "root"
         }
     ],
+    "discord.enabled": false,
 }

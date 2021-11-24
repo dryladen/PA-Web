@@ -8,6 +8,7 @@ if (isset($_POST['logout']) || !isset($_SESSION['email']) && $_SESSION['email'] 
 }
 
 $animes = $mysqli->query("SELECT * FROM animes ORDER BY score DESC");
+$mangas = $mysqli->query("SELECT * FROM mangas ORDER BY score DESC");
 ?>
 
 <!DOCTYPE html>
@@ -29,13 +30,14 @@ $animes = $mysqli->query("SELECT * FROM animes ORDER BY score DESC");
         <a href="/admin/create/">
             <button class="button">Tambah</button>
         </a>
-        <a href="/admin/add-from-api?page=1&subtype=tv">
+        <a href="/admin/add-from-api?type=anime&page=1&subtype=tv">
             <button class="button">Tambah dari API (tidak penting)</button>
         </a>
         <section class="section2">
+            <h2>Anime</h2>
             <?php while ($anime = mysqli_fetch_array($animes)) : ?>
                 <div class="card">
-                        <img width="210" src="<?= $anime["image"] ?>" alt="gambar">
+                    <img width="210" src="<?= $anime["image"] ?>" alt="gambar">
                     <div class="description">
                         <h3>
                             <a href="/admin/update-anime?id=<?= $anime["id"] ?>">
@@ -56,10 +58,31 @@ $animes = $mysqli->query("SELECT * FROM animes ORDER BY score DESC");
                         <span><?= $anime["studio"] ?></span>
                     </div>
                 </div>
-
+            <?php endwhile ?>
+            <h2>Manga</h2>
+            <?php while ($manga = mysqli_fetch_array($mangas)) : ?>
+                <div class="card">
+                    <img width="210" src="<?= $manga["image"] ?>" alt="gambar">
+                    <div class="description">
+                        <h3>
+                            <a href="/admin/update-anime?id=<?= $manga["id"] ?>">
+                                <?= $manga["title"] ?>
+                            </a>
+                        </h3>
+                        <h4>Synopsis</h4>
+                        <p><?= $manga["synopsis"] ?></p>
+                        <h4>Volumes</h4>
+                        <span><?= $manga["volumes"] ?></span>
+                        <h4>Chapters </h4>
+                        <span><?= $manga["chapters"] ?></span>
+                        <h4>Score </h4>
+                        <span><?= $manga["score"] ?></span>
+                        <h4>Magazine </h4>
+                        <span><?= $manga["magazine"] ?></span>
+                    </div>
+                </div>
             <?php endwhile ?>
         </section>
-
         <form action="" method="POST" class="form">
             <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
         </form>

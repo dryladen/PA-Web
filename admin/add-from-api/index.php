@@ -2,29 +2,40 @@
 require("../../config.php");
 
 ?>
-<?php if (isset($_GET)) :
+<?php
+if (isset($_GET)) :
+    $type = $_GET["type"];
     $page = $_GET["page"];
     $subtype = $_GET["subtype"];
-    $json_data = file_get_contents("https://api.jikan.moe/v3/top/anime/$page/$subtype");
+    $json_data = file_get_contents("https://api.jikan.moe/v3/top/$type/$page/$subtype");
     $response_data = json_decode($json_data);
 ?>
 <?php endif ?>
 
-
-<?php if (isset($_POST["add-from-api"])) {
+<?php 
+// ! Top Anime and Manga
+if (isset($_POST["add-from-api"])) {
     $title = $_POST['title'];
     $image = $_POST['image'];
     $synopsis = "";
-    $episodes = $_POST["episodes"];
     $score = $_POST["score"];
     $season = "";
-    $year = "";
-    $studio = "";
-
-    $query = $mysqli->query("INSERT INTO animes (title, image, episodes, score) VALUES ('$title', '$image', '$episodes', '$score')");
-
+    
+    if ($type === "anime") {
+        $episodes = $_POST["episodes"];
+        $studio = "";
+        $year = "";
+        $query = $mysqli->query("INSERT INTO animes (title, image, episodes, score) VALUES ('$title', '$image', '$episodes', '$score')");
+    } elseif ($type === "manga") {
+        $volumes = $_POST['volumes'];
+        $magazine = "";
+        $query = $mysqli->query("INSERT INTO mangas (title, image, volumes, score, magazine, synopsis)
+        VALUES ('$title', '$image', '$volumes', '$score', '$magazine', '$synopsis')");
+        var_dump(mysqli_error($mysqli));
+    }
+    
     $_POST = array();
-    header("Location: /admin/add-from-api/page=$page&subtype=$subtype");
+    // header("Location: /admin/add-from-api?type=$type&page=$page&subtype=$subtype");
 }
 
 ?>
@@ -42,6 +53,12 @@ require("../../config.php");
 
 <body>
     <a href="/admin">Kembali</a>
+    <a href="/admin/add-from-api?type=anime&page=1&subtype=tv">
+        <button class="button">Top Anime</button>
+    </a>
+    <a href="/admin/add-from-api?type=manga&page=1&subtype=manga">
+        <button class="button">Top Manga</button>
+    </a>
     <?php foreach ($response_data->top as $response) :
     ?>
         <div style="margin-bottom: 40px">
@@ -51,14 +68,20 @@ require("../../config.php");
                 <h4>Judul</h4>
                 <p><?= $response->title ?></p>
                 <input type="text" name="title" hidden value="<?= $response->title ?>">
-                <h5>Episodes</h5>
-                <p nama="episodes"><?= $response->episodes ?></p>
-                <input type="text" name="episodes" hidden value="<?= $response->episodes ?>">
+                <?php if ($type === "anime") : ?>
+                    <h5>Episodes</h5>
+                    <p nama="episodes"><?= $response->episodes ?></p>
+                    <input type="text" name="episodes" hidden value="<?= $response->episodes ?>">
+                <?php elseif ($type === "manga") : ?>
+                    <h5>Volumes</h5>
+                    <p nama="volumes"><?= $response->volumes ?></p>
+                    <input type="text" name="volumes" hidden value="<?= $response->volumes ?>">
+                <?php endif ?>
                 <h5>Score</h5>
                 <p name="score"><?= $response->score ?></p>
                 <input type="text" name="score" hidden value="<?= $response->score ?>">
                 <?php
-                $titles = $mysqli->query("SELECT title FROM animes");
+                $titles = $mysqli->query("SELECT title FROM ${type}s");
                 $isAdded = false;
                 while ($title = mysqli_fetch_array($titles)) :
                 ?>
