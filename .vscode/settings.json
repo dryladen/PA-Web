@@ -8,24 +8,10 @@
             "server": "localhost",
             "port": 3306,
             "askForPassword": true,
-            "driver": "MySQL",
-            "name": "posstest5",
-            "database": "yal",
-            "username": "root"
-        },
-        {
-            "mysqlOptions": {
-                "authProtocol": "default"
-            },
-            "previewLimit": 50,
-            "server": "localhost",
-            "port": 3306,
-            "askForPassword": true,
             "driver": "MariaDB",
             "name": "PA",
             "database": "oal",
             "username": "root"
         }
     ],
-    "discord.enabled": false
 }
