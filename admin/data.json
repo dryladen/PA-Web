@@ -148,6 +148,136 @@
             "name": "Kinema Citrus"
         }
     ],
+    "magazine" : [
+        {
+            "name": "Shounen Jump (Weekly)"
+        },
+        {
+            "name": "Shounen Magazine (Weekly)"
+        },
+        {
+            "name": "Comic Kairaku-ten"
+        },
+        {
+            "name": "Gangan Online"
+        },
+        {
+            "name": "Cheese!"
+        },
+        {
+            "name": "Comic Hotmilk"
+        },
+        {
+            "name": "Comic Aun"
+        },
+        {
+            "name": "Asuka (Monthly)"
+        },
+        {
+            "name": "Angel Club"
+        },
+        {
+            "name": "Lala DX"
+        },
+        {
+            "name": "Sho-Comi"
+        },
+        {
+            "name": "Ribon Magazine"
+        },
+        {
+            "name": "Shonen Jump+"
+        },
+        {
+            "name": "Dengeki Daioh"
+        },
+        {
+            "name": "Shounen Ace"
+        },
+        {
+            "name": "Comic Alive"
+        },
+        {
+            "name": "Comic Mujin"
+        },
+        {
+            "name": "Hanaoto"
+        },
+        {
+            "name": "Petit Comic"
+        },
+        {
+            "name": "Dessert"
+        },
+        {
+            "name": "Comic LO"
+        },
+        {
+            "name": "Betsucomi"
+        },
+        {
+            "name": "Young Jump"
+        },
+        {
+            "name": "Afternoon"
+        },
+        {
+            "name": "Shounen Champion (Weekly)"
+        },
+        {
+            "name": "Comic Tenma"
+        },
+        {
+            "name": "drap"
+        },
+        {
+            "name": "GUSH"
+        },
+        {
+            "name": "Comic Kairaku-ten Beast"
+        },
+        {
+            "name": "Shounen Gangan"
+        },
+        {
+            "name": "Shounen Sunday"
+        },
+        {
+            "name": "Comic Megastore"
+        },
+        {
+            "name": "Magazine Be x Boy"
+        },
+        {
+            "name": "Bessatsu Margaret"
+        },
+        {
+            "name": "Dear+"
+        },
+        {
+            "name": "Young Magazine (Weekly)"
+        },
+        {
+            "name": "Morning"
+        },
+        {
+            "name": "Young Gangan"
+        }
+    ],
+    "season": [
+        {
+            "name": "Winter"
+        },
+        {
+            "name": "Spring"
+        },
+        {
+            "name": "Summer"
+        },
+        {
+            "name": "Fall"
+        }
+    ],
     "genre" : [
         {
             "name": "Action"

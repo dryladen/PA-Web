@@ -66,7 +66,7 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name DESC");
                     <img width="210" src="<?= $manga["image"] ?>" alt="gambar">
                     <div class="description">
                         <h3>
-                            <a href="/admin/update-anime?id=<?= $manga["id"] ?>">
+                            <a href="/admin/update-manga?id=<?= $manga["id"] ?>">
                                 <?= $manga["title"] ?>
                             </a>
                         </h3>

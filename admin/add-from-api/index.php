@@ -88,7 +88,7 @@ if (isset($_POST["add-from-api"])) {
                     <?php elseif ($type === "manga") : ?>
                         <h5>Volumes</h5>
                         <p nama="volumes"><?= $response->volumes ?></p>
-                        <input type="text" name="volumes" hidden value="<?= $response->volumes ?>">
+                        <input type="text" name="volumes" hidden value="<?= $response->volumes == null ? 0 : $response->volumes ?>">
                     <?php endif ?>
                     <h5>Score</h5>
                     <p name="score"><?= $response->score ?></p>
