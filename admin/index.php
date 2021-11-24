@@ -9,6 +9,7 @@ if (isset($_POST['logout']) || !isset($_SESSION['email']) && $_SESSION['email'] 
 
 $animes = $mysqli->query("SELECT * FROM animes ORDER BY score DESC");
 $mangas = $mysqli->query("SELECT * FROM mangas ORDER BY score DESC");
+$authors = $mysqli->query("SELECT * FROM authors ORDER BY name DESC");
 ?>
 
 <!DOCTYPE html>
@@ -79,6 +80,19 @@ $mangas = $mysqli->query("SELECT * FROM mangas ORDER BY score DESC");
                         <span><?= $manga["score"] ?></span>
                         <h4>Magazine </h4>
                         <span><?= $manga["magazine"] ?></span>
+                    </div>
+                </div>
+            <?php endwhile ?>
+            <h2>Author</h2>
+            <?php while ($author = mysqli_fetch_array($authors)) : ?>
+                <div class="card">
+                    <img width="210" src="<?= $author["image"] ?>" alt="gambar">
+                    <div class="description">
+                        <h3>
+                            <a href="/admin/update-anime?id=<?= $author["id"] ?>">
+                                <?= $author["name"] ?>
+                            </a>
+                        </h3>
                     </div>
                 </div>
             <?php endwhile ?>
