@@ -31,12 +31,13 @@ if (isset($_POST['submit-manga'])) {
     $volumes = $_POST['volumes-manga'] === '' ? null : $_POST['volumes-manga'];
     $score = $_POST['score-manga'] === '' ? null : $_POST['score-manga'];
     $magazine = $_POST['magazine-manga'] === '' ? null : $_POST['magazine-manga'];
-    $author_id = $_POST['author-name'] === '' ? null : $_POST['author-name'];
+    $author_id = $_POST['author-name'] === '0' ? "NULL" : $_POST['author-name'];
     $genres = $_POST['genreManga'];
+    var_dump($author_id);
 
     $update = $mysqli->query("UPDATE mangas
     SET title='$title', image='$image', synopsis='$synopsis', chapters='$chapters', volumes='$volumes', score='$score',
-    magazine='$magazine', author_id='$author_id' WHERE id='$id'");
+    magazine='$magazine', author_id = $author_id WHERE id='$id'");
     var_dump(mysqli_error($mysqli));
 
     $deleteAllGenre = $mysqli->query("DELETE FROM genres WHERE manga_id='$id'");
@@ -101,7 +102,7 @@ if (isset($_POST['delete'])) {
             </select>
             <label for="authorlist">Author: </label>
             <select class="select" name="author-name" id="authorlist">
-                <option value=""> -- None -- </option>
+                <option value="0"> -- None -- </option>
                 <?php while ($author = mysqli_fetch_array($authors)) : ?>
                     <?php if ($manga['author_id'] !== $author['id']) : ?>
                         <option value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
@@ -112,7 +113,7 @@ if (isset($_POST['delete'])) {
             </select>
             <label for="authorlist">Genre </label> <br>
             <?php foreach ($json->genre as $genre) :
-                $genres = $mysqli->query("SELECT id, name, anime_id FROM genres WHERE anime_id='$id'");
+                $genres = $mysqli->query("SELECT id, name, manga_id FROM genres WHERE manga_id='$id'");
                 $isAdded = false;
                 while ($result = mysqli_fetch_array($genres)) : ?>
                     <script>

@@ -24,14 +24,14 @@ if (isset($_POST['submit-anime'])) {
     $score = $_POST['score-anime'];
     $season = $_POST['season-anime'];
     $year = $_POST['year-anime'];
-    $studio = $_POST['studio-anime'];
+    $studio = $_POST['studio-anime'] === "0" ? "NULL" : $_POST['studio-anime'];
     $genres = $_POST['genreAnime'];
 
     $checkExist = $mysqli->query("SELECT * FROM animes WHERE title='{$title}'");
     if (mysqli_num_rows($checkExist) === 0) {
         var_dump("Disini");
         $insert = $mysqli->query("INSERT INTO animes (title, image, synopsis, episodes, score, season, year, studio)
-        VALUES ('$title', '$image', '$synopsis', $episodes, '$score', '$season', '$year', '$studio')");
+        VALUES ('$title', '$image', '$synopsis', $episodes, '$score', '$season', '$year', $studio)");
         echo mysqli_error($mysqli);
     }
     $genres = $_POST['genreAnime'];

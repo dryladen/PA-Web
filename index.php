@@ -19,16 +19,11 @@ if (isset($_POST['btn-submit'])) {
     }
 }
 
-// $mangas = mysqli_query(
-//     $mysqli,
-//     "SELECT mangas.id, mangas.nama as name, mangas.chapter, 
-// mangas.url_gambar, authors.nama as author, magazines.nama as magazine
-// from mangas 
-// inner join authors on mangas.author_id=authors.id 
-// inner join magazines on mangas.magazine_id=magazines.id"
-// );
 $curr_email = $_SESSION['email'];
-// $animes = $mysqli->query("SELECT animes.id, animes");
+
+$season = 'fall';
+$year = 2021;
+$animes = $mysqli->query("SELECT * FROM animes WHERE season='$season' AND year=$year");
 $query = mysqli_query($mysqli, "SELECT * FROM users WHERE email='$curr_email'");
 $user = mysqli_fetch_array($query);
 $id = $user['id'];
@@ -53,7 +48,11 @@ echo mysqli_error($mysqli);
     <main class="main">
         <h1>Halo, <?= $user['username'] ?></h1>
         <section class="section2">
-            
+            <?php while ($anime = mysqli_fetch_array($animes)) : ?>
+                <img width="100" src="<?= $anime['image'] ?>" alt="gambar">
+                <h3><?= $anime['title'] ?></h3>
+            <?php endwhile ?>
+
         </section>
         <!-- <button class="button">Favorite</button> -->
 

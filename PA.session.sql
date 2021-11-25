@@ -109,3 +109,8 @@ VALUES ("Unknown", "")
 -- ! Join Manga
 SELECT mangas.id, mangas.title, mangas.image, mangas.chapters, mangas.volumes, mangas.score, mangas.magazine,
 mangas.synopsis, mangas.author_id, authors.name as author FROM mangas LEFT JOIN authors ON mangas.author_id=authors.id
+
+--@block
+
+-- ! Get Current Season
+SELECT * FROM animes WHERE season='fall' AND year=2021

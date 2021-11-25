@@ -13,7 +13,7 @@ $mangas = $mysqli->query("SELECT mangas.id, mangas.title, mangas.image, mangas.c
                             mangas.volumes, mangas.score, mangas.magazine,
                             mangas.synopsis, mangas.author_id, authors.name as author 
                             FROM mangas LEFT JOIN authors ON mangas.author_id=authors.id ORDER BY mangas.score DESC");
-$authors = $mysqli->query("SELECT * FROM authors ORDER BY name DESC");
+$authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
 ?>
 
 <!DOCTYPE html>
