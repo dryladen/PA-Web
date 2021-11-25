@@ -21,7 +21,7 @@ if (isset($_GET['id'])) {
 if (isset($_POST['submit-anime'])) {
     $title = $_POST['nama-anime'];
     $image = $_POST['url-img-anime'];
-    $synopsis = $_POST['synopsis-anime'];
+    $synopsis = mysqli_real_escape_string($mysqli, $_POST['synopsis-anime']);
     $episodes = (int) $_POST['episode-anime'];
     $score = $_POST['score-anime'];
     $season = $_POST['season-anime'];
@@ -36,7 +36,7 @@ if (isset($_POST['submit-anime'])) {
 
     $deleteAllGenre = $mysqli->query("DELETE FROM genres WHERE anime_id='$id'");
     $mysqli->query("ALTER TABLE genres AUTO_INCREMENT = 1");
-    
+
     foreach ($genres as $genre) {
         $insert_genre = $mysqli->query("INSERT INTO genres (name, anime_id) VALUES ('$genre', '$id')");
     }
@@ -45,9 +45,9 @@ if (isset($_POST['submit-anime'])) {
 if (isset($_POST['delete'])) {
     // ! Delete Genre First cuz' it has foreign key
     $deleteGenre = $mysqli->query("DELETE FROM genres WHERE anime_id='$id'");
-    
+
     $deleteAnime = $mysqli->query("DELETE FROM animes WHERE id='$id'");
-    
+
     $mysqli->query("ALTER TABLE animes AUTO_INCREMENT = 1");
     $mysqli->query("ALTER TABLE genres AUTO_INCREMENT = 1");
     header("Location: /admin");
@@ -77,11 +77,13 @@ if (isset($_POST['delete'])) {
             <label>Gambar</label>
             <input class="input" type="url" value="<?= $anime['image'] ?>" name="url-img-anime" placeholder="https://example.com/gambar.jpg">
             <label>Sinopsis</label>
-            <textarea class="input" value="<?= $anime['synopsis'] ?>" name="synopsis-anime" cols="30" rows="10"></textarea>
+            <textarea class="input" value="<?= $anime['synopsis'] ?>" name="synopsis-anime" cols="30" rows="10">
+            <?= $anime['synopsis'] ?>
+        </textarea>
             <label>Total Episode</label>
             <input class="input" value="<?= $anime['episodes'] ?>" type="number" name="episode-anime" placeholder="Banyak Episode saat ini">
             <label>Skor</label>
-            <input type="number" value="<?= $anime['score'] ?>" name="score-anime" class="input" placeholder="Skor Anime">
+            <input type="number" value="<?= $anime['score'] ?>" step="0.01" name="score-anime" class="input" placeholder="Skor Anime">
             <label>Season</label>
             <input type="text" value="<?= $anime['season'] ?>" name="season-anime" class="input" placeholder="Season Anime">
             <label>Tahun</label>

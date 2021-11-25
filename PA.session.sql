@@ -106,5 +106,6 @@ VALUES ("Unknown", "")
 
 --@block
 
--- ! Join Anime
-SELECT FROM animes.id, animes.title, animes.image, animes.synopsis,
+-- ! Join Manga
+SELECT mangas.id, mangas.title, mangas.image, mangas.chapters, mangas.volumes, mangas.score, mangas.magazine,
+mangas.synopsis, mangas.author_id, authors.name as author FROM mangas LEFT JOIN authors ON mangas.author_id=authors.id

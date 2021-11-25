@@ -8,7 +8,11 @@ if (isset($_POST['logout']) || !isset($_SESSION['email']) && $_SESSION['email'] 
 }
 
 $animes = $mysqli->query("SELECT * FROM animes ORDER BY score DESC");
-$mangas = $mysqli->query("SELECT * FROM mangas ORDER BY score DESC");
+// $mangas = $mysqli->query("SELECT * FROM mangas ORDER BY score DESC");
+$mangas = $mysqli->query("SELECT mangas.id, mangas.title, mangas.image, mangas.chapters, 
+                            mangas.volumes, mangas.score, mangas.magazine,
+                            mangas.synopsis, mangas.author_id, authors.name as author 
+                            FROM mangas LEFT JOIN authors ON mangas.author_id=authors.id ORDER BY mangas.score DESC");
 $authors = $mysqli->query("SELECT * FROM authors ORDER BY name DESC");
 ?>
 
@@ -57,6 +61,13 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name DESC");
                         <span><?= $anime["year"] ?></span>
                         <h4>Studio </h4>
                         <span><?= $anime["studio"] ?></span>
+                        <h4>Genre </h4>
+                        <?php
+                        $anime_id = $anime['id'];
+                        $genres = $mysqli->query("SELECT * FROM genres WHERE anime_id='$anime_id'");
+                        while ($genre = mysqli_fetch_array($genres)) : ?>
+                            <span><?= $genre['name'] ?></span>
+                        <?php endwhile ?>
                     </div>
                 </div>
             <?php endwhile ?>
@@ -80,6 +91,15 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name DESC");
                         <span><?= $manga["score"] ?></span>
                         <h4>Magazine </h4>
                         <span><?= $manga["magazine"] ?></span>
+                        <h4>Author </h4>
+                        <span><?= $manga["author"] ?></span>
+                        <h4>Genre </h4>
+                        <?php
+                        $manga_id = $manga['id'];
+                        $genres = $mysqli->query("SELECT * FROM genres WHERE manga_id='$manga_id'");
+                        while ($genre = mysqli_fetch_array($genres)) : ?>
+                            <span><?= $genre['name'] ?></span>
+                        <?php endwhile ?>
                     </div>
                 </div>
             <?php endwhile ?>

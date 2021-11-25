@@ -10,7 +10,10 @@ if (!isset($_SESSION['email']) && $_SESSION['email'] != "admin@mail.com") {
 }
 $id = $_GET['id'];
 if (isset($_GET['id'])) {
-    $mangas = $mysqli->query("SELECT * FROM mangas WHERE id='$id'");
+    $mangas = $mysqli->query("SELECT mangas.id, mangas.title, mangas.image, mangas.chapters, 
+                            mangas.volumes, mangas.score, mangas.magazine,
+                            mangas.synopsis, mangas.author_id, authors.name as author 
+                            FROM mangas LEFT JOIN authors ON mangas.author_id=authors.id WHERE mangas.id=$id");
     $manga = mysqli_fetch_array($mangas);
 
     $authors = $mysqli->query("SELECT * FROM authors");
@@ -20,13 +23,21 @@ if (isset($_GET['id'])) {
     }
 }
 
-if (isset($_POST['submit-anime'])) {
+if (isset($_POST['submit-manga'])) {
     $title = $_POST['nama-manga'];
     $image = $_POST['url-img-manga'];
     $synopsis = $_POST['synopsis-manga'];
-    $score = $_POST['score-manga'];
-    $genres = $_POST['genremanga'];
+    $chapters = $_POST['chapters-manga'] === '' ? null : $_POST['chapters-manga'];
+    $volumes = $_POST['volumes-manga'] === '' ? null : $_POST['volumes-manga'];
+    $score = $_POST['score-manga'] === '' ? null : $_POST['score-manga'];
+    $magazine = $_POST['magazine-manga'] === '' ? null : $_POST['magazine-manga'];
+    $author_id = $_POST['author-name'] === '' ? null : $_POST['author-name'];
+    $genres = $_POST['genreManga'];
 
+    $update = $mysqli->query("UPDATE mangas
+    SET title='$title', image='$image', synopsis='$synopsis', chapters='$chapters', volumes='$volumes', score='$score',
+    magazine='$magazine', author_id='$author_id' WHERE id='$id'");
+    var_dump(mysqli_error($mysqli));
 
     $deleteAllGenre = $mysqli->query("DELETE FROM genres WHERE manga_id='$id'");
     $mysqli->query("ALTER TABLE genres AUTO_INCREMENT = 1");
@@ -72,14 +83,14 @@ if (isset($_POST['delete'])) {
             <label>Sinopsis</label>
             <textarea class="input" value="<?= $manga['synopsis'] ?>" name="synopsis-manga" cols="30" rows="10"></textarea>
             <label>Total Chapter</label>
-            <input class="input" value="<?= $manga['chapters'] ?>" type="number" name="chapter-manga" placeholder="Banyak Chapter saat ini">
+            <input class="input" value="<?= $manga['chapters'] === null ? 0 : $manga['chapters'] ?>" type="number" name="chapters-manga" placeholder="Banyak Chapter saat ini">
             <label>Skor</label>
-            <input type="number" value="<?= $manga['score'] ?>" name="score-manga" class="input" placeholder="Skor manga">
+            <input type="number" value="<?= $manga['score'] ?>" step="0.01" name="score-manga" class="input" placeholder="Skor manga">
             <label>Volumes</label>
             <input type="text" value="<?= $manga['volumes'] ?>" name="volumes-manga" class="input" placeholder="Volumes manga">
             <label for="authorlist">Majalah </label>
-            <select class="select" name="studio-anime">
-                <option value="0"> -- None -- </option>
+            <select class="select" name="magazine-manga">
+                <option value=""> -- None -- </option>
                 <?php foreach ($json->magazine as $magazine) : ?>
                     <?php if ($manga['magazine'] !== $magazine->name) : ?>
                         <option value="<?= $magazine->name ?>"><?= $magazine->name ?></option>
@@ -90,10 +101,12 @@ if (isset($_POST['delete'])) {
             </select>
             <label for="authorlist">Author: </label>
             <select class="select" name="author-name" id="authorlist">
-                <option value="0"> -- None -- </option>
+                <option value=""> -- None -- </option>
                 <?php while ($author = mysqli_fetch_array($authors)) : ?>
-                    <?php if ($author['name'] != "Other") : ?>
+                    <?php if ($manga['author_id'] !== $author['id']) : ?>
                         <option value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
+                    <?php else : ?>
+                        <option selected value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
                     <?php endif ?>
                 <?php endwhile ?>
             </select>
@@ -115,13 +128,13 @@ if (isset($_POST['delete'])) {
                     ?>
                 <?php endwhile ?>
                 <?php if ($isAdded) : ?>
-                    <label><input checked type="checkbox" value="<?= $genre->name ?>" name="genreAnime[]" /> <?= $genre->name ?></label>
+                    <label><input checked type="checkbox" value="<?= $genre->name ?>" name="genreManga[]" /> <?= $genre->name ?></label>
                 <?php else : ?>
-                    <label><input type="checkbox" value="<?= $genre->name ?>" name="genreAnime[]" /> <?= $genre->name ?></label>
+                    <label><input type="checkbox" value="<?= $genre->name ?>" name="genreManga[]" /> <?= $genre->name ?></label>
                 <?php endif ?>
                 <br>
             <?php endforeach ?>
-            <button class="button" name="submit-anime" type="submit">Tambahkan Manga</button>
+            <button class="button" name="submit-manga" type="submit">Tambahkan Manga</button>
         </form>
         <form action="/admin/update-anime?id=<?= $id ?>" method="POST" class="form">
             <button style="background-color: red; color: white" onclick="return confirm('Yakin Ingin menghapus data?')" class="button" type="submit" value="delete" name="delete">Hapus Data</button>

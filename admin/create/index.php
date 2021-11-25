@@ -19,14 +19,14 @@ $magazines = mysqli_query($mysqli, "SELECT * FROM magazines");
 if (isset($_POST['submit-anime'])) {
     $title = $_POST['nama-anime'];
     $image = $_POST['url-img-anime'];
-    $synopsis = $_POST['synopsis-anime'];
+    $synopsis = mysqli_real_escape_string($mysqli, $_POST['synopsis-anime']);
     $episodes = (int) $_POST['episode-anime'];
     $score = $_POST['score-anime'];
     $season = $_POST['season-anime'];
     $year = $_POST['year-anime'];
     $studio = $_POST['studio-anime'];
     $genres = $_POST['genreAnime'];
-    
+
     $checkExist = $mysqli->query("SELECT * FROM animes WHERE title='{$title}'");
     if (mysqli_num_rows($checkExist) === 0) {
         var_dump("Disini");
@@ -46,16 +46,14 @@ if (isset($_POST['submit-anime'])) {
     $getId = mysqli_fetch_array($mysqli->query("SELECT id FROM animes WHERE title='$title'"));
     $id = $getId['id'];
 
-    
-    foreach($genres as $genre) {
+
+    foreach ($genres as $genre) {
         $insert_genre = $mysqli->query("INSERT INTO genres (name, anime_id) VALUES ('$genre', '$id')");
     }
-
 }
 
 // ! Insert Data Manga
 if (isset($_POST['submit-manga'])) {
-    var_dump($_POST);
     $nama = $_POST['nama-manga'];
     $chapter = $_POST['chapter-manga'];
     $url_gambar = $_POST['url-img-manga'];
@@ -68,8 +66,6 @@ if (isset($_POST['submit-manga'])) {
 }
 // ! Insert Data Authors
 else if (isset($_POST['submit-author'])) {
-    var_dump($_POST);
-
     $name = $_POST['nama-author'];
     $url_gambar = $_POST['url-img-author'];
     // $insert = $mysqli->query("INSERT INTO authors (name, url_gambar) VALUES ('$name', '$url_gambar')");
@@ -108,7 +104,7 @@ else if (isset($_POST['submit-author'])) {
         <label>Total Episode</label>
         <input class="input" value="0" type="number" name="episode-anime" placeholder="Banyak Episode saat ini">
         <label>Skor</label>
-        <input type="number" value="0.0" name="score-anime" class="input" placeholder="Skor Anime">
+        <input type="number" value="0.0" step="0.01" name="score-anime" class="input" placeholder="Skor Anime">
         <label>Season</label>
         <input type="text" name="season-anime" class="input" placeholder="Season Anime">
         <label>Tahun</label>
@@ -135,11 +131,11 @@ else if (isset($_POST['submit-author'])) {
         <label>URL Gambar</label>
         <input class="input" type="url" name="url-img-manga" placeholder="https://example.com/gambar.jpg">
         <label>Total Chapters</label>
-        <input class="input" type="number" name="chapter-manga" placeholder="Total Chapter Saat Ini">
+        <input class="input" type="number" value="0" name="chapter-manga" placeholder="Total Chapter Saat Ini">
         <label>Total Volumes</label>
-        <input class="input" type="number" name="volumes-manga" placeholder="Total Volume Saat ini">
+        <input class="input" type="number" value="0" name="volumes-manga" placeholder="Total Volume Saat ini">
         <label>Skor</label>
-        <input class="input" type="number" name="score-manga" placeholder="Skor dari Anime">
+        <input class="input" type="number" value="0.0" step="0.01" name="score-manga" placeholder="Skor dari Anime">
         <label>Majalah</label>
         <input class="input" type="text" name="score-manga" placeholder="Skor dari Anime">
         <label for="authorlist">Author: </label>
