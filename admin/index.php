@@ -38,6 +38,9 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
         <a href="/admin/add-from-api?type=anime&page=1&subtype=tv">
             <button class="button">Tambah dari API (tidak penting)</button>
         </a>
+        <a href="/admin/add-top-season-api?year=2021&season=fall">
+            <button class="button">Tambah season API (tidak penting)</button>
+        </a>
         <section class="section2">
             <h2>Anime</h2>
             <?php while ($anime = mysqli_fetch_array($animes)) : ?>
