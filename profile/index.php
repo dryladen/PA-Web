@@ -6,7 +6,6 @@ $curr_email = $_SESSION['email'];
 $query = $mysqli->query("SELECT * FROM users WHERE email='$curr_email'");
 $user = mysqli_fetch_array($query);
 $id = $user['id'];
-
 ?>
 
 <!DOCTYPE html>
