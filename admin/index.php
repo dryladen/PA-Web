@@ -41,6 +41,9 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
         <a href="/admin/add-top-season-api?year=2021&season=fall">
             <button class="button">Tambah season API (tidak penting)</button>
         </a>
+        <form action="" method="POST" class="form">
+            <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
+        </form>
         <section class="section2">
             <h2>Anime</h2>
             <?php while ($anime = mysqli_fetch_array($animes)) : ?>
@@ -53,7 +56,7 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
                             </a>
                         </h3>
                         <h4>Synopsis</h4>
-                        <p><?= $anime["synopsis"] ?></p>
+                        <p><?= nl2br($anime["synopsis"]) ?></p>
                         <h4>Episodes</h4>
                         <span><?= $anime["episodes"] ?></span>
                         <h4>Score </h4>
@@ -120,9 +123,7 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
                 </div>
             <?php endwhile ?>
         </section>
-        <form action="" method="POST" class="form">
-            <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
-        </form>
+
     </main>
 </body>
 

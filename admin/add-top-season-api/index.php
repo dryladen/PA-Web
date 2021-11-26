@@ -15,7 +15,7 @@ if (isset($_POST['add-from-api'])) {
     $synopsis = mysqli_real_escape_string($mysqli, $_POST['synopsis']);
     $episodes = $_POST['episodes'] == '' ? "NULL" : $_POST['episodes'];
     $score = $_POST['score'];
-    $studio = $_POST['studio'];
+    $studio = mysqli_real_escape_string($mysqli, $_POST['studio']);
     $genres = $_POST['genres'];
     $year = $_GET["year"];
     $season = $_GET["season"];
@@ -23,16 +23,17 @@ if (isset($_POST['add-from-api'])) {
 
     $insert = $mysqli->query("INSERT INTO animes (title, image, synopsis, episodes, score, season, year, studio)
                             VALUES ('$title', '$image', '$synopsis', $episodes, $score, '$season', '$year', '$studio')");
-    var_dump(mysqli_error($mysqli));
+    // var_dump(mysqli_error($mysqli));
 
     // Get ID of anime that recently being added
     $getId = mysqli_fetch_array($mysqli->query("SELECT id FROM animes WHERE title='$title'"));
     $id = $getId['id'];
 
     foreach ($genres as $genre) {
-        var_dump($genre);
+        // var_dump($genre);
         $insert_genre = $mysqli->query("INSERT INTO genres (name, anime_id) VALUES ('$genre', '$id')");
     }
+    $_POST = array();
 }
 ?>
 
@@ -51,15 +52,15 @@ if (isset($_POST['add-from-api'])) {
     <a href="/admin">Kembali</a>
     <?php foreach ($response_data->anime as $response) : ?>
         <div style="margin-bottom: 40px">
-            <form action="/admin/add-top-season-api?year=<?= $year ?>&season=<?= $season ?>" method="POST">
+            <form id="<?= $response->mal_id ?>" action="/admin/add-top-season-api?year=<?= $year ?>&season=<?= strtolower($season) ?>#<?= $response->mal_id ?>" method="POST">
                 <img type="text" name="img" src="<?= $response->image_url ?>" alt="gambar">
                 <input name="image" type="text" hidden value="<?= $response->image_url ?>">
                 <h4>Nama</h4>
                 <p><?= $response->title ?></p>
                 <input type="text" name="title" hidden value="<?= $response->title ?>">
                 <h5>Sinopsis</h5>
-                <p><?= $response->synopsis ?></p>
-                <textarea hidden value="<?= $response->synopsis ?>" name="synopsis">
+                <p><?= nl2br($response->synopsis) ?></p>
+                <textarea hidden name="synopsis">
                     <?= $response->synopsis ?>
                 </textarea>
                 <h5>Episodes</h5>

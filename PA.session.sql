@@ -114,3 +114,8 @@ mangas.synopsis, mangas.author_id, authors.name as author FROM mangas LEFT JOIN 
 
 -- ! Get Current Season
 SELECT * FROM animes WHERE season='fall' AND year=2021
+
+--@block
+
+-- ! Get Favorite Anime
+SELECT animes.* FROM fav_animes INNER JOIN animes ON fav_animes.anime_id=animes.id WHERE fav_animes.user_id=2
