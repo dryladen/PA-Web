@@ -61,7 +61,7 @@ body {
 
 .main {
     margin-top: 2em;
-    height: 100vh;
+    height: 70vh;
 }
 
 .button {
@@ -93,11 +93,11 @@ body {
 
 .section2 {
     color: white;
-    margin: 40px;
-    padding: 20px;
+    border: 3px solid #f1f1f1;
     border-radius: 20px;
     display: flex;
     justify-content: center;
+    align-items: center;
     flex-direction: column;
 }
 
@@ -107,6 +107,7 @@ body {
 
 .description {
     background-color: var(--accent-color);
+    border: 3px solid #f1f1f1;
     width : 400px;
     padding: 20px;
 
@@ -150,3 +151,5 @@ body {
 /* Login */
 
 /* Base for label styling */
+
+
