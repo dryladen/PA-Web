@@ -82,108 +82,162 @@ else if (isset($_POST['submit-author'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../style.css">
     <title>Tambah</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .container{
+            margin: 48px;
+            padding: 16px;
+            width: 75%;
+            border: 3px solid #f1f1f1;
+        }
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+        .select {
+            display: block;
+            width: 50%;
+            border: 1px solid cornflowerblue;
+            box-sizing: border-box;
+        }
+        .sinopsis{
+            display: block;
+            border: 1px solid cornflowerblue;
+            box-sizing: border-box;
+            max-width: 100%;
+            max-height: 400px;
+            min-width: 50%;
+            min-height: 250px;
+        }
+        input[type=text],
+        input[type=number],
+        input[type=url] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            border: 1px solid cornflowerblue;
+            box-sizing: border-box;
+        }
+        a{
+            color: cornflowerblue;
+        }
+
+    </style>
 </head>
 
 <body>
-    <a href="/admin">Beranda</a>
-    <select style="margin: 20px 0;" class="select choose-type" class="choose-type" name="type" id="table">
-        <option value="anime">Anime</option>
-        <option value="manga">Manga</option>
-        <option value="author">Author</option>
-    </select>
+    <div class="container">
+        <a href="../../admin/">Beranda</a>
+        <select style="margin: 20px 0;" class="select choose-type" class="choose-type" name="type" id="table">
+            <option value="anime">Anime</option>
+            <option value="manga">Manga</option>
+            <option value="author">Author</option>
+        </select>
 
 
-    <!-- Anime Form -->
-    <form class="anime form" action="/admin/create/" method="post">
-        <label>Judul Anime</label>
-        <input required class="input" type="text" name="nama-anime" placeholder="Nama Manga"> <br>
-        <label>Gambar</label>
-        <input class="input" type="url" name="url-img-anime" placeholder="https://example.com/gambar.jpg">
-        <label>Sinopsis</label>
-        <textarea class="input" name="synopsis-anime" cols="30" rows="10"></textarea>
-        <label>Total Episode</label>
-        <input class="input" value="0" type="number" name="episode-anime" placeholder="Banyak Episode saat ini">
-        <label>Skor</label>
-        <input type="number" value="0.0" step="0.01" name="score-anime" class="input" placeholder="Skor Anime">
-        <label>Season</label>
-        <input type="text" name="season-anime" class="input" placeholder="Season Anime">
-        <label>Tahun</label>
-        <input type="Number" value="2000" name="year-anime" class="input" placeholder="Tahun Anime">
-        <label for="authorlist">Studio </label>
-        <select class="select" name="studio-anime">
-            <option value="0"> -- None -- </option>
-            <?php foreach ($json->studio as $studio) : ?>
-                <option value="<?= $studio->name ?>"><?= $studio->name ?></option>
+        <!-- Anime Form -->
+        <form class="anime form" action="/admin/create/" method="post">
+            <label>Judul Anime</label>
+            <input required class="input" type="text" name="nama-anime" placeholder="Nama Manga"> <br>
+            <label>Gambar</label>
+            <input class="input" type="url" name="url-img-anime" placeholder="https://example.com/gambar.jpg">
+            <label>Sinopsis</label>
+            <textarea class="sinopsis" name="synopsis-anime" cols="30" rows="10"></textarea>
+            <label>Total Episode</label>
+            <input class="input" value="0" type="number" name="episode-anime" placeholder="Banyak Episode saat ini">
+            <label>Skor</label>
+            <input type="number" value="0.0" step="0.01" name="score-anime" class="input" placeholder="Skor Anime">
+            <label>Season</label>
+            <input type="text" name="season-anime" class="input" placeholder="Season Anime">
+            <label>Tahun</label>
+            <input type="Number" value="2000" name="year-anime" class="input" placeholder="Tahun Anime">
+            <label for="authorlist">Studio </label>
+            <select class="select" name="studio-anime">
+                <option value="0"> -- None -- </option>
+                <?php foreach ($json->studio as $studio) : ?>
+                    <option value="<?= $studio->name ?>"><?= $studio->name ?></option>
+                <?php endforeach ?>
+            </select>
+            <label for="authorlist">Genre </label>
+            <?php foreach ($json->genre as $genre) : ?>
+                <input class="input" type="checkbox" value="<?= $genre->name ?>" name="genreAnime[]" /> <?= $genre->name ?> <br>
             <?php endforeach ?>
-        </select>
-        <label for="authorlist">Genre </label>
-        <?php foreach ($json->genre as $genre) : ?>
-            <input class="input" type="checkbox" value="<?= $genre->name ?>" name="genreAnime[]" /> <?= $genre->name ?> <br>
-        <?php endforeach ?>
-        <button class="button" name="submit-anime" type="submit">Tambahkan Manga</button>
-    </form>
+            <button class="button" name="submit-anime" type="submit">Tambahkan Manga</button>
+        </form>
 
 
-    <!-- Manga Form -->
-    <form class="manga form hidden" action="/admin/create/" method="post">
-        <label>Manga Title</label>
-        <input required class="input" type="text" name="name-manga" placeholder="Nama Manga"> <br>
-        <label>URL Gambar</label>
-        <input class="input" type="url" name="url-img-manga" placeholder="https://example.com/gambar.jpg">
-        <label>Total Chapters</label>
-        <input class="input" type="number" value="0" name="chapter-manga" placeholder="Total Chapter Saat Ini">
-        <label>Total Volumes</label>
-        <input class="input" type="number" value="0" name="volumes-manga" placeholder="Total Volume Saat ini">
-        <label>Skor</label>
-        <input class="input" type="number" value="0.0" step="0.01" name="score-manga" placeholder="Skor dari Anime">
-        <label>Majalah</label>
-        <input class="input" type="text" name="score-manga" placeholder="Skor dari Anime">
-        <label for="authorlist">Author: </label>
-        <select class="select" name="author-name" id="authorlist">
-            <option value="0"> -- None -- </option>
-            <?php while ($author = mysqli_fetch_array($authors)) : ?>
-                <?php if ($author['name'] != "Other") : ?>
-                    <option value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
-                <?php endif ?>
-            <?php endwhile ?>
-        </select>
-        <button class="button" name="submit-manga" type="submit">Tambahkan Manga</button>
-    </form>
+        <!-- Manga Form -->
+        <form class="manga form hidden" action="/admin/create/" method="post">
+            <label>Manga Title</label>
+            <input required class="input" type="text" name="name-manga" placeholder="Nama Manga"> <br>
+            <label>URL Gambar</label>
+            <input class="input" type="url" name="url-img-manga" placeholder="https://example.com/gambar.jpg">
+            <label>Total Chapters</label>
+            <input class="input" type="number" value="0" name="chapter-manga" placeholder="Total Chapter Saat Ini">
+            <label>Total Volumes</label>
+            <input class="input" type="number" value="0" name="volumes-manga" placeholder="Total Volume Saat ini">
+            <label>Skor</label>
+            <input class="input" type="number" value="0.0" step="0.01" name="score-manga" placeholder="Skor dari Anime">
+            <label>Majalah</label>
+            <input class="input" type="text" name="score-manga" placeholder="Skor dari Anime">
+            <label for="authorlist">Author: </label>
+            <select class="select" name="author-name" id="authorlist">
+                <option value="0"> -- None -- </option>
+                <?php while ($author = mysqli_fetch_array($authors)) : ?>
+                    <?php if ($author['name'] != "Other") : ?>
+                        <option value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
+                    <?php endif ?>
+                <?php endwhile ?>
+            </select>
+            <button class="button" name="submit-manga" type="submit">Tambahkan Manga</button>
+        </form>
 
 
-    <!-- Author Form -->
-    <form method="POST" action="/admin/create/" class="form author hidden">
-        <label>Nama Author</label>
-        <input required class="input" type="text" name="nama-author">
-        <label>URL Gambar</label>
-        <input class="input" type="url" name="url-img-author" placeholder="https://example.com/gambar.jpg">
-        <button class="button" name="submit-author" type="submit">Tambahkan Author</button>
-    </form>
+        <!-- Author Form -->
+        <form method="POST" action="/admin/create/" class="form author hidden">
+            <label>Nama Author</label>
+            <input required class="input" type="text" name="nama-author">
+            <label>URL Gambar</label>
+            <input class="input" type="url" name="url-img-author" placeholder="https://example.com/gambar.jpg">
+            <button class="button" name="submit-author" type="submit">Tambahkan Author</button>
+        </form>
 
-    <script>
-        const type = document.querySelector('.choose-type');
-        const anime = document.querySelector(".anime");
-        const manga = document.querySelector('.manga');
-        const author = document.querySelector('.author');
-        const magazine = document.querySelector('.magazine');
-        let old_type = "anime";
+        <script>
+            const type = document.querySelector('.choose-type');
+            const anime = document.querySelector(".anime");
+            const manga = document.querySelector('.manga');
+            const author = document.querySelector('.author');
+            const magazine = document.querySelector('.magazine');
+            let old_type = "anime";
 
-        type.addEventListener('change', (e) => {
-            const curr_type = e.target.value;
+            type.addEventListener('change', (e) => {
+                const curr_type = e.target.value;
 
-            document.querySelector(`.${old_type}`).classList.add("hidden");
-            if (curr_type === 'manga' && manga.classList.contains("hidden")) {
-                manga.classList.remove('hidden');
-                old_type = "manga";
-            } else if (curr_type === 'author' && author.classList.contains("hidden")) {
-                author.classList.remove('hidden');
-                old_type = "author";
-            } else if (curr_type === 'anime' && anime.classList.contains("hidden")) {
-                anime.classList.remove('hidden');
-                old_type = "anime";
-            }
-        });
-    </script>
+                document.querySelector(`.${old_type}`).classList.add("hidden");
+                if (curr_type === 'manga' && manga.classList.contains("hidden")) {
+                    manga.classList.remove('hidden');
+                    old_type = "manga";
+                } else if (curr_type === 'author' && author.classList.contains("hidden")) {
+                    author.classList.remove('hidden');
+                    old_type = "author";
+                } else if (curr_type === 'anime' && anime.classList.contains("hidden")) {
+                    anime.classList.remove('hidden');
+                    old_type = "anime";
+                }
+            });
+        </script>
+    </div>
 </body>
 
 </html>

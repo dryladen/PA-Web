@@ -23,22 +23,37 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/../style.css">
+    <link rel="stylesheet" href="../style.css">
     <title>
         Admin
     </title>
+    <style>
+        .container{
+            padding: 16px;
+        }
+        .card img{
+            width: 344px;
+            height: 500px;
+        }
+        a{
+            color: black;
+        }
+        .header2{
+            padding-top: 25px;
+        }
+    </style>
 </head>
 
 <body>
     <main class="container">
         <h1>Admin</h1>
-        <a href="/admin/create/">
+        <a href="../admin/create/">
             <button class="button">Tambah</button>
         </a>
-        <a href="/admin/add-from-api?type=anime&page=1&subtype=tv">
+        <a href="../admin/add-from-api?type=anime&page=1&subtype=tv">
             <button class="button">Tambah dari API (tidak penting)</button>
         </a>
-        <a href="/admin/add-top-season-api?year=2021&season=fall">
+        <a href="../admin/add-top-season-api?year=2021&season=fall">
             <button class="button">Tambah season API (tidak penting)</button>
         </a>
         <form action="" method="POST" class="form">
@@ -48,10 +63,10 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
             <h2>Anime</h2>
             <?php while ($anime = mysqli_fetch_array($animes)) : ?>
                 <div class="card">
-                    <img width="210" src="<?= $anime["image"] ?>" alt="gambar">
+                    <img src="<?= $anime["image"] ?>" alt="gambar">
                     <div class="description">
                         <h3>
-                            <a href="/admin/update-anime?id=<?= $anime["id"] ?>">
+                            <a href="../admin/update-anime?id=<?= $anime["id"] ?>">
                                 <?= $anime["title"] ?>
                             </a>
                         </h3>
@@ -77,13 +92,13 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
                     </div>
                 </div>
             <?php endwhile ?>
-            <h2>Manga</h2>
+            <h2 class="header2">Manga</h2>
             <?php while ($manga = mysqli_fetch_array($mangas)) : ?>
                 <div class="card">
-                    <img width="210" src="<?= $manga["image"] ?>" alt="gambar">
+                    <img src="<?= $manga["image"] ?>" alt="gambar">
                     <div class="description">
                         <h3>
-                            <a href="/admin/update-manga?id=<?= $manga["id"] ?>">
+                            <a href="../admin/update-manga?id=<?= $manga["id"] ?>">
                                 <?= $manga["title"] ?>
                             </a>
                         </h3>
@@ -109,13 +124,13 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
                     </div>
                 </div>
             <?php endwhile ?>
-            <h2>Author</h2>
+            <h2 class="header2">Author</h2>
             <?php while ($author = mysqli_fetch_array($authors)) : ?>
                 <div class="card">
-                    <img width="210" src="<?= $author["image"] ?>" alt="gambar">
+                    <img src="<?= $author["image"] ?>" alt="gambar">
                     <div class="description">
                         <h3>
-                            <a href="/admin/update-anime?id=<?= $author["id"] ?>">
+                            <a href="../admin/update-anime?id=<?= $author["id"] ?>">
                                 <?= $author["name"] ?>
                             </a>
                         </h3>

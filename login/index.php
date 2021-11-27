@@ -20,7 +20,7 @@ if (isset($_POST['btn-login'])) :
         if ($countAdmin == 1 && $email == "admin@mail.com") :
             session_start();
             $_SESSION['email'] = $email;
-            header("Location: /admin");
+            header("Location: ../admin");
         elseif ($count > 0) :
             session_start();
             $_SESSION['email'] = $email;
@@ -44,18 +44,21 @@ if (isset($_POST['btn-login'])) :
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            justify-content: center;
+            
         }
 
         form {
             border: 3px solid #f1f1f1;
+            width: 600px;
         }
 
-        input[type=text],
+        input[type=email],
         input[type=password] {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
-            display: inline-block;
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
@@ -110,6 +113,14 @@ if (isset($_POST['btn-login'])) :
                 width: 100%;
             }
         }
+
+        h1{
+            text-align: center;
+            margin-top: 150px;
+        }
+        a{
+            color: cornflowerblue;
+        }
     </style>
     <title>Login</title>
 </head>
@@ -122,7 +133,7 @@ if (isset($_POST['btn-login'])) :
                 <label for="email-login"><b>Email</b></label>
                 <input class="input" type="email" name="email-login" placeholder="Masukkan Email">
                 <label for="pass-login"><b>Password</b></label>
-                <input class="input passwd" type="password" name="pass-login" id="pass-login" placeholder="Masukkan Password">
+                <input class="input" type="password" name="pass-login" id="pass-login" placeholder="Masukkan Password">
                 <label>
                     <input class="show-pass" type="checkbox" />Tampilkan Password
                 </label>
@@ -130,10 +141,9 @@ if (isset($_POST['btn-login'])) :
             <button class="button" type="submit" name="btn-login">Login</button>
         </form>
         <p>Belum punya akun?
-            <a href="/register/">Sign Up</a>
+            <a href="../register/">Sign Up Here</a>
         </p>
     </main>
-
 
     <script src="../script.js"></script>
 </body>

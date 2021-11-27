@@ -58,67 +58,103 @@ if (isset($_POST["add-from-api"])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../style.css">
     <title>Add From API</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .tombol{
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .tombol button{
+            margin-left: 8px;
+        }
+        .container2{
+            padding: 16px;
+            width: 80%;
+            border: 3px solid #f1f1f1;
+        }
+        .konten{
+            display: flex;
+            flex-wrap: warp;
+            width: 100px;
+        }
+        a{
+            color: cornflowerblue;
+        }
+
+    </style>
 </head>
 
 <body>
-    <a href="/admin">Kembali</a>
-    <a href="/admin/add-from-api?type=anime&page=1&subtype=tv">
-        <button class="button">Top Anime</button>
-    </a>
-    <a href="/admin/add-from-api?type=manga&page=1&subtype=manga">
-        <button class="button">Top Manga</button>
-    </a>
-    <a href="/admin/add-from-api?type=people&page=1&subtype=">
-        <button class="button">Top People</button>
-    </a>
-    <?php foreach ($response_data->top as $response) :
-    ?>
-        <div style="margin-bottom: 40px">
-            <form action="" method="post">
-                <img type="text" name="img" src="<?= $response->image_url ?>" alt="gambar">
-                <input name="image" type="text" hidden value="<?= $response->image_url ?>">
-                <h4>Nama</h4>
-                <p><?= $response->title ?></p>
-                <input type="text" name="title" hidden value="<?= $response->title ?>">
-                <?php if ($type !== "author") : ?>
-                    <?php if ($type === "anime") : ?>
-                        <h5>Episodes</h5>
-                        <p nama="episodes"><?= $response->episodes ?></p>
-                        <input type="text" name="episodes" hidden value="<?= $response->episodes ?>">
-                    <?php elseif ($type === "manga") : ?>
-                        <h5>Volumes</h5>
-                        <p nama="volumes"><?= $response->volumes ?></p>
-                        <input type="text" name="volumes" hidden value="<?= $response->volumes == null ? 0 : $response->volumes ?>">
-                    <?php endif ?>
-                    <h5>Score</h5>
-                    <p name="score"><?= $response->score ?></p>
-                    <input type="text" name="score" hidden value="<?= $response->score ?>">
-
-                <?php endif ?>
-                <?php
-                $col = $type === "author" ? "name" : "title";
-                $titles = $mysqli->query("SELECT $col FROM ${type}s");
-                $isAdded = false;
-                while ($title = mysqli_fetch_array($titles)) :
-                ?>
-                    <?php if ($title[$col] == $response->title) :
-                        $isAdded = true;
-                        break;
-                    ?>
-                    <?php else :
-                        $isAdded = false;
-                    ?>
-                    <?php endif ?>
-                <?php endwhile ?>
-                <?php if (!$isAdded) : ?>
-                    <button type="submit" name="add-from-api" class="button">Tambahkan</button>
-                <?php else : ?>
-                    <button disabled class="button">Sudah Ditambahkan</button>
-                <?php endif ?>
-            </form>
+    <div class="container2">
+        <a href="../../admin">Kembali</a>
+        <div class="tombol">
+            <a href="../../admin/add-from-api?type=anime&page=1&subtype=tv">
+                <button class="button">Top Anime</button>
+            </a>
+            <a href="../../admin/add-from-api?type=manga&page=1&subtype=manga">
+                <button class="button">Top Manga</button>
+            </a>
+            <a href="../../admin/add-from-api?type=people&page=1&subtype=">
+                <button class="button">Top People</button>
+            </a>
         </div>
+        <div class="konten">
+            <?php foreach ($response_data->top as $response) :
+            ?>
+            <div style="margin-bottom: 40px">
+                <form action="" method="post">
+                    <img type="text" name="img" src="<?= $response->image_url ?>" alt="gambar">
+                    <input name="image" type="text" hidden value="<?= $response->image_url ?>">
+                    <h4>Nama</h4>
+                    <p><?= $response->title ?></p>
+                    <input type="text" name="title" hidden value="<?= $response->title ?>">
+                    <?php if ($type !== "author") : ?>
+                        <?php if ($type === "anime") : ?>
+                            <h5>Episodes</h5>
+                            <p nama="episodes"><?= $response->episodes ?></p>
+                            <input type="text" name="episodes" hidden value="<?= $response->episodes ?>">
+                        <?php elseif ($type === "manga") : ?>
+                            <h5>Volumes</h5>
+                            <p nama="volumes"><?= $response->volumes ?></p>
+                            <input type="text" name="volumes" hidden value="<?= $response->volumes == null ? 0 : $response->volumes ?>">
+                        <?php endif ?>
+                        <h5>Score</h5>
+                        <p name="score"><?= $response->score ?></p>
+                        <input type="text" name="score" hidden value="<?= $response->score ?>">
 
-    <?php endforeach ?>
+                    <?php endif ?>
+                    <?php
+                    $col = $type === "author" ? "name" : "title";
+                    $titles = $mysqli->query("SELECT $col FROM ${type}s");
+                    $isAdded = false;
+                    while ($title = mysqli_fetch_array($titles)) :
+                    ?>
+                        <?php if ($title[$col] == $response->title) :
+                            $isAdded = true;
+                            break;
+                        ?>
+                        <?php else :
+                            $isAdded = false;
+                        ?>
+                        <?php endif ?>
+                    <?php endwhile ?>
+                    <?php if (!$isAdded) : ?>
+                        <button type="submit" name="add-from-api" class="button">Tambahkan</button>
+                    <?php else : ?>
+                        <button disabled class="button">Sudah Ditambahkan</button>
+                    <?php endif ?>
+                    <?php endforeach ?>
+                </form>
+            </div>
+        </div>
+    </div>
+
 </body>
 
 </html>
