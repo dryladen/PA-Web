@@ -119,3 +119,8 @@ SELECT * FROM animes WHERE season='fall' AND year=2021
 
 -- ! Get Favorite Anime
 SELECT animes.* FROM fav_animes INNER JOIN animes ON fav_animes.anime_id=animes.id WHERE fav_animes.user_id=2
+
+--@block
+
+SELECT animes.*, fav_animes.id as id FROM fav_animes INNER JOIN animes ON 
+fav_animes.anime_id=animes.id WHERE fav_animes.user_id=2 ORDER BY animes.title

@@ -31,6 +31,7 @@ if (isset($_POST['add-from-api'])) {
 
     foreach ($genres as $genre) {
         // var_dump($genre);
+        $genre = mysqli_real_escape_string($mysqli, $genre);
         $insert_genre = $mysqli->query("INSERT INTO genres (name, anime_id) VALUES ('$genre', '$id')");
     }
     $_POST = array();

@@ -63,6 +63,11 @@ input[type=email], input[type=password], input[type=text] {
     cursor: pointer;
 }
 
+.btn-danger {
+    background-color: red;
+    cursor: pointer;
+}
+
 .btn-add:hover {
     filter: brightness(1.2);
 }

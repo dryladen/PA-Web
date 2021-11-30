@@ -38,6 +38,7 @@ if (isset($_POST['submit-anime'])) {
     $mysqli->query("ALTER TABLE genres AUTO_INCREMENT = 1");
 
     foreach ($genres as $genre) {
+        $genre = mysqli_real_escape_string($mysqli, $genre);
         $insert_genre = $mysqli->query("INSERT INTO genres (name, anime_id) VALUES ('$genre', '$id')");
     }
 }
@@ -50,6 +51,11 @@ if (isset($_POST['delete'])) {
 
     $mysqli->query("ALTER TABLE animes AUTO_INCREMENT = 1");
     $mysqli->query("ALTER TABLE genres AUTO_INCREMENT = 1");
+
+    if (!$deleteGenre || !$deleteAnime) {
+        var_dump(mysqli_error($mysqli));
+        die;
+    }
     header("Location: /admin");
 }
 

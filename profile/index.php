@@ -6,6 +6,18 @@ $curr_email = $_SESSION['email'];
 $query = $mysqli->query("SELECT * FROM users WHERE email='$curr_email'");
 $user = mysqli_fetch_array($query);
 $id = $user['id'];
+
+$fav_animes = $mysqli->query("SELECT animes.*, fav_animes.id FROM fav_animes INNER JOIN animes ON 
+fav_animes.anime_id=animes.id WHERE fav_animes.user_id=$id ORDER BY animes.title");
+
+if (isset($_POST['btn-submit'])) {
+    $fav_id = $_POST['fav_anime-id'];
+
+    $del = $mysqli->query("DELETE FROM fav_animes WHERE id='$fav_id'");
+    $_POST = array();
+    header("Location: /profile");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -16,6 +28,7 @@ $id = $user['id'];
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
     <title>Profile</title>
     <style>
         /* Style the tab */
@@ -63,15 +76,54 @@ $id = $user['id'];
     </div>
     <!-- Tab links -->
     <div class="tab">
-        <button class="tablinks active" onclick="openCity(event, 'London')">London</button>
-        <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+        <button class="tablinks active" onclick="openCity(event, 'London')">Favorite Anime</button>
+        <button class="tablinks" onclick="openCity(event, 'Paris')">Favorite Manga</button>
+        <button class="tablinks" onclick="openCity(event, 'Tokyo')">Profile</button>
     </div>
 
     <!-- Tab content -->
     <div id="London" class="tabcontent active" style="display: block;">
-        <h3>London</h3>
-        <p>London is the capital city of England.</p>
+        <div class="grid">
+            <?php while ($fav_anime = mysqli_fetch_array($fav_animes)) : ?>
+                <div id="<?= $fav_anime['id'] ?>" class="grid-items">
+                    <form action="" method="post">
+                        <input name="fav_anime-id" hidden value="<?= $fav_anime['id'] ?>" type="text">
+                        <div class="title">
+                            <h3><?= $fav_anime['title'] ?></h3>
+                        </div>
+                        <div class="many-items">
+                            <p style="white-space: nowrap;"><?= $fav_anime['studio'] ?></p>
+                            <div><?= $fav_anime['episodes'] ?> eps</div>
+                            <!-- <button title="Sudah Ditambahkan" type="submit" class="btn btn-added" disabled name="btn-submit"><i data-feather="check"></i></button> -->
+                            <button title="Hapus" onclick="return confirm('Yakin?')" type="submit" class="btn btn-danger" name="btn-submit"><i data-feather="trash-2"></i></button>
+                        </div>
+                        <div class="many-items">
+                            <div class="genres">
+                                <?php
+                                $anime_id = $fav_anime['id'];
+                                $genres = $mysqli->query("SELECT id, name, anime_id FROM genres WHERE anime_id='$anime_id'");
+                                while ($genre = mysqli_fetch_array($genres)) : ?>
+                                    <div class="genre-item"><?= $genre['name'] ?></div>
+                                <?php endwhile ?>
+                            </div>
+                            <div class="score">
+                                <span data-feather="star"></span> <?= $fav_anime['score'] ?>
+                            </div>
+                        </div>
+                        <div class="detail">
+                            <div class="image">
+                                <img src="<?= $fav_anime['image'] ?>" alt="gambar">
+                            </div>
+                            <div class="synopsis">
+                                <span>
+                                    <?= nl2br($fav_anime['synopsis']) ?>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            <?php endwhile ?>
+        </div>
     </div>
 
     <div id="Paris" class="tabcontent">
@@ -83,6 +135,9 @@ $id = $user['id'];
         <h3>Tokyo</h3>
         <p>Tokyo is the capital of Japan.</p>
     </div>
+    <script>
+        feather.replace()
+    </script>
     <script>
         function openCity(evt, cityName) {
             // Declare all variables

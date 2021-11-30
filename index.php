@@ -45,12 +45,12 @@ if (isset($_POST['btn-submit'])) {
         <h1>Halo, <?= $user['username'] ?></h1>
         <a href="/profile/">
             <button class="button">
-                <?= $user['username'] ?>
+                Profile
             </button>
         </a>
-        <a href="/profile/">
+        <a href="/top/">
             <button class="button">
-                <?= $user['username'] ?>
+                Top
             </button>
         </a>
         <h2><?= ucfirst($season) ?> <?= $year ?></h2>
