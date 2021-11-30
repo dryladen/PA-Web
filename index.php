@@ -38,6 +38,9 @@ if (isset($_POST['btn-submit'])) {
 </head>
 
 <body>
+    <form action="" method="POST" class="form">
+        <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
+    </form>
     <main class="main">
         <h1>Halo, <?= $user['username'] ?></h1>
         <a href="/profile/">
@@ -62,7 +65,7 @@ if (isset($_POST['btn-submit'])) {
                                     <h3><?= $anime['title'] ?></h3>
                                 </div>
                                 <div class="many-items">
-                                    <h5 style="white-space: nowrap;"><?= $anime['studio'] ?></h5>
+                                    <p style="white-space: nowrap;"><?= $anime['studio'] ?></p>
                                     <div><?= $anime['episodes'] ?> eps</div>
                                     <?php
                                     $fav_animes = $mysqli->query("SELECT * FROM fav_animes WHERE user_id='$id'");
@@ -77,18 +80,23 @@ if (isset($_POST['btn-submit'])) {
                                     ?>
                                     <?php endwhile;
                                     if ($isAdded) : ?>
-                                        <button title="Sudah Ditambahkan" type="submit" class="btn-added" disabled name="btn-submit"><i data-feather="check"></i></button>
+                                        <button title="Sudah Ditambahkan" type="submit" class="btn btn-added" disabled name="btn-submit"><i data-feather="check"></i></button>
                                     <?php else : ?>
-                                        <button title="Tambahkan ke Favorite" type="submit" class="btn-add" name="btn-submit"><i data-feather="plus"></i></button>
+                                        <button title="Tambahkan ke Favorite" type="submit" class="btn btn-add" name="btn-submit"><i data-feather="plus"></i></button>
                                     <?php endif ?>
                                 </div>
-                                <div class="genres">
-                                    <?php
-                                    $anime_id = $anime['id'];
-                                    $genres = $mysqli->query("SELECT id, name, anime_id FROM genres WHERE anime_id='$anime_id'");
-                                    while ($genre = mysqli_fetch_array($genres)) : ?>
-                                        <div class="genre-item"><?= $genre['name'] ?></div>
-                                    <?php endwhile ?>
+                                <div class="many-items">
+                                    <div class="genres">
+                                        <?php
+                                        $anime_id = $anime['id'];
+                                        $genres = $mysqli->query("SELECT id, name, anime_id FROM genres WHERE anime_id='$anime_id'");
+                                        while ($genre = mysqli_fetch_array($genres)) : ?>
+                                            <div class="genre-item"><?= $genre['name'] ?></div>
+                                        <?php endwhile ?>
+                                    </div>
+                                    <div class="score">
+                                        <span data-feather="star"></span> <?= $anime['score'] ?>
+                                    </div>
                                 </div>
                                 <div class="detail">
                                     <div class="image">
@@ -106,9 +114,7 @@ if (isset($_POST['btn-submit'])) {
                 </div>
             </div>
         </div>
-        <form action="" method="POST" class="form">
-            <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
-        </form>
+
     </main>
     <script>
         feather.replace()

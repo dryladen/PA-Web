@@ -1,4 +1,4 @@
-<?php include("../config.php");
+<?php include("../../config.php");
 
 session_start();
 if (isset($_POST['logout']) || !isset($_SESSION['email']) && $_SESSION['email'] != "admin@mail.com") {
@@ -7,7 +7,11 @@ if (isset($_POST['logout']) || !isset($_SESSION['email']) && $_SESSION['email'] 
     header("Location: /login");
 }
 
-$animes = $mysqli->query("SELECT * FROM animes ORDER BY score DESC");
+// $mangas = $mysqli->query("SELECT * FROM mangas ORDER BY score DESC");
+$mangas = $mysqli->query("SELECT mangas.id, mangas.title, mangas.image, mangas.chapters, 
+                            mangas.volumes, mangas.score, mangas.magazine,
+                            mangas.synopsis, mangas.author_id, authors.name as author 
+                            FROM mangas LEFT JOIN authors ON mangas.author_id=authors.id ORDER BY mangas.score DESC");
 $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
 ?>
 
@@ -55,24 +59,24 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
         <a href="../admin/add-top-season-api?year=2021&season=fall">
             <button class="button">Tambah season API (tidak penting)</button>
         </a>
-        <a href="../admin/list-manga">
-            <button class="button">List Manga</button>
+        <a href="../admin/">
+            <button class="button">Home</button>
         </a>
         <form action="" method="POST" class="form">
             <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
         </form>
-        <h2>Anime</h2>
+        <h2>Manga</h2>
         <div class="grid">
-            <?php while ($anime = mysqli_fetch_array($animes)) : ?>
+            <?php while ($manga = mysqli_fetch_array($mangas)) : ?>
                 <div class="grid-items">
-                    <input name="anime-id" hidden value="<?= $anime['id'] ?>" type="text">
+                    <input name="manga-id" hidden value="<?= $manga['id'] ?>" type="text">
                     <div class="title">
-                        <h3><?= $anime['title'] ?></h3>
+                        <h3><?= $manga['title'] ?></h3>
                     </div>
                     <div class="many-items">
-                        <p style="white-space: nowrap;"><?= $anime['studio'] ?></p>
-                        <div><?= $anime['episodes'] == 0 || $anime['episodes'] == "" ? "?" : $anime['episodes'] ?> eps</div>
-                        <a title="Ubah" class="btn btn-add" href="../admin/update-anime?id=<?= $anime['id'] ?>" name="btn-submit">
+                        <p style="white-space: nowrap;"><?= $manga['studio'] ?></p>
+                        <div><?= $manga['chapters'] == 0 || $manga['chapters'] == "" ? "?" : $manga['chapters'] ?> chapter</div>
+                        <a title="Ubah" class="btn btn-add" href="../admin/update-manga?id=<?= $manga['id'] ?>" name="btn-submit">
                             <i data-feather="edit-2">
                             </i>
                         </a>
@@ -80,24 +84,24 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
                     <div class="many-items">
                         <div class="genres">
                             <?php
-                            $anime_id = $anime['id'];
-                            $genres = $mysqli->query("SELECT id, name, anime_id FROM genres WHERE anime_id='$anime_id'");
+                            $manga_id = $manga['id'];
+                            $genres = $mysqli->query("SELECT id, name, manga_id FROM genres WHERE manga_id='$manga_id'");
                             while ($genre = mysqli_fetch_array($genres)) : ?>
                                 <div class="genre-item"><?= $genre['name'] ?></div>
                             <?php endwhile ?>
                         </div>
                         <div class="score">
                             <span data-feather="star"></span>
-                            <?= $anime['score'] ?>
+                            <?= $manga['score'] ?>
                         </div>
                     </div>
                     <div class="detail">
                         <div class="image">
-                            <img src="<?= $anime['image'] ?>" alt="gambar">
+                            <img src="<?= $manga['image'] ?>" alt="gambar">
                         </div>
                         <div class="synopsis">
                             <span>
-                                <?= nl2br($anime['synopsis']) ?>
+                                <?= nl2br($manga['synopsis']) ?>
                             </span>
                         </div>
                     </div>

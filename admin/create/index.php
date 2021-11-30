@@ -24,7 +24,7 @@ if (isset($_POST['submit-anime'])) {
     $score = $_POST['score-anime'];
     $season = $_POST['season-anime'];
     $year = $_POST['year-anime'];
-    $studio = $_POST['studio-anime'] === "0" ? "NULL" : $_POST['studio-anime'];
+    $studio = $_POST['studio-anime'] === "0" ? "NULL" : mysqli_real_escape_string($mysqli,  $_POST['studio-anime']);
     $genres = $_POST['genreAnime'];
 
     $checkExist = $mysqli->query("SELECT * FROM animes WHERE title='{$title}'");
@@ -90,12 +90,14 @@ else if (isset($_POST['submit-author'])) {
             justify-content: center;
             align-items: center;
         }
-        .container{
+
+        .container {
             margin: 48px;
             padding: 16px;
             width: 75%;
             border: 3px solid #f1f1f1;
         }
+
         button {
             background-color: #04AA6D;
             color: white;
@@ -105,13 +107,15 @@ else if (isset($_POST['submit-author'])) {
             cursor: pointer;
             width: 100%;
         }
+
         .select {
             display: block;
             width: 50%;
             border: 1px solid cornflowerblue;
             box-sizing: border-box;
         }
-        .sinopsis{
+
+        .sinopsis {
             display: block;
             border: 1px solid cornflowerblue;
             box-sizing: border-box;
@@ -120,6 +124,7 @@ else if (isset($_POST['submit-author'])) {
             min-width: 50%;
             min-height: 250px;
         }
+
         input[type=text],
         input[type=number],
         input[type=url] {
@@ -129,10 +134,10 @@ else if (isset($_POST['submit-author'])) {
             border: 1px solid cornflowerblue;
             box-sizing: border-box;
         }
-        a{
+
+        a {
             color: cornflowerblue;
         }
-
     </style>
 </head>
 
