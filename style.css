@@ -31,6 +31,20 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
+.btn-added {
+    background-color: transparent;
+    color: #47ff14;
+    border: none;
+}
+
+.btn-add {
+    background-color: var(--accent-color);
+    border: none;
+    border-radius: 10%;
+    height: 24px;
+    cursor: pointer;
+}
+
 
 
 .container {
@@ -108,10 +122,11 @@ body {
 .description {
     background-color: var(--accent-color);
     border: 3px solid #f1f1f1;
-    width : 400px;
+    width: 400px;
     padding: 20px;
 
 }
+
 .list {
     display: flex;
     justify-content: start;
@@ -152,4 +167,63 @@ body {
 
 /* Base for label styling */
 
+/* ! Me */
+.container {}
 
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 500px));
+    justify-content: space-between;
+    row-gap: 25px;
+    column-gap: 25px;
+    margin-top: 25px;
+    padding-bottom: 25px;
+}
+
+.grid-items {
+    border: 1px solid #2e2e2e;
+    padding: 5px 10px;
+    max-width: 500px;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    line-height: 1.5;
+}
+
+.many-items {
+    display: flex;
+    justify-content: space-between;
+}
+
+.genres {
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+}
+
+.genre-item {
+    font-size: .7em;
+    padding: 1px;
+    border: .5px solid;
+    border-radius: 10px;
+    margin-right: 10px;
+}
+
+.detail {
+    display: flex;
+
+}
+
+.synopsis {
+    height: 318px;
+    overflow: hidden;
+    margin-left: 10px;
+}
+
+.synopsis:hover {
+    overflow: visible;
+    overflow-x: hidden;
+}

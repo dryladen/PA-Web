@@ -33,44 +33,86 @@ if (isset($_POST['btn-submit'])) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
+    <script src="https://unpkg.com/feather-icons"></script>
     <title>Your Anime List</title>
 </head>
 
 <body>
     <main class="main">
         <h1>Halo, <?= $user['username'] ?></h1>
-        <a href="/profile/"><?= $user['username'] ?></a>
-        <section class="section2">
-            <?php while ($anime = mysqli_fetch_array($animes)) : ?>
-                <form action="" method="post">
-                    <input name="anime-id" hidden value="<?= $anime['id'] ?>" type="text">
-                    <img width="100" src="<?= $anime['image'] ?>" alt="gambar">
-                    <h3><?= $anime['title'] ?></h3>
-                    <?php
-                    $fav_animes = $mysqli->query("SELECT * FROM fav_animes WHERE user_id='$id'");
-                    $isAdded = false;
-                    while ($fav_anime = mysqli_fetch_array($fav_animes)) :
-                        if ($fav_anime['anime_id'] === $anime['id']) {
-                            $isAdded = true;
-                            break;
-                        } else {
-                            $isAdded = false;
-                        }
-                    ?>
-                    <?php endwhile;
-                    if ($isAdded) : ?>
-                        <button type="submit" disabled name="btn-submit" class="button">Sudah ditambahkan</button>
-                    <?php else : ?>
-                        <button type="submit" name="btn-submit" class="button">Tambahkan ke Favorite</button>
-                    <?php endif ?>
-
-                </form>
-            <?php endwhile ?>
-        </section>
+        <a href="/profile/">
+            <button class="button">
+                <?= $user['username'] ?>
+            </button>
+        </a>
+        <a href="/profile/">
+            <button class="button">
+                <?= $user['username'] ?>
+            </button>
+        </a>
+        <h2><?= ucfirst($season) ?> <?= $year ?></h2>
+        <div class="container">
+            <div class="primary">
+                <div class="grid">
+                    <?php while ($anime = mysqli_fetch_array($animes)) : ?>
+                        <div class="grid-items">
+                            <form action="" method="post">
+                                <input name="anime-id" hidden value="<?= $anime['id'] ?>" type="text">
+                                <div class="title">
+                                    <h3><?= $anime['title'] ?></h3>
+                                </div>
+                                <div class="many-items">
+                                    <h5 style="white-space: nowrap;"><?= $anime['studio'] ?></h5>
+                                    <div><?= $anime['episodes'] ?> eps</div>
+                                    <?php
+                                    $fav_animes = $mysqli->query("SELECT * FROM fav_animes WHERE user_id='$id'");
+                                    $isAdded = false;
+                                    while ($fav_anime = mysqli_fetch_array($fav_animes)) :
+                                        if ($fav_anime['anime_id'] === $anime['id']) {
+                                            $isAdded = true;
+                                            break;
+                                        } else {
+                                            $isAdded = false;
+                                        }
+                                    ?>
+                                    <?php endwhile;
+                                    if ($isAdded) : ?>
+                                        <button title="Sudah Ditambahkan" type="submit" class="btn-added" disabled name="btn-submit"><i data-feather="check"></i></button>
+                                    <?php else : ?>
+                                        <button title="Tambahkan ke Favorite" type="submit" class="btn-add" name="btn-submit"><i data-feather="plus"></i></button>
+                                    <?php endif ?>
+                                </div>
+                                <div class="genres">
+                                    <?php
+                                    $anime_id = $anime['id'];
+                                    $genres = $mysqli->query("SELECT id, name, anime_id FROM genres WHERE anime_id='$anime_id'");
+                                    while ($genre = mysqli_fetch_array($genres)) : ?>
+                                        <div class="genre-item"><?= $genre['name'] ?></div>
+                                    <?php endwhile ?>
+                                </div>
+                                <div class="detail">
+                                    <div class="image">
+                                        <img src="<?= $anime['image'] ?>" alt="gambar">
+                                    </div>
+                                    <div class="synopsis">
+                                        <span>
+                                            <?= nl2br($anime['synopsis']) ?>
+                                        </span>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    <?php endwhile ?>
+                </div>
+            </div>
+        </div>
         <form action="" method="POST" class="form">
             <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
         </form>
     </main>
+    <script>
+        feather.replace()
+    </script>
 </body>
 
 </html>

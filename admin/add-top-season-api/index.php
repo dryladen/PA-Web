@@ -119,6 +119,7 @@ if (isset($_POST['add-from-api'])) {
                         <button type="submit" name="add-from-api" class="button">Tambahkan</button>
                     <?php else : ?>
                         <button disabled class="button">Sudah Ditambahkan</button>
+                        
                     <?php endif ?>
                 </form>
             </div>

@@ -133,7 +133,7 @@ if (isset($_POST['btn-login'])) :
                 <label for="email-login"><b>Email</b></label>
                 <input class="input" type="email" name="email-login" placeholder="Masukkan Email">
                 <label for="pass-login"><b>Password</b></label>
-                <input class="input" type="password" name="pass-login" id="pass-login" placeholder="Masukkan Password">
+                <input class="input passwd" type="password" name="pass-login" id="pass-login" placeholder="Masukkan Password">
                 <label>
                     <input class="show-pass" type="checkbox" />Tampilkan Password
                 </label>

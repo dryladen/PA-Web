@@ -99,9 +99,9 @@ function formSubmit()
                     <label for="email-reg"><b>Email</b></label>
                     <input class="input" type="email" name="email-reg" placeholder="Masukkan Email">
                     <label for="pass-reg"><b>Password</b></label>
-                    <input class="input" type="password" name="pass-reg" placeholder="Masukkan Password">
+                    <input class="input passwd" type="password" name="pass-reg" placeholder="Masukkan Password">
                     <label for="pass-confirm"><b>Confirmation Password</b></label>
-                    <input class="input" type="password" name="pass-confirm" placeholder="Masukkan Ulang Password">
+                    <input class="input passwd" type="password" name="pass-confirm" placeholder="Masukkan Ulang Password">
                     <p>
                         <input class="show-pass" type="checkbox" id="test1" />
                         <label for="test1">Tampilkan Password</label>
