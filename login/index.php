@@ -54,14 +54,14 @@ if (isset($_POST['btn-login'])) :
             width: 600px;
         }
 
-        input[type=email],
+        /* input[type=email],
         input[type=password] {
             width: 100%;
             padding: 12px 20px;
             margin: 8px 0;
             border: 1px solid #ccc;
             box-sizing: border-box;
-        }
+        } */
 
         button {
             background-color: #04AA6D;

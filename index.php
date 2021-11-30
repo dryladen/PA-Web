@@ -41,7 +41,7 @@ if (isset($_POST['btn-submit'])) {
     <form action="" method="POST" class="form">
         <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
     </form>
-    <main class="main">
+    <main class="container">
         <h1>Halo, <?= $user['username'] ?></h1>
         <a href="/profile/">
             <button class="button">
@@ -58,8 +58,8 @@ if (isset($_POST['btn-submit'])) {
             <div class="primary">
                 <div class="grid">
                     <?php while ($anime = mysqli_fetch_array($animes)) : ?>
-                        <div class="grid-items">
-                            <form action="" method="post">
+                        <div id="<?= $anime['id'] ?>"  class="grid-items">
+                            <form action="#<?= $anime['id'] ?>" method="post">
                                 <input name="anime-id" hidden value="<?= $anime['id'] ?>" type="text">
                                 <div class="title">
                                     <h3><?= $anime['title'] ?></h3>
