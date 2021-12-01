@@ -14,7 +14,7 @@ if (isset($_POST['add-from-api'])) {
     $image = mysqli_real_escape_string($mysqli, $_POST['image']);
     $synopsis = mysqli_real_escape_string($mysqli, $_POST['synopsis']);
     $episodes = $_POST['episodes'] == '' ? "NULL" : $_POST['episodes'];
-    $score = $_POST['score'];
+    $score = $_POST['score'] == '' ? "NULL" : $_POST['score'];
     $studio = mysqli_real_escape_string($mysqli, $_POST['studio']);
     $genres = $_POST['genres'];
     $year = $_GET["year"];
