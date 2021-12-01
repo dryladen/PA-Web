@@ -172,7 +172,7 @@ input[type=email], input[type=password], input[type=text] {
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 500px));
-    justify-content: space-between;
+    justify-content: space-evenly;
     row-gap: 25px;
     column-gap: 25px;
     margin-top: 25px;
@@ -214,9 +214,9 @@ input[type=email], input[type=password], input[type=text] {
 
 .genre-item {
     font-size: .7em;
-    padding: 1px;
+    padding: 3px;
     border: .5px solid;
-    border-radius: 10px;
+    border-radius: 3px;
     margin-right: 10px;
 }
 
@@ -224,16 +224,33 @@ input[type=email], input[type=password], input[type=text] {
     display: flex;
 
 }
-
+.image {
+    padding: 0;
+    margin-left: 10px;
+}
+.score {
+    padding: 4px;
+}
+.score svg {
+    color: gold;
+}
 .synopsis {
     height: 318px;
+    padding: 5px;
+    margin:5px;
     overflow: hidden;
     margin-left: 10px;
+    text-align: justify;
+}
+
+.synopsis span {
+    padding: 5px;
+
 }
 
 
 
-.synopsis:hover::-webkit-scrollbar-track {}
+/* .synopsis:hover::-webkit-scrollbar-track {} */
 
 .synopsis:hover {
     overflow: visible;

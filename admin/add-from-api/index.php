@@ -74,16 +74,33 @@ if (isset($_POST["add-from-api"])) {
             margin-left: 8px;
         }
         .container2{
+            background-color: white;
             padding: 16px;
             width: 80%;
             border: 3px solid #f1f1f1;
         }
-        .grid{
-
+        .grid-items{
+            background-color: #1e1e1e;
+            padding: 2px 10px;
+            min-height: 720px;
+        }
+        .grid-items img{
+            padding-top: 8px;
+            width: 250px;
+            height: 350px;
         }
         a{
             color: cornflowerblue;
         }
+        /* p{
+            color: #1e1e1e;
+        }
+        h4{
+            color: #1e1e1e;
+        }
+        h5{
+            color: #1e1e1e;
+        } */
 
     </style>
 </head>
@@ -107,50 +124,48 @@ if (isset($_POST["add-from-api"])) {
             ?>
             <div style="margin-bottom: 40px">
                 <div class="grid-items"> 
-                    <div class="many-items">
-                        <form action="" method="post">
-                            <img type="text" name="img" src="<?= $response->image_url ?>" alt="gambar">
-                            <input name="image" type="text" hidden value="<?= $response->image_url ?>">
-                            <h4>Nama</h4>
-                            <p><?= $response->title ?></p>
-                            <input type="text" name="title" hidden value="<?= $response->title ?>">
-                            <?php if ($type !== "author") : ?>
-                                <?php if ($type === "anime") : ?>
-                                    <h5>Episodes</h5>
-                                    <p nama="episodes"><?= $response->episodes ?></p>
-                                    <input type="text" name="episodes" hidden value="<?= $response->episodes ?>">
-                                <?php elseif ($type === "manga") : ?>
-                                    <h5>Volumes</h5>
-                                    <p nama="volumes"><?= $response->volumes ?></p>
-                                    <input type="text" name="volumes" hidden value="<?= $response->volumes == null ? 0 : $response->volumes ?>">
-                                <?php endif ?>
-                                <h5>Score</h5>
-                                <p name="score"><?= $response->score ?></p>
-                                <input type="text" name="score" hidden value="<?= $response->score ?>">
+                    <form action="" method="post">
+                        <img type="text" name="img" src="<?= $response->image_url ?>" alt="gambar">
+                        <input name="image" type="text" hidden value="<?= $response->image_url ?>">
+                        <h4>Nama</h4>
+                        <p><?= $response->title ?></p>
+                        <input type="text" name="title" hidden value="<?= $response->title ?>">
+                        <?php if ($type !== "author") : ?>
+                            <?php if ($type === "anime") : ?>
+                                <h5>Episodes</h5>
+                                <p nama="episodes"><?= $response->episodes ?></p>
+                                <input type="text" name="episodes" hidden value="<?= $response->episodes ?>">
+                            <?php elseif ($type === "manga") : ?>
+                                <h5>Volumes</h5>
+                                <p nama="volumes"><?= $response->volumes ?></p>
+                                <input type="text" name="volumes" hidden value="<?= $response->volumes == null ? 0 : $response->volumes ?>">
+                            <?php endif ?>
+                            <h5>Score</h5>
+                            <p name="score"><?= $response->score ?></p>
+                            <input type="text" name="score" hidden value="<?= $response->score ?>">
 
-                            <?php endif ?>
-                            <?php
-                            $col = $type === "author" ? "name" : "title";
-                            $titles = $mysqli->query("SELECT $col FROM ${type}s");
-                            $isAdded = false;
-                            while ($title = mysqli_fetch_array($titles)) :
+                        <?php endif ?>
+                        <?php
+                        $col = $type === "author" ? "name" : "title";
+                        $titles = $mysqli->query("SELECT $col FROM ${type}s");
+                        $isAdded = false;
+                        while ($title = mysqli_fetch_array($titles)) :
+                        ?>
+                            <?php if ($title[$col] == $response->title) :
+                                $isAdded = true;
+                                break;
                             ?>
-                                <?php if ($title[$col] == $response->title) :
-                                    $isAdded = true;
-                                    break;
-                                ?>
-                                <?php else :
-                                    $isAdded = false;
-                                ?>
-                                <?php endif ?>
-                            <?php endwhile ?>
-                            <?php if (!$isAdded) : ?>
-                                <button type="submit" name="add-from-api" class="button">Tambahkan</button>
-                            <?php else : ?>
-                                <button disabled class="button">Sudah Ditambahkan</button>
+                            <?php else :
+                                $isAdded = false;
+                            ?>
                             <?php endif ?>
-                        </form>
-                    </div>
+                        <?php endwhile ?>
+                        <?php if (!$isAdded) : ?>
+                            <button type="submit" name="add-from-api" class="button">Tambahkan</button>
+                        <?php else : ?>
+                            <button disabled class="button">Sudah Ditambahkan</button>
+                        <?php endif ?>
+                    </form>
                 </div>
             </div>
             <?php endforeach ?>
