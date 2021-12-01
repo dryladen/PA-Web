@@ -79,11 +79,13 @@ if (isset($_POST['delete'])) {
             align-items: center;
 
         }
-        .container{
+
+        .container {
             padding: 16px;
             border: 3px solid #f1f1f1;
             width: 800px;
         }
+
         button {
             background-color: #04AA6D;
             color: white;
@@ -93,13 +95,15 @@ if (isset($_POST['delete'])) {
             cursor: pointer;
             width: 100%;
         }
+
         .select {
             display: block;
             width: 50%;
             border: 1px solid cornflowerblue;
             box-sizing: border-box;
         }
-        .sinopsis{
+
+        .sinopsis {
             display: block;
             border: 1px solid cornflowerblue;
             box-sizing: border-box;
@@ -108,6 +112,7 @@ if (isset($_POST['delete'])) {
             min-width: 50%;
             min-height: 250px;
         }
+
         input[type=text],
         input[type=number],
         input[type=url] {
@@ -117,7 +122,8 @@ if (isset($_POST['delete'])) {
             border: 1px solid cornflowerblue;
             box-sizing: border-box;
         }
-        a{
+
+        a {
             color: cornflowerblue;
         }
     </style>
@@ -183,9 +189,15 @@ if (isset($_POST['delete'])) {
                 <button class="button" name="submit-anime" type="submit">Update</button>
             </form>
             <form action="/admin/update-anime?id=<?= $id ?>" method="POST" class="form">
-                <button style="background-color: red; color: white" onclick="return confirm('Yakin Ingin menghapus data?')" class="button" type="submit" value="delete" name="delete">Hapus Data</button>
+                <?php $check = $mysqli->query("SELECT anime_id FROM fav_animes WHERE anime_id=$id");
+                if (mysqli_num_rows($check) > 0) : ?>
+                    <button disable class="btn btn-danger" type="submit" value="delete">
+                        Tidak dapat dihapus. Seseorang sudah menambahkan ke favorite</button>
+                <?php else : ?>
+                    <button style="background-color: red; color: white" onclick="return confirm('Yakin Ingin menghapus data?')" class="button" type="submit" value="delete" name="delete">Hapus Data</button>
+                <?php endif ?>
             </form>
-        </div> 
+        </div>
     </main>
 </body>
 
