@@ -48,9 +48,14 @@ if (isset($_POST['btn-submit'])) {
                 Profile
             </button>
         </a>
-        <a href="/top/">
+        <a href="/top?q=anime">
             <button class="button">
-                Top
+                Top Anime
+            </button>
+        </a>
+        <a href="/top?q=manga">
+            <button class="button">
+                Top Manga 
             </button>
         </a>
         <h2><?= ucfirst($season) ?> <?= $year ?></h2>
