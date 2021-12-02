@@ -1,5 +1,6 @@
-<?php require("config.php");
-
+<?php require("../config.php");
+$file = file_get_contents("../season.json");
+$json = json_decode($file);
 session_start();
 if (isset($_POST['logout']) || !isset($_SESSION['email'])) {
     session_destroy();
@@ -12,10 +13,10 @@ $query = mysqli_query($mysqli, "SELECT * FROM users WHERE email='$curr_email'");
 $user = mysqli_fetch_array($query);
 $id = $user['id'];
 
-$season = 'fall';
-$year = 2021;
-$animes = $mysqli->query("SELECT * FROM animes WHERE season='$season' AND year=$year ORDER BY score DESC");
 
+$season = $_GET['season'];
+$year = $_GET['year'];
+$animes = $mysqli->query("SELECT * FROM animes WHERE season='$season' AND year=$year ORDER BY score DESC");
 
 if (isset($_POST['btn-submit'])) {
     $anime_id = $_POST['anime-id'];
@@ -43,32 +44,26 @@ if (isset($_POST['btn-submit'])) {
     </form>
     <main class="container">
         <h1>Halo, <?= $user['username'] ?></h1>
-        <a href="/profile/">
+        <a href="/">
             <button class="button">
-                Profile
+                Home
             </button>
         </a>
-        <a href="/top?q=anime">
-            <button class="button">
-                Top Anime
-            </button>
-        </a>
-        <a href="/top?q=manga">
-            <button class="button">
-                Top Manga 
-            </button>
-        </a>
-        <a href="/seasonal?year=<?= $year ?>&season=<?= $season ?>">
-            <button class="button">
-                Seasonal
-            </button>
-        </a>
+        <?php foreach($json->seasons as $data) :?>
+            <a href="/seasonal?year=<?= $data->year ?>&season=<?= $data->season ?>">
+                <button class="button">
+                    <?= $data->season ?>
+                    <?= $data->year ?>
+                </button>
+            </a>
+        <?php endforeach ?>
+
         <h2><?= ucfirst($season) ?> <?= $year ?></h2>
         <div class="container">
             <div class="primary">
                 <div class="grid">
                     <?php while ($anime = mysqli_fetch_array($animes)) : ?>
-                        <div id="<?= $anime['id'] ?>"  class="grid-items">
+                        <div id="<?= $anime['id'] ?>" class="grid-items">
                             <form action="#<?= $anime['id'] ?>" method="post">
                                 <input name="anime-id" hidden value="<?= $anime['id'] ?>" type="text">
                                 <div class="title">

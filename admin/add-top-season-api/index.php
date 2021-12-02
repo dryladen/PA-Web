@@ -1,5 +1,7 @@
 <?php
 require("../../config.php");
+$file = file_get_contents("../../season.json");
+$json = json_decode($file);
 ?>
 
 <?php
@@ -10,7 +12,7 @@ if (isset($_GET)) {
     $response_data = json_decode($json_data);
 }
 if (isset($_POST['add-from-api'])) {
-    $title = $_POST['title'];
+    $title = mysqli_real_escape_string($mysqli, $_POST['title']);
     $image = mysqli_real_escape_string($mysqli, $_POST['image']);
     $synopsis = mysqli_real_escape_string($mysqli, $_POST['synopsis']);
     $episodes = $_POST['episodes'] == '' ? "NULL" : $_POST['episodes'];
@@ -54,7 +56,15 @@ if (isset($_POST['add-from-api'])) {
 
 <body>
     <div class="container">
-        <a href="../../admin">Kembali</a>
+        <a href="../../admin">Kembali</a> <br>
+        <?php foreach ($json->seasons as $data) : ?>
+            <a href="/admin/add-top-season-api?year=<?= $data->year ?>&season=<?= strtolower($data->season) ?>">
+                <button class="button">
+                    <?= $data->season ?>
+                    <?= $data->year ?>
+                </button>
+            </a>
+        <?php endforeach ?>
         <div class="grid">
             <?php foreach ($response_data->anime as $response) : ?>
                 <div id="<?= $response->mal_id ?>" class="grid-items">

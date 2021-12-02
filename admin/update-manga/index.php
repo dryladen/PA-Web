@@ -34,12 +34,12 @@ if (isset($_POST['submit-manga'])) {
     $author_id = $_POST['author-name'] === '0' ? "NULL" : $_POST['author-name'];
     $genres = $_POST['genreManga'];
     var_dump($author_id);
-
+    
     $update = $mysqli->query("UPDATE mangas
     SET title='$title', image='$image', synopsis='$synopsis', chapters='$chapters', volumes='$volumes', score='$score',
     magazine='$magazine', author_id = $author_id WHERE id='$id'");
     var_dump(mysqli_error($mysqli));
-
+    
     $deleteAllGenre = $mysqli->query("DELETE FROM genres WHERE manga_id='$id'");
     $mysqli->query("ALTER TABLE genres AUTO_INCREMENT = 1");
 
@@ -51,7 +51,7 @@ if (isset($_POST['submit-manga'])) {
 if (isset($_POST['delete'])) {
     // ! Delete Genre First cuz' it has foreign key
     $deleteGenre = $mysqli->query("DELETE FROM genres WHERE manga_id='$id'");
-
+    
     $deleteManga = $mysqli->query("DELETE FROM mangas WHERE id='$id'");
 
     $mysqli->query("ALTER TABLE mangas AUTO_INCREMENT = 1");
@@ -59,17 +59,18 @@ if (isset($_POST['delete'])) {
     header("Location: /admin");
 }
 
+var_dump(($json));
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../style.css">
-    <title>Update</title>
+    
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="../../style.css">
+        <title>Update</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
