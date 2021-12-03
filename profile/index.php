@@ -40,6 +40,11 @@ if (isset($_POST['btn-submit-anime'])) {
     <link rel="stylesheet" href="../style.css">
     <script src="https://unpkg.com/feather-icons"></script>
     <title>Profile</title>
+    <style>
+        a{
+            color: var(--accent-color);
+        }
+    </style>
 </head>
 
 <body>
@@ -56,21 +61,33 @@ if (isset($_POST['btn-submit-anime'])) {
         <!-- Tab content -->
         <!-- Ini bagian profile user -->
         <div id="Profile" class="tabcontent" style="display: block;">
+        <?php
+        $email = $_SESSION["email"];
+        $query = mysqli_query($mysqli, "SELECT * FROM users WHERE email = '$email'");
+        $data  = mysqli_fetch_array($query);
+        $nama  = $data["username"];
+        $email = $data["email"];
+        $foto  = $data["image"];
+        ?>
             <h3>Profile</h3>
             <!-- <p>Profile is the capital of Japan.</p> -->
+
             <table>
                 <tr>
-                    <td>
-                        <p>ini usernamenya</p>
-                    </td>
+                    <td colspan="3"> <img src="/<?= $foto["image"]; ?>"> </td>
                 </tr>
                 <tr>
-                    <td><img src="" alt=""></td>
+                    <td>Nama</td>
+                    <td>:</td>
+                    <td><?= $nama ?></td>
                 </tr>
                 <tr>
-                    <td>
-                        <p>Emailnya</p>
-                    </td>
+                    <td>Email</td>
+                    <td>:</td>
+                    <td><?= $email ?></td>
+                </tr>
+                <tr>
+                    <td> <a href="editpw.php?email = <?= $email["email"]; ?>">Edit Password</a> </td>
                 </tr>
             </table>
         </div>

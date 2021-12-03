@@ -11,6 +11,7 @@ $curr_email = $_SESSION['email'];
 $query = mysqli_query($mysqli, "SELECT * FROM users WHERE email='$curr_email'");
 $user = mysqli_fetch_array($query);
 $id = $user['id'];
+$q = "";
 
 $season = 'fall';
 $year = 2021;

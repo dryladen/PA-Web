@@ -23,7 +23,6 @@ if (isset($_POST['btn-submit'])) {
     $anime_id = $_POST['anime-id'];
 
     $insert_fav = $mysqli->query("INSERT INTO fav_animes (user_id, anime_id) VALUES ($id, $anime_id)");
-    header("Location: /");
 }
 ?>
 
@@ -67,7 +66,7 @@ if (isset($_POST['btn-submit'])) {
                 <div class="grid">
                     <?php while ($anime = mysqli_fetch_array($animes)) : ?>
                         <div id="<?= $anime['id'] ?>" class="grid-items">
-                            <form action="#<?= $anime['id'] ?>" method="post">
+                            <form action="/seasonal?year=<?= $year ?>&season=<?= $season ?>#<?= $anime['id'] ?>" method="post">
                                 <input name="anime-id" hidden value="<?= $anime['id'] ?>" type="text">
                                 <div class="title">
                                     <h3><?= $anime['title'] ?></h3>

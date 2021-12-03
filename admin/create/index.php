@@ -41,7 +41,6 @@ if (isset($_POST['submit-anime'])) {
             var_dump($genre);
         }
     }
-
     // Get ID of anime that recently being added
     $getId = mysqli_fetch_array($mysqli->query("SELECT id FROM animes WHERE title='$title'"));
     $id = $getId['id'];
@@ -54,15 +53,36 @@ if (isset($_POST['submit-anime'])) {
 
 // ! Insert Data Manga
 if (isset($_POST['submit-manga'])) {
-    $nama = $_POST['nama-manga'];
-    $chapter = $_POST['chapter-manga'];
-    $url_gambar = $_POST['url-img-manga'];
-    $author_id =  $_POST['author-name'];
-    $magazine_id =  $_POST['magazine-name'];
+    $title = mysqli_real_escape_string($mysqli, $_POST['nama-manga']);
+    $image = mysqli_real_escape_string($mysqli, $_POST['url-img-manga']);
+    $chapters = $_POST['chapters-manga'];
+    $volumes = $_POST['volumes-manga'];
+    $score = $_POST['score-manga'];
+    $magazine = mysqli_real_escape_string($mysqli,  $_POST['magazine-manga']);
+    $synopsis = mysqli_real_escape_string($mysqli,  $_POST['synopsis-manga']);
+    $author_id = $_POST['author-name'] === "0" ? "NULL" : $_POST['author-name'];
 
-    // $insert = $mysqli->query("INSERT INTO mangas (nama, chapter, url_gambar, author_id, magazine_id)
-    // VALUES ('$nama', '$chapter', '$url_gambar', '$author_id', '$magazine_id')");
-    // header("Location: /admin");
+
+    $checkExist = $mysqli->query("SELECT * FROM mangas WHERE title='{$title}'");
+    if (mysqli_num_rows($checkExist) === 0) {
+        $insert = $mysqli->query("INSERT INTO mangas 
+        (title, image, chapters, volumes, score, magazine, synopsis, author_id)
+        VALUE ('$title', '$image', $chapters, $volumes, $score, '$magazine', '$synopsis', $author_id)");
+        if (!$insert) {
+            var_dump(mysqli_error($mysqli));
+            die;
+        }
+    }
+    $genres = $_POST['genreManga'];
+
+    // Get ID of anime that recently being added
+    $getId = mysqli_fetch_array($mysqli->query("SELECT id FROM mangas WHERE title='$title'"));
+    $id = $getId['id'];
+
+
+    foreach ($genres as $genre) {
+        $insert_genre = $mysqli->query("INSERT INTO genres (name, manga_id) VALUES ('$genre', '$id')");
+    }
 }
 // ! Insert Data Authors
 else if (isset($_POST['submit-author'])) {
@@ -184,27 +204,37 @@ else if (isset($_POST['submit-author'])) {
 
         <!-- Manga Form -->
         <form class="manga form hidden" action="/admin/create/" method="post">
-            <label>Manga Title</label>
-            <input required class="input" type="text" name="name-manga" placeholder="Nama Manga"> <br>
-            <label>URL Gambar</label>
+            <label>Judul Manga</label>
+            <input required class="input" type="text" name="nama-manga" placeholder="Nama Manga"> <br>
+            <label>Gambar</label>
             <input class="input" type="url" name="url-img-manga" placeholder="https://example.com/gambar.jpg">
-            <label>Total Chapters</label>
-            <input class="input" type="number" value="0" name="chapter-manga" placeholder="Total Chapter Saat Ini">
-            <label>Total Volumes</label>
-            <input class="input" type="number" value="0" name="volumes-manga" placeholder="Total Volume Saat ini">
+            <label>Sinopsis</label>
+            <textarea class="input" name="synopsis-manga" cols="30" rows="10"></textarea>
+            <label>Total Chapter</label>
+            <input class="input" value="0" type="number" name="chapters-manga" placeholder="Banyak Chapter saat ini">
             <label>Skor</label>
-            <input class="input" type="number" value="0.0" step="0.01" name="score-manga" placeholder="Skor dari Anime">
-            <label>Majalah</label>
-            <input class="input" type="text" name="score-manga" placeholder="Skor dari Anime">
+            <input type="number" step="0.01" value="0" name="score-manga" class="input" placeholder="Skor manga">
+            <label>Volumes</label>
+            <input type="text" name="volumes-manga" value="0" class="input" placeholder="Volumes manga">
+            <label>Majalah </label>
+            <select class="select" name="magazine-manga">
+                <option value=""> -- None -- </option>
+                <?php foreach ($json->magazine as $magazine) : ?>
+                    <option value="<?= $magazine->name ?>"><?= $magazine->name ?></option>
+                <?php endforeach ?>
+            </select>
             <label for="authorlist">Author: </label>
             <select class="select" name="author-name" id="authorlist">
                 <option value="0"> -- None -- </option>
                 <?php while ($author = mysqli_fetch_array($authors)) : ?>
-                    <?php if ($author['name'] != "Other") : ?>
-                        <option value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
-                    <?php endif ?>
+                    <option value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
                 <?php endwhile ?>
             </select>
+            <label for="authorlist">Genre </label> <br>
+            <?php foreach ($json->genre as $genre) : ?>
+                <label><input type="checkbox" value="<?= $genre->name ?>" name="genreManga[]" /> <?= $genre->name ?></label>
+                <br>
+            <?php endforeach ?>
             <button class="button" name="submit-manga" type="submit">Tambahkan Manga</button>
         </form>
 
