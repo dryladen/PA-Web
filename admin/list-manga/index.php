@@ -48,6 +48,7 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
 </head>
 
 <body>
+    <?php include("../../component/header-admin.php") ?>
     <main class="container">
         <h1>Admin</h1>
         <a href="../admin/create/">
@@ -112,6 +113,7 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
     <script>
         feather.replace()
     </script>
+    <?php include("../../component/footer.html") ?>
 </body>
 
 </html>

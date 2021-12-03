@@ -52,9 +52,15 @@ if (isset($_POST['add-from-api'])) {
     <script src="https://unpkg.com/feather-icons"></script>
     <link rel="stylesheet" href="../../style.css">
     <title>Seasonal</title>
+    <style>
+        a{
+            color: cornflowerblue;
+        }
+    </style>
 </head>
 
 <body>
+    <?php include("../../component/header-admin.php") ?>
     <div class="container">
         <a href="../../admin">Kembali</a> <br>
         <?php foreach ($json->seasons as $data) : ?>
@@ -138,6 +144,7 @@ if (isset($_POST['add-from-api'])) {
     <script>
         feather.replace()
     </script>
+    <?php include("../../component/footer.html") ?>
 </body>
 
 </html>

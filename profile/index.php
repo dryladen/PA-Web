@@ -87,7 +87,7 @@ if (isset($_POST['btn-submit-anime'])) {
                     <td><?= $email ?></td>
                 </tr>
                 <tr>
-                    <td> <a href="editpw.php?email = <?= $email["email"]; ?>">Edit Password</a> </td>
+                    <td> <a href="editpw.php">Edit Password</a> </td>
                 </tr>
             </table>
         </div>

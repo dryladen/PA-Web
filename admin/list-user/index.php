@@ -1,14 +1,11 @@
 <?php include("../../config.php");
-
 session_start();
 if (isset($_POST['logout']) || !isset($_SESSION['email']) && $_SESSION['email'] != "admin@mail.com") {
     session_destroy();
     session_unset();
     header("Location: /login");
 }
-
 $users = $mysqli->query("SELECT * FROM users");
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -51,6 +48,7 @@ $users = $mysqli->query("SELECT * FROM users");
 </head>
 
 <body>
+    <?php include("../../component/header-admin.php") ?>
     <a href="/admin">Kembali</a> <br>
     <table id="customers">
         <tr>
@@ -66,6 +64,7 @@ $users = $mysqli->query("SELECT * FROM users");
             </tr>
         <?php endwhile ?>
     </table>
+    <?php include("../../component/footer.html") ?>
 </body>
 
 </html>

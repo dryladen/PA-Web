@@ -56,7 +56,7 @@ if (isset($_POST['btn-submit'])) {
     <?php include("../component/header.php") ?>
     <main class="container">
         <div class="container">
-            <h2>Top <?= ucfirst($q) ?></h2>
+            <h2 class="center">Top <?= ucfirst($q) ?></h2>
             <div class="primary">
                 <div class="grid">
                     <?php while ($type = mysqli_fetch_array($types)) : ?>

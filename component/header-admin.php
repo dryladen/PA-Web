@@ -1,3 +1,4 @@
+<?php $q = "" ?>
 <header>
     <ul>
         <li>
@@ -8,18 +9,33 @@
             </a>
         </li>
         <li>
-            <a class="<?= $q === "anime" ? "active-tab" : "" ?>" href="/top?q=anime">
-                Top Anime
+            <a class="<?= $q === "index" ? "active-tab" : "" ?>" href="/admin/create?q=index">
+                Tambah
             </a>
         </li>
         <li>
-            <a class="<?= $q === "manga" ? "active-tab" : "" ?>" href="/top?q=manga">
-                Top Manga
+            <a class="<?= $q === "index" ? "active-tab" : "" ?>" href="/admin/add-from-api?type=anime&page=1&subtype=tv">
+                Tambah dari API
             </a>
         </li>
         <li>
-            <a class="<?= $q === "season" ? "active-tab" : "" ?>" href="/seasonal?year=<?= $year ?>&season=<?= ucfirst($season) ?>">
-                Seasonal
+            <a class="<?= $q === "index" ? "active-tab" : "" ?>" href="/admin/add-top-season-api?year=2021&season=fall">
+                Tambah sesaon API
+            </a>
+        </li>
+        <li>
+            <a class="<?= $q === "index" ? "active-tab" : "" ?>" href="/admin/list-author?q=index">
+                Author
+            </a>
+        </li>
+        <li>
+            <a class="<?= $q === "index" ? "active-tab" : "" ?>" href="/admin/list-manga?q=index">
+                Manga
+            </a>
+        </li>
+        <li>
+            <a class="<?= $q === "index" ? "active-tab" : "" ?>" href="/admin/list-user?q=index">
+                User
             </a>
         </li>
         <li style="float:right">
@@ -39,7 +55,7 @@
         </li>
         <li style="float:right" class="profile">
             <a class="<?= $q === "profile" ? "active-tab" : "" ?>" href="/profile/">
-                <p><?= $user['username']; ?>
+                <p><?= $user['username'] ?>
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
                         <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
                     </svg>

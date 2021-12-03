@@ -155,6 +155,10 @@ else if (isset($_POST['submit-author'])) {
             box-sizing: border-box;
         }
 
+        footer{
+            width: 100%;
+        }
+
         a {
             color: cornflowerblue;
         }
@@ -162,6 +166,7 @@ else if (isset($_POST['submit-author'])) {
 </head>
 
 <body>
+    <?php include("../../component/header-admin.php") ?>
     <div class="container">
         <a href="../../admin/">Beranda</a>
         <select style="margin: 20px 0;" class="select choose-type" class="choose-type" name="type" id="table">
@@ -273,6 +278,7 @@ else if (isset($_POST['submit-author'])) {
             });
         </script>
     </div>
+    <?php include("../../component/footer.html") ?>
 </body>
 
 </html>

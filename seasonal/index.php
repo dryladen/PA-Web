@@ -60,7 +60,6 @@ if (isset($_POST['btn-submit'])) {
             <?php endforeach ?>
         </div>
 
-        <h2><?= ucfirst($season) ?> <?= $year ?></h2>
         <div class="container">
             <div class="primary">
                 <div class="grid">

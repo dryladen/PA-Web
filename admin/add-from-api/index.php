@@ -56,7 +56,7 @@ if (isset($_POST["add-from-api"])) {
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../../../style.css">
+    <link rel="stylesheet" href="../../style.css">
     <title>Add From API</title>
     <style>
         body {
@@ -74,9 +74,8 @@ if (isset($_POST["add-from-api"])) {
             margin-left: 8px;
         }
         .container2{
-            background-color: white;
             padding: 16px;
-            width: 80%;
+            width: 100%;
             border: 3px solid #f1f1f1;
         }
         .grid-items{
@@ -88,6 +87,9 @@ if (isset($_POST["add-from-api"])) {
             padding-top: 8px;
             width: 250px;
             height: 350px;
+        }
+        footer{
+            width: 100%;
         }
         a{
             color: cornflowerblue;
@@ -107,6 +109,7 @@ if (isset($_POST["add-from-api"])) {
 
 <body>
     <div class="container2">
+        <?php include("../../component/header-admin.php") ?>
         <a href="../../admin">Kembali</a>
         <div class="tombol">
             <a href="../../admin/add-from-api?type=anime&page=1&subtype=tv">
@@ -171,7 +174,7 @@ if (isset($_POST["add-from-api"])) {
             <?php endforeach ?>
         </div>
     </div>
-    <?php include("../../../component/footer.html") ?>
+    <?php include("../../component/footer.html") ?>
 </body>
 
 </html>

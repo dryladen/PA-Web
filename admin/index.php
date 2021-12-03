@@ -40,30 +40,16 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
         .header2 {
             padding-top: 25px;
         }
+        h2{
+            text-align: center;
+        }
     </style>
 </head>
 
 <body>
+    <?php include("../component/header-admin.php") ?>
     <main class="container">
         <h1>Admin</h1>
-        <a href="../admin/create/">
-            <button class="button">Tambah</button>
-        </a>
-        <a href="../admin/add-from-api?type=anime&page=1&subtype=tv">
-            <button class="button">Tambah dari API (tidak penting)</button>
-        </a>
-        <a href="../admin/add-top-season-api?year=2021&season=fall">
-            <button class="button">Tambah season API (tidak penting)</button>
-        </a>
-        <a href="../admin/list-manga">
-            <button class="button">List Manga</button>
-        </a>
-        <a href="../admin/list-user">
-            <button class="button">List User</button>
-        </a>
-        <form action="" method="POST" class="form">
-            <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
-        </form>
         <h2>Anime</h2>
         <div class="grid">
             <?php while ($anime = mysqli_fetch_array($animes)) : ?>
@@ -111,6 +97,7 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
     <script>
         feather.replace()
     </script>
+    <?php include("../component/footer.html") ?>
 </body>
 
 </html>

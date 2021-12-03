@@ -7,6 +7,7 @@ if (isset($_POST['logout']) || !isset($_SESSION['email'])) {
     header("Location: /login");
 }
 
+// Basic
 $curr_email = $_SESSION['email'];
 $query = mysqli_query($mysqli, "SELECT * FROM users WHERE email='$curr_email'");
 $user = mysqli_fetch_array($query);
@@ -41,7 +42,7 @@ if (isset($_POST['btn-submit'])) {
 <body>
     <?php include("component/header.php") ?>
     <main class="container">
-        <h2>Welcome to OurAnimeList </h2>
+        <h2 class="center">Welcome to OurAnimeList </h2>
         <div class="container">
             <div class="primary">
                 <div class="grid">
