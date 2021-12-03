@@ -14,6 +14,7 @@ $user = mysqli_fetch_array($query);
 $id = $user['id'];
 
 
+$q = "season";
 $season = $_GET['season'];
 $year = $_GET['year'];
 $animes = $mysqli->query("SELECT * FROM animes WHERE season='$season' AND year=$year ORDER BY score DESC");
@@ -39,9 +40,7 @@ if (isset($_POST['btn-submit'])) {
 </head>
 
 <body>
-    <form action="" method="POST" class="form">
-        <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
-    </form>
+    <?php include("../component/header.php") ?>
     <main class="container">
         <h1>Halo, <?= $user['username'] ?></h1>
         <a href="/">

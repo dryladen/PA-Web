@@ -50,17 +50,10 @@ if (isset($_POST['btn-submit'])) {
 </head>
 
 <body>
-    <form action="" method="POST" class="form">
-        <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
-    </form>
+    <?php include("../component/header.php") ?>
     <main class="container">
-        <h1>Halo, <?= $user['username'] ?></h1>
-        <a href="/">
-            <button class="button">
-                Home
-            </button>
-        </a>
         <div class="container">
+            <h2>Top <?= ucfirst($q) ?></h2>
             <div class="primary">
                 <div class="grid">
                     <?php while ($type = mysqli_fetch_array($types)) : ?>

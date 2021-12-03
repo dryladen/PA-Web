@@ -34,41 +34,18 @@ if (isset($_POST['btn-submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/feather-icons"></script>
-    <title>Your Anime List</title>
+    <title>Our Anime List</title>
 </head>
 
 <body>
-    <form action="" method="POST" class="form">
-        <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
-    </form>
+    <?php include("component/header.php") ?>
     <main class="container">
-        <h1>Halo, <?= $user['username'] ?></h1>
-        <a href="/profile/">
-            <button class="button">
-                Profile
-            </button>
-        </a>
-        <a href="/top?q=anime">
-            <button class="button">
-                Top Anime
-            </button>
-        </a>
-        <a href="/top?q=manga">
-            <button class="button">
-                Top Manga 
-            </button>
-        </a>
-        <a href="/seasonal?year=<?= $year ?>&season=<?= $season ?>">
-            <button class="button">
-                Seasonal
-            </button>
-        </a>
         <h2><?= ucfirst($season) ?> <?= $year ?></h2>
         <div class="container">
             <div class="primary">
                 <div class="grid">
                     <?php while ($anime = mysqli_fetch_array($animes)) : ?>
-                        <div id="<?= $anime['id'] ?>"  class="grid-items">
+                        <div id="<?= $anime['id'] ?>" class="grid-items">
                             <form action="#<?= $anime['id'] ?>" method="post">
                                 <input name="anime-id" hidden value="<?= $anime['id'] ?>" type="text">
                                 <div class="title">
@@ -124,8 +101,8 @@ if (isset($_POST['btn-submit'])) {
                 </div>
             </div>
         </div>
-
     </main>
+    <?php include("component/footer.html") ?>
     <script>
         feather.replace()
     </script>

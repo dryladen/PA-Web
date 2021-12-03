@@ -6,6 +6,7 @@ $curr_email = $_SESSION['email'];
 $query = $mysqli->query("SELECT * FROM users WHERE email='$curr_email'");
 $user = mysqli_fetch_array($query);
 $id = $user['id'];
+$q = "profile";
 
 $fav_animes = $mysqli->query("SELECT animes.*, fav_animes.id FROM fav_animes INNER JOIN animes ON 
 fav_animes.anime_id=animes.id WHERE fav_animes.user_id=$id ORDER BY animes.title");
@@ -25,7 +26,6 @@ if (isset($_POST['btn-submit-anime'])) {
     $del = $mysqli->query("DELETE FROM fav_mangas WHERE id='$fav_id'");
     $_POST = array();
     header("Location: /profile");
-    
 }
 
 ?>
@@ -40,147 +40,133 @@ if (isset($_POST['btn-submit-anime'])) {
     <link rel="stylesheet" href="../style.css">
     <script src="https://unpkg.com/feather-icons"></script>
     <title>Profile</title>
-    <style>
-        /* Style the tab */
-        .tab {
-            overflow: hidden;
-            border: 1px solid #ccc;
-            background-color: #f1f1f1;
-        }
-
-        /* Style the buttons that are used to open the tab content */
-        .tab button {
-            background-color: inherit;
-            float: left;
-            border: none;
-            outline: none;
-            cursor: pointer;
-            padding: 14px 16px;
-            transition: 0.3s;
-        }
-
-        /* Change background color of buttons on hover */
-        .tab button:hover {
-            background-color: #ddd;
-        }
-
-        /* Create an active/current tablink class */
-        .tab button.active {
-            background-color: #ccc;
-        }
-
-        /* Style the tab content */
-        .tabcontent {
-            display: none;
-            padding: 6px 12px;
-            border: 1px solid #ccc;
-            border-top: none;
-        }
-    </style>
 </head>
 
 <body>
-    <a href="/">Kembali</a>
-    <!-- Tab links -->
-    <div class="tab">
-        <button class="tablinks active" onclick="openCity(event, 'Profile')">Profile</button>
-        <button class="tablinks" onclick="openCity(event, 'fav-anime')">Favorite Anime</button>
-        <button class="tablinks" onclick="openCity(event, 'fav-manga')">Favorite Manga</button>
-    </div>
+    <?php include("../component/header.php") ?>
+    <div class="container">
 
-    <!-- Tab content -->
-    <div id="fav-anime" class="tabcontent">
-        <div class=" grid">
-            <?php while ($fav_anime = mysqli_fetch_array($fav_animes)) : ?>
-                <div id="<?= $fav_anime['id'] ?>" class="grid-items">
-                    <form action="" method="post">
-                        <input name="fav_anime-id" hidden value="<?= $fav_anime['id'] ?>" type="text">
-                        <div class="title">
-                            <h3><?= $fav_anime['title'] ?></h3>
-                        </div>
-                        <div class="many-items">
-                            <p style="white-space: nowrap;"><?= $fav_anime['studio'] ?></p>
-                            <div><?= $fav_anime['episodes'] ?> eps</div>
-                            <!-- <button title="Sudah Ditambahkan" type="submit" class="btn btn-added" disabled name="btn-submit"><i data-feather="check"></i></button> -->
-                            <button title="Hapus" onclick="return confirm('Yakin?')" type="submit" class="btn btn-danger" name="btn-submit-anime"><i data-feather="trash-2"></i></button>
-                        </div>
-                        <div class="many-items">
-                            <div class="genres">
-                                <?php
-                                $anime_id = $fav_anime['id'];
-                                $genres = $mysqli->query("SELECT id, name, anime_id FROM genres WHERE anime_id='$anime_id'");
-                                while ($genre = mysqli_fetch_array($genres)) : ?>
-                                    <div class="genre-item"><?= $genre['name'] ?></div>
-                                <?php endwhile ?>
-                            </div>
-                            <div class="score">
-                                <span data-feather="star"></span> <?= $fav_anime['score'] ?>
-                            </div>
-                        </div>
-                        <div class="detail">
-                            <div class="image">
-                                <img src="<?= $fav_anime['image'] ?>" alt="gambar">
-                            </div>
-                            <div class="synopsis">
-                                <span>
-                                    <?= nl2br($fav_anime['synopsis']) ?>
-                                </span>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            <?php endwhile ?>
+        <!-- Tab links -->
+        <div class="tab">
+            <button class="tablinks active" onclick="openCity(event, 'Profile')">Profile</button>
+            <button class="tablinks" onclick="openCity(event, 'fav-anime')">Favorite Anime</button>
+            <button class="tablinks" onclick="openCity(event, 'fav-manga')">Favorite Manga</button>
         </div>
-    </div>
 
-    <div id="fav-manga" class="tabcontent">
-        <div class=" grid">
-            <?php while ($fav_manga = mysqli_fetch_array($fav_mangas)) : ?>
-                <div id="<?= $fav_manga['id'] ?>" class="grid-items">
-                    <form action="" method="post">
-                        <input name="fav_manga-id" hidden value="<?= $fav_manga['id'] ?>" type="text">
-                        <div class="title">
-                            <h3><?= $fav_manga['title'] ?></h3>
-                        </div>
-                        <div class="many-items">
-                            <p style="white-space: nowrap;"><?= $fav_manga['magazine'] ?></p>
-                            <div><?= $fav_manga['volumes'] ?> vol</div>
-                            <!-- <button title="Sudah Ditambahkan" type="submit" class="btn btn-added" disabled name="btn-submit"><i data-feather="check"></i></button> -->
-                            <button title="Hapus" onclick="return confirm('Yakin?')" type="submit" class="btn btn-danger" name="btn-submit-manga"><i data-feather="trash-2"></i></button>
-                        </div>
-                        <div class="many-items">
-                            <div class="genres">
-                                <?php
-                                $manga_id = $fav_manga['id'];
-                                $genres = $mysqli->query("SELECT id, name, manga_id FROM genres WHERE manga_id='$manga_id'");
-                                while ($genre = mysqli_fetch_array($genres)) : ?>
-                                    <div class="genre-item"><?= $genre['name'] ?></div>
-                                <?php endwhile ?>
-                            </div>
-                            <div class="score">
-                                <span data-feather="star"></span> <?= $fav_manga['score'] ?>
-                            </div>
-                        </div>
-                        <div class="detail">
-                            <div class="image">
-                                <img src="<?= $fav_manga['image'] ?>" alt="gambar">
-                            </div>
-                            <div class="synopsis">
-                                <span>
-                                    <?= nl2br($fav_manga['synopsis']) ?>
-                                </span>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            <?php endwhile ?>
+        <!-- Tab content -->
+        <!-- Ini bagian profile user -->
+        <div id="Profile" class="tabcontent" style="display: block;">
+            <h3>Profile</h3>
+            <!-- <p>Profile is the capital of Japan.</p> -->
+            <table>
+                <tr>
+                    <td>
+                        <p>ini usernamenya</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td><img src="" alt=""></td>
+                </tr>
+                <tr>
+                    <td>
+                        <p>Emailnya</p>
+                    </td>
+                </tr>
+            </table>
         </div>
+
+        <!-- ! Ini Bagian Favorite Anime -->
+        <div id="fav-anime" class="tabcontent">
+            <div class=" grid">
+                <?php while ($fav_anime = mysqli_fetch_array($fav_animes)) : ?>
+                    <div id="<?= $fav_anime['id'] ?>" class="grid-items">
+                        <form action="" method="post">
+                            <input name="fav_anime-id" hidden value="<?= $fav_anime['id'] ?>" type="text">
+                            <div class="title">
+                                <h3><?= $fav_anime['title'] ?></h3>
+                            </div>
+                            <div class="many-items">
+                                <p style="white-space: nowrap;"><?= $fav_anime['studio'] ?></p>
+                                <div><?= $fav_anime['episodes'] ?> eps</div>
+                                <!-- <button title="Sudah Ditambahkan" type="submit" class="btn btn-added" disabled name="btn-submit"><i data-feather="check"></i></button> -->
+                                <button title="Hapus" onclick="return confirm('Yakin?')" type="submit" class="btn btn-danger" name="btn-submit-anime"><i data-feather="trash-2"></i></button>
+                            </div>
+                            <div class="many-items">
+                                <div class="genres">
+                                    <?php
+                                    $anime_id = $fav_anime['id'];
+                                    $genres = $mysqli->query("SELECT id, name, anime_id FROM genres WHERE anime_id='$anime_id'");
+                                    while ($genre = mysqli_fetch_array($genres)) : ?>
+                                        <div class="genre-item"><?= $genre['name'] ?></div>
+                                    <?php endwhile ?>
+                                </div>
+                                <div class="score">
+                                    <span data-feather="star"></span> <?= $fav_anime['score'] ?>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <div class="image">
+                                    <img src="<?= $fav_anime['image'] ?>" alt="gambar">
+                                </div>
+                                <div class="synopsis">
+                                    <span>
+                                        <?= nl2br($fav_anime['synopsis']) ?>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                <?php endwhile ?>
+            </div>
+        </div>
+
+        <!-- Ini bagian favorite manga -->
+        <div id="fav-manga" class="tabcontent">
+            <div class=" grid">
+                <?php while ($fav_manga = mysqli_fetch_array($fav_mangas)) : ?>
+                    <div id="<?= $fav_manga['id'] ?>" class="grid-items">
+                        <form action="" method="post">
+                            <input name="fav_manga-id" hidden value="<?= $fav_manga['id'] ?>" type="text">
+                            <div class="title">
+                                <h3><?= $fav_manga['title'] ?></h3>
+                            </div>
+                            <div class="many-items">
+                                <p style="white-space: nowrap;"><?= $fav_manga['magazine'] ?></p>
+                                <div><?= $fav_manga['volumes'] ?> vol</div>
+                                <!-- <button title="Sudah Ditambahkan" type="submit" class="btn btn-added" disabled name="btn-submit"><i data-feather="check"></i></button> -->
+                                <button title="Hapus" onclick="return confirm('Yakin?')" type="submit" class="btn btn-danger" name="btn-submit-manga"><i data-feather="trash-2"></i></button>
+                            </div>
+                            <div class="many-items">
+                                <div class="genres">
+                                    <?php
+                                    $manga_id = $fav_manga['id'];
+                                    $genres = $mysqli->query("SELECT id, name, manga_id FROM genres WHERE manga_id='$manga_id'");
+                                    while ($genre = mysqli_fetch_array($genres)) : ?>
+                                        <div class="genre-item"><?= $genre['name'] ?></div>
+                                    <?php endwhile ?>
+                                </div>
+                                <div class="score">
+                                    <span data-feather="star"></span> <?= $fav_manga['score'] ?>
+                                </div>
+                            </div>
+                            <div class="detail">
+                                <div class="image">
+                                    <img src="<?= $fav_manga['image'] ?>" alt="gambar">
+                                </div>
+                                <div class="synopsis">
+                                    <span>
+                                        <?= nl2br($fav_manga['synopsis']) ?>
+                                    </span>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                <?php endwhile ?>
+            </div>
+        </div>
+
     </div>
 
-    <div id="Profile" class="tabcontent active" style="display: block;">
-        <h3>Profile</h3>
-        <p>Profile is the capital of Japan.</p>
-    </div>
     <script>
         feather.replace()
     </script>
@@ -206,6 +192,7 @@ if (isset($_POST['btn-submit-anime'])) {
             evt.currentTarget.className += " active";
         }
     </script>
+    <?php include("../component/footer.html") ?>
 </body>
 
 </html>

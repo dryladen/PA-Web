@@ -171,7 +171,7 @@ if (isset($_POST["add-from-api"])) {
             <?php endforeach ?>
         </div>
     </div>
-
+    <?php include("../../../component/footer.html") ?>
 </body>
 
 </html>

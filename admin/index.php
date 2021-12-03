@@ -58,6 +58,9 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
         <a href="../admin/list-manga">
             <button class="button">List Manga</button>
         </a>
+        <a href="../admin/list-user">
+            <button class="button">List User</button>
+        </a>
         <form action="" method="POST" class="form">
             <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
         </form>

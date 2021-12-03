@@ -4,6 +4,8 @@
     // $passwd = '';
     $db = 'oal';
     $passwd = 'root';
+    $season = "Fall";
+    $year= 2021;
     
     $mysqli = mysqli_connect($host, $username, $passwd, $db);
 
