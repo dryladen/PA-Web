@@ -125,6 +125,7 @@ if (isset($_POST['btn-submit'])) {
     <script>
         feather.replace()
     </script>
+    <?php include("../component/footer.html") ?>
 </body>
 
 </html>

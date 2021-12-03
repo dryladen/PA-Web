@@ -135,7 +135,6 @@ if (isset($_POST['delete'])) {
 <body>
     <?php include("../../component/header-admin.php") ?>
     <div class="container">
-        <a href="../../admin">Beranda</a>
         <!-- Manga Form -->
         <form class="anime form" action="/admin/update-manga?id=<?= $id ?>" method="post">
             <label>Judul Manga</label>

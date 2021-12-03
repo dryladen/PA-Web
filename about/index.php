@@ -1,4 +1,4 @@
-<?php 
+<?php
 require("../config.php");
 
 session_start();
@@ -12,6 +12,7 @@ $q = "about";
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -19,40 +20,39 @@ $q = "about";
     <title>About</title>
     <link rel="stylesheet" href="../style.css">
     <style>
-        /* .body-about{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-        } */
-        .container-about{
+        .container {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             /* width: 70%; */
         }
-        .content-about{
+
+        .content-about {
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
             width: 60%;
         }
-        a{
+
+        a {
             color: white;
         }
-        table{
+
+        table {
             width: 60%;
         }
-        table td{
+
+        table td {
             width: 50%;
         }
     </style>
 </head>
+
 <body class="body-about">
     <?php include("../component/header.php") ?>
-    <div class="container-about">
+    <div class="container">
         <div class="content-about">
             <h1>OurAnimeList</h1>
             <p>
@@ -70,16 +70,22 @@ $q = "about";
             </tr>
             <tr>
                 <td></td>
-                <td>CONTACT</td>
+                <td>
+                    <h2>
+                        CONTACT
+                    </h2>
+                </td>
                 <td></td>
             </tr>
             <tr>
                 <td><a href="https://instagram.com/dryladen_?utm_medium=copy_link">@dryladen_</a></td>
                 <td><a href="https://instagram.com/yogatra29?utm_medium=copy_link">@yogatra29</a></td>
                 <td><a href="https://instagram.com/muhammadirvaan_?utm_medium=copy_link">@muhammadirvaan_</a></td>
-            </td>
+                </td>
             </tr>
         </table>
     </div>
+    <?php include("../component/footer.html") ?>
 </body>
+
 </html>

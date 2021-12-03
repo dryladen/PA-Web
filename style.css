@@ -354,6 +354,12 @@ header ul li button {
     align-items: center;
 }
 
+.evenly {
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+}
 /* FOOTER */
 .footer {
     position: fixed;

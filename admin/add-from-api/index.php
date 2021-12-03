@@ -104,7 +104,6 @@ if (isset($_POST["add-from-api"])) {
 <body>
     <?php include("../../component/header-admin.php") ?>
     <div class="container2">
-        <a href="../../admin">Kembali</a>
         <div class="tombol">
             <a href="../../admin/add-from-api?type=anime&page=1&subtype=tv">
                 <button class="button">Top Anime</button>

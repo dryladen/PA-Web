@@ -20,7 +20,7 @@
         </li>
         <li>
             <a class="<?= $q === "index" ? "active-tab" : "" ?>" href="/admin/add-top-season-api?year=2021&season=fall">
-                Tambah sesaon API
+                Tambah season API
             </a>
         </li>
         <li>

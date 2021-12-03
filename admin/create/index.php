@@ -172,7 +172,6 @@ if (isset($_POST['submit-author'])) {
 <body>
     <?php include("../../component/header-admin.php") ?>
     <div class="container">
-        <a href="../../admin/">Beranda</a>
         <select style="margin: 20px 0;" class="select choose-type" class="choose-type" name="type" id="table">
             <option value="anime">Anime</option>
             <option value="manga">Manga</option>

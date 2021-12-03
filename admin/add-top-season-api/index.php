@@ -62,15 +62,16 @@ if (isset($_POST['add-from-api'])) {
 <body>
     <?php include("../../component/header-admin.php") ?>
     <div class="container">
-        <a href="../../admin">Kembali</a> <br>
-        <?php foreach ($json->seasons as $data) : ?>
-            <a href="/admin/add-top-season-api?year=<?= $data->year ?>&season=<?= strtolower($data->season) ?>">
-                <button class="button">
-                    <?= $data->season ?>
-                    <?= $data->year ?>
-                </button>
-            </a>
-        <?php endforeach ?>
+        <div class="evenly">
+            <?php foreach ($json->seasons as $data) : ?>
+                <a href="/admin/add-top-season-api?year=<?= $data->year ?>&season=<?= strtolower($data->season) ?>">
+                    <button class="button">
+                        <?= $data->season ?>
+                        <?= $data->year ?>
+                    </button>
+                </a>
+            <?php endforeach ?>
+        </div>
         <div class="grid">
             <?php foreach ($response_data->anime as $response) : ?>
                 <div id="<?= $response->mal_id ?>" class="grid-items">

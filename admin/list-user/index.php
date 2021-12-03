@@ -43,6 +43,7 @@ $users = $mysqli->query("SELECT * FROM users");
             background-color: #04AA6D;
             color: white;
         }
+
         a {
             color: cornflowerblue;
         }
@@ -52,21 +53,22 @@ $users = $mysqli->query("SELECT * FROM users");
 
 <body>
     <?php include("../../component/header-admin.php") ?>
-    <a href="/admin">Kembali</a> <br>
-    <table id="customers">
-        <tr>
-            <th>Image</th>
-            <th>Username</th>
-            <th>Email</th>
-        </tr>
-        <?php while ($user = mysqli_fetch_array($users)) : ?>
+    <main>
+        <table id="customers">
             <tr>
-                <td><?= $user['image'] ?></td>
-                <td><?= $user['username'] ?></td>
-                <td><?= $user['email'] ?></td>
+                <th>Image</th>
+                <th>Username</th>
+                <th>Email</th>
             </tr>
-        <?php endwhile ?>
-    </table>
+            <?php while ($user = mysqli_fetch_array($users)) : ?>
+                <tr>
+                    <td><?= $user['image'] ?></td>
+                    <td><?= $user['username'] ?></td>
+                    <td><?= $user['email'] ?></td>
+                </tr>
+            <?php endwhile ?>
+        </table>
+    </main>
     <?php include("../../component/footer.html") ?>
 </body>
 

@@ -80,11 +80,11 @@ if (isset($_POST['delete'])) {
             flex-direction: column;
         }
 
-        main{
+        main {
             width: 82%;
         }
 
-        header{
+        header {
             width: 100%;
         }
 
@@ -105,7 +105,7 @@ if (isset($_POST['delete'])) {
             width: 100%;
         }
 
-        .btn{
+        .btn {
             height: 45px;
             border-radius: 10px;
         }
@@ -145,73 +145,75 @@ if (isset($_POST['delete'])) {
 
 <body>
     <?php include("../../component/header-admin.php") ?>
-    <div class="container">
-        <a href="../../admin">Beranda</a>
-        <!-- Anime Form -->
-        <form class="anime form" action="/admin/update-anime?id=<?= $id ?>" method="post">
-            <label>Judul Anime</label>
-            <input required class="input" value="<?= $anime['title'] ?>" type="text" name="nama-anime" placeholder="Nama Manga"> <br>
-            <label>Gambar</label>
-            <input class="input" type="url" value="<?= $anime['image'] ?>" name="url-img-anime" placeholder="https://example.com/gambar.jpg">
-            <label>Sinopsis</label>
-            <textarea class="sinopsis" value="<?= $anime['synopsis'] ?>" name="synopsis-anime" cols="30" rows="10">
+    <main>
+
+        <div class="container">
+            <!-- Anime Form -->
+            <form class="anime form" action="/admin/update-anime?id=<?= $id ?>" method="post">
+                <label>Judul Anime</label>
+                <input required class="input" value="<?= $anime['title'] ?>" type="text" name="nama-anime" placeholder="Nama Manga"> <br>
+                <label>Gambar</label>
+                <input class="input" type="url" value="<?= $anime['image'] ?>" name="url-img-anime" placeholder="https://example.com/gambar.jpg">
+                <label>Sinopsis</label>
+                <textarea class="sinopsis" value="<?= $anime['synopsis'] ?>" name="synopsis-anime" cols="30" rows="10">
                 <?= $anime['synopsis'] ?>
             </textarea>
-            <label>Total Episode</label>
-            <input class="input" value="<?= $anime['episodes'] ?>" type="number" name="episode-anime" placeholder="Banyak Episode saat ini">
-            <label>Skor</label>
-            <input type="number" value="<?= $anime['score'] ?>" step="0.01" name="score-anime" class="input" placeholder="Skor Anime">
-            <label>Season</label>
-            <input type="text" value="<?= $anime['season'] ?>" name="season-anime" class="input" placeholder="Season Anime">
-            <label>Tahun</label>
-            <input type="Number" value="<?= $anime['year'] == null ? 2000 : $anime['year'] ?>" value="2000" name="year-anime" class="input" placeholder="Tahun Anime">
-            <label for="authorlist">Studio </label>
-            <select class="select" name="studio-anime">
-                <option value="0"> -- None -- </option>
-                <?php foreach ($json->studio as $studio) : ?>
-                    <?php if ($anime['studio'] !== $studio->name) : ?>
-                        <option value="<?= $studio->name ?>"><?= $studio->name ?></option>
+                <label>Total Episode</label>
+                <input class="input" value="<?= $anime['episodes'] ?>" type="number" name="episode-anime" placeholder="Banyak Episode saat ini">
+                <label>Skor</label>
+                <input type="number" value="<?= $anime['score'] ?>" step="0.01" name="score-anime" class="input" placeholder="Skor Anime">
+                <label>Season</label>
+                <input type="text" value="<?= $anime['season'] ?>" name="season-anime" class="input" placeholder="Season Anime">
+                <label>Tahun</label>
+                <input type="Number" value="<?= $anime['year'] == null ? 2000 : $anime['year'] ?>" value="2000" name="year-anime" class="input" placeholder="Tahun Anime">
+                <label for="authorlist">Studio </label>
+                <select class="select" name="studio-anime">
+                    <option value="0"> -- None -- </option>
+                    <?php foreach ($json->studio as $studio) : ?>
+                        <?php if ($anime['studio'] !== $studio->name) : ?>
+                            <option value="<?= $studio->name ?>"><?= $studio->name ?></option>
+                        <?php else : ?>
+                            <option selected value="<?= $studio->name ?>"><?= $studio->name ?></option>
+                        <?php endif ?>
+                    <?php endforeach ?>
+                </select>
+                <label for="authorlist">Genre </label> <br>
+                <?php foreach ($json->genre as $genre) :
+                    $genres = $mysqli->query("SELECT id, name, anime_id FROM genres WHERE anime_id='$id'");
+                    $isAdded = false;
+                    while ($result = mysqli_fetch_array($genres)) : ?>
+                        <script>
+                            console.log("<?= $result['name'] ?> === <?= $genre->name ?>")
+                        </script>
+                        <?php
+                        if ($result['name'] === $genre->name) {
+                            $isAdded = true;
+                            break;
+                        } else {
+                            $isAdded = false;
+                        }
+                        ?>
+                    <?php endwhile ?>
+                    <?php if ($isAdded) : ?>
+                        <label><input checked type="checkbox" value="<?= $genre->name ?>" name="genreAnime[]" /> <?= $genre->name ?></label>
                     <?php else : ?>
-                        <option selected value="<?= $studio->name ?>"><?= $studio->name ?></option>
+                        <label><input type="checkbox" value="<?= $genre->name ?>" name="genreAnime[]" /> <?= $genre->name ?></label>
                     <?php endif ?>
+                    <br>
                 <?php endforeach ?>
-            </select>
-            <label for="authorlist">Genre </label> <br>
-            <?php foreach ($json->genre as $genre) :
-                $genres = $mysqli->query("SELECT id, name, anime_id FROM genres WHERE anime_id='$id'");
-                $isAdded = false;
-                while ($result = mysqli_fetch_array($genres)) : ?>
-                    <script>
-                        console.log("<?= $result['name'] ?> === <?= $genre->name ?>")
-                    </script>
-                    <?php
-                    if ($result['name'] === $genre->name) {
-                        $isAdded = true;
-                        break;
-                    } else {
-                        $isAdded = false;
-                    }
-                    ?>
-                <?php endwhile ?>
-                <?php if ($isAdded) : ?>
-                    <label><input checked type="checkbox" value="<?= $genre->name ?>" name="genreAnime[]" /> <?= $genre->name ?></label>
+                <button class="button" name="submit-anime" type="submit">Update</button>
+            </form>
+            <form action="/admin/update-anime?id=<?= $id ?>" method="POST" class="form">
+                <?php $check = $mysqli->query("SELECT anime_id FROM fav_animes WHERE anime_id=$id");
+                if (mysqli_num_rows($check) > 0) : ?>
+                    <button disable class="btn btn-danger" type="submit" value="delete">
+                        Tidak dapat dihapus. Seseorang sudah menambahkan ke favorite</button>
                 <?php else : ?>
-                    <label><input type="checkbox" value="<?= $genre->name ?>" name="genreAnime[]" /> <?= $genre->name ?></label>
+                    <button style="background-color: red; color: white" onclick="return confirm('Yakin Ingin menghapus data?')" class="button" type="submit" value="delete" name="delete">Hapus Data</button>
                 <?php endif ?>
-                <br>
-            <?php endforeach ?>
-            <button class="button" name="submit-anime" type="submit">Update</button>
-        </form>
-        <form action="/admin/update-anime?id=<?= $id ?>" method="POST" class="form">
-            <?php $check = $mysqli->query("SELECT anime_id FROM fav_animes WHERE anime_id=$id");
-            if (mysqli_num_rows($check) > 0) : ?>
-                <button disable class="btn btn-danger" type="submit" value="delete">
-                    Tidak dapat dihapus. Seseorang sudah menambahkan ke favorite</button>
-            <?php else : ?>
-                <button style="background-color: red; color: white" onclick="return confirm('Yakin Ingin menghapus data?')" class="button" type="submit" value="delete" name="delete">Hapus Data</button>
-            <?php endif ?>
-        </form>
-    </div>
+            </form>
+        </div>
+    </main>
     <?php include("../../component/footer.html") ?>
 </body>
 
