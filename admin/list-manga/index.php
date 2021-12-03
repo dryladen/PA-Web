@@ -74,8 +74,8 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
                         <h3><?= $manga['title'] ?></h3>
                     </div>
                     <div class="many-items">
-                        <p style="white-space: nowrap;"><?= $manga['studio'] ?></p>
-                        <div><?= $manga['chapters'] == 0 || $manga['chapters'] == "" ? "?" : $manga['chapters'] ?> chapter</div>
+                        <p style="white-space: nowrap;"><?= $manga['author'] ?></p>
+                        <div><?= $manga['volumes'] == 0 || $manga['volumes'] == "" ? "?" : $manga['volumes'] ?> vol</div>
                         <a title="Ubah" class="btn btn-add" href="../admin/update-manga?id=<?= $manga['id'] ?>" name="btn-submit">
                             <i data-feather="edit-2">
                             </i>

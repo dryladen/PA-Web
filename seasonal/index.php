@@ -36,26 +36,30 @@ if (isset($_POST['btn-submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/feather-icons"></script>
-    <title>Your Anime List</title>
+    <title><?= ucfirst($season) ?> <?= $year ?></title>
 </head>
 
 <body>
     <?php include("../component/header.php") ?>
     <main class="container">
-        <h1>Halo, <?= $user['username'] ?></h1>
-        <a href="/">
-            <button class="button">
-                Home
-            </button>
-        </a>
-        <?php foreach($json->seasons as $data) :?>
-            <a href="/seasonal?year=<?= $data->year ?>&season=<?= $data->season ?>">
-                <button class="button">
-                    <?= $data->season ?>
-                    <?= $data->year ?>
-                </button>
-            </a>
-        <?php endforeach ?>
+        
+        <div class="tab">
+            <?php foreach ($json->seasons as $data) :
+                $isActive = $data->season == $season && $data->year == $year ? "active" : ""; 
+
+                ?>
+                <script>
+                    console.log("<?= $data->season ?> === <?= $season ?>");
+                    console.log("<?= $data->year ?> === <?= $year ?>");
+                </script>
+                <a href="/seasonal?year=<?= $data->year ?>&season=<?= $data->season ?>">
+                    <button class="tablinks <?= $isActive ?>" >
+                        <?= $data->season ?>
+                        <?= $data->year ?>
+                    </button>
+                </a>
+            <?php endforeach ?>
+        </div>
 
         <h2><?= ucfirst($season) ?> <?= $year ?></h2>
         <div class="container">

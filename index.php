@@ -40,7 +40,7 @@ if (isset($_POST['btn-submit'])) {
 <body>
     <?php include("component/header.php") ?>
     <main class="container">
-        <h2><?= ucfirst($season) ?> <?= $year ?></h2>
+        <h2>Welcome to OurAnimeList </h2>
         <div class="container">
             <div class="primary">
                 <div class="grid">

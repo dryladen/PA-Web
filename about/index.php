@@ -1,5 +1,15 @@
 <?php 
-$q = "about"; ?>
+require("../config.php");
+
+session_start();
+
+$curr_email = $_SESSION['email'];
+$query = $mysqli->query("SELECT * FROM users WHERE email='$curr_email'");
+$user = mysqli_fetch_array($query);
+$id = $user['id'];
+$q = "about";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,20 +19,20 @@ $q = "about"; ?>
     <title>About</title>
     <link rel="stylesheet" href="../style.css">
     <style>
-        body{
+        /* .body-about{
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-        }
-        .container{
+        } */
+        .container-about{
             display: flex;
             justify-content: center;
             align-items: center;
             flex-direction: column;
-            width: 70%;
+            /* width: 70%; */
         }
-        .content{
+        .content-about{
             display: flex;
             justify-content: center;
             align-items: center;
@@ -38,14 +48,12 @@ $q = "about"; ?>
         table td{
             width: 50%;
         }
-        /* .center{
-            text-align: center;
-        } */
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="content">
+<body class="body-about">
+    <?php include("../component/header.php") ?>
+    <div class="container-about">
+        <div class="content-about">
             <h1>OurAnimeList</h1>
             <p>
                 Website ini merupakan sebuah website yang menyediakan berbagai list Anime

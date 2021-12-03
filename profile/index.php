@@ -11,8 +11,8 @@ $q = "profile";
 $fav_animes = $mysqli->query("SELECT animes.*, fav_animes.id FROM fav_animes INNER JOIN animes ON 
 fav_animes.anime_id=animes.id WHERE fav_animes.user_id=$id ORDER BY animes.title");
 
-$fav_mangas = $mysqli->query("SELECT mangas.*, fav_mangas.id FROM fav_mangas INNER JOIN mangas ON
-fav_mangas.manga_id=mangas.id WHERE fav_mangas.user_id=$id ORDER BY mangas.title");
+$fav_mangas = $mysqli->query("SELECT mangas.* ,fav_mangas.id as fav_manga_id, authors.name as author FROM fav_mangas INNER JOIN mangas ON
+fav_mangas.manga_id=mangas.id LEFT JOIN authors ON authors.id = mangas.author_id WHERE fav_mangas.user_id=$id ORDER BY mangas.title");
 
 if (isset($_POST['btn-submit-anime'])) {
     $fav_id = $_POST['fav_anime-id'];
@@ -124,14 +124,14 @@ if (isset($_POST['btn-submit-anime'])) {
         <div id="fav-manga" class="tabcontent">
             <div class=" grid">
                 <?php while ($fav_manga = mysqli_fetch_array($fav_mangas)) : ?>
-                    <div id="<?= $fav_manga['id'] ?>" class="grid-items">
+                    <div id="<?= $fav_manga['fav_manga_id'] ?>" class="grid-items">
                         <form action="" method="post">
-                            <input name="fav_manga-id" hidden value="<?= $fav_manga['id'] ?>" type="text">
+                            <input name="fav_manga-id" hidden value="<?= $fav_manga['fav_manga_id'] ?>" type="text">
                             <div class="title">
                                 <h3><?= $fav_manga['title'] ?></h3>
                             </div>
                             <div class="many-items">
-                                <p style="white-space: nowrap;"><?= $fav_manga['magazine'] ?></p>
+                                <p style="white-space: nowrap;"><?= $fav_manga['author'] ?></p>
                                 <div><?= $fav_manga['volumes'] ?> vol</div>
                                 <!-- <button title="Sudah Ditambahkan" type="submit" class="btn btn-added" disabled name="btn-submit"><i data-feather="check"></i></button> -->
                                 <button title="Hapus" onclick="return confirm('Yakin?')" type="submit" class="btn btn-danger" name="btn-submit-manga"><i data-feather="trash-2"></i></button>

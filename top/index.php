@@ -19,7 +19,10 @@ $types;
 if ($q === "anime") {
     $types = $mysqli->query("SELECT * FROM animes ORDER BY score DESC");
 } else if ($q === "manga") {
-    $types = $mysqli->query("SELECT * FROM mangas ORDER BY score DESC");
+    $types = $mysqli->query("SELECT mangas.id, mangas.title, mangas.image, mangas.chapters, 
+                            mangas.volumes, mangas.score, mangas.magazine,
+                            mangas.synopsis, mangas.author_id, authors.name as author 
+                            FROM mangas LEFT JOIN authors ON mangas.author_id=authors.id ORDER BY mangas.score DESC");
 } else {
     header("Location: /");
 }
@@ -46,7 +49,7 @@ if (isset($_POST['btn-submit'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="https://unpkg.com/feather-icons"></script>
-    <title>Your Anime List</title>
+    <title>Top <?= ucfirst($q) ?></title>
 </head>
 
 <body>
@@ -64,8 +67,8 @@ if (isset($_POST['btn-submit'])) {
                                     <h3><?= $type['title'] ?></h3>
                                 </div>
                                 <div class="many-items">
-                                    <p style="white-space: nowrap;"><?= $q === "anime" ? $type['studio'] : $type['magazine'] ?></p>
-                                    <div><?= $q === "anime" ? $type['episodes'] : $type['chapters'] ?> eps</div>
+                                    <p style="white-space: nowrap;"><?= $q === "anime" ? $type['studio'] : $type['author'] ?></p>
+                                    <div><?= $q === "anime" ? $type['episodes'] . " eps" : $type['volumes'] . " vol" ?> </div>
                                     <?php
                                     $fav_types;
                                     $fav_types = $mysqli->query("SELECT * FROM fav_${q}s WHERE user_id='$id'");

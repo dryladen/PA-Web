@@ -24,22 +24,21 @@ if (isset($_GET['id'])) {
 }
 
 if (isset($_POST['submit-manga'])) {
-    $title = $_POST['nama-manga'];
-    $image = $_POST['url-img-manga'];
-    $synopsis = $_POST['synopsis-manga'];
-    $chapters = $_POST['chapters-manga'] === '' ? null : $_POST['chapters-manga'];
+    $title = mysqli_real_escape_string($mysqli, $_POST['nama-manga']);
+    $image = mysqli_real_escape_string($mysqli, $_POST['url-img-manga']);
+    $synopsis = mysqli_real_escape_string($mysqli, $_POST['synopsis-manga']);
+    $chapters = $_POST['chapters-manga'] === '' ? "NULL" : $_POST['chapters-manga'];
     $volumes = $_POST['volumes-manga'] === '' ? null : $_POST['volumes-manga'];
     $score = $_POST['score-manga'] === '' ? null : $_POST['score-manga'];
-    $magazine = $_POST['magazine-manga'] === '' ? null : $_POST['magazine-manga'];
+    $magazine = $_POST['magazine-manga'] === '' ? null : mysqli_real_escape_string($mysqli,  $_POST['magazine-manga']);
     $author_id = $_POST['author-name'] === '0' ? "NULL" : $_POST['author-name'];
     $genres = $_POST['genreManga'];
-    var_dump($author_id);
-    
+
     $update = $mysqli->query("UPDATE mangas
     SET title='$title', image='$image', synopsis='$synopsis', chapters='$chapters', volumes='$volumes', score='$score',
     magazine='$magazine', author_id = $author_id WHERE id='$id'");
     var_dump(mysqli_error($mysqli));
-    
+
     $deleteAllGenre = $mysqli->query("DELETE FROM genres WHERE manga_id='$id'");
     $mysqli->query("ALTER TABLE genres AUTO_INCREMENT = 1");
 
@@ -51,7 +50,7 @@ if (isset($_POST['submit-manga'])) {
 if (isset($_POST['delete'])) {
     // ! Delete Genre First cuz' it has foreign key
     $deleteGenre = $mysqli->query("DELETE FROM genres WHERE manga_id='$id'");
-    
+
     $deleteManga = $mysqli->query("DELETE FROM mangas WHERE id='$id'");
 
     $mysqli->query("ALTER TABLE mangas AUTO_INCREMENT = 1");
@@ -59,18 +58,17 @@ if (isset($_POST['delete'])) {
     header("Location: /admin");
 }
 
-var_dump(($json));
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
-    
-    <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" href="../../style.css">
-        <title>Update</title>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../../style.css">
+    <title>Update</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -79,11 +77,13 @@ var_dump(($json));
             align-items: center;
 
         }
-        .container{
+
+        .container {
             padding: 16px;
             border: 3px solid #f1f1f1;
             width: 800px;
         }
+
         button {
             background-color: #04AA6D;
             color: white;
@@ -93,13 +93,15 @@ var_dump(($json));
             cursor: pointer;
             width: 100%;
         }
+
         .select {
             display: block;
             width: 50%;
             border: 1px solid cornflowerblue;
             box-sizing: border-box;
         }
-        .sinopsis{
+
+        .sinopsis {
             display: block;
             border: 1px solid cornflowerblue;
             box-sizing: border-box;
@@ -108,6 +110,7 @@ var_dump(($json));
             min-width: 50%;
             min-height: 250px;
         }
+
         input[type=text],
         input[type=number],
         input[type=url] {
@@ -117,7 +120,8 @@ var_dump(($json));
             border: 1px solid cornflowerblue;
             box-sizing: border-box;
         }
-        a{
+
+        a {
             color: cornflowerblue;
         }
     </style>
@@ -193,7 +197,7 @@ var_dump(($json));
                 <button style="background-color: red; color: white" onclick="return confirm('Yakin Ingin menghapus data?')" class="button" type="submit" value="delete" name="delete">Hapus Data</button>
             </form>
         </div>
-        
+
     </main>
 </body>
 

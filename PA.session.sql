@@ -124,3 +124,8 @@ SELECT animes.* FROM fav_animes INNER JOIN animes ON fav_animes.anime_id=animes.
 
 SELECT animes.*, fav_animes.id as id FROM fav_animes INNER JOIN animes ON 
 fav_animes.anime_id=animes.id WHERE fav_animes.user_id=2 ORDER BY animes.title
+
+--@block
+
+SELECT mangas.* ,fav_mangas.id as fav_manga_id, authors.name as author FROM fav_mangas INNER JOIN mangas ON
+fav_mangas.manga_id=mangas.id LEFT JOIN authors ON authors.id = mangas.author_id WHERE fav_mangas.user_id=2 ORDER BY mangas.title
