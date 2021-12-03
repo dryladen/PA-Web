@@ -14,8 +14,6 @@ $user = mysqli_fetch_array($query);
 $id = $user['id'];
 $passlama = $user['password'];
 $q = "";
-
-
 if (isset($_POST["btn-edit"])) {
     $password  = $_POST["pass-lama"];
     $pass_encr = md5($password);
@@ -24,8 +22,7 @@ if (isset($_POST["btn-edit"])) {
     $passbaru_encr = md5($passbaru);
     if ($pass_encr == $passlama) {
         if ($passbaru == $confirm) {
-            $passbaru = password_hash($passbaru, PASSWORD_DEFAULT);
-            $query = mysqli_query($mysqli, "UPDATE users SET password='$passbaru_encr' WHERE email='$email'");
+            $query = mysqli_query($mysqli, "UPDATE users SET password='$passbaru_encr' WHERE id='$id'");
 
             echo "<script>
             alert('Password Berhasil Dirubah');
@@ -65,21 +62,24 @@ if (isset($_POST["btn-edit"])) {
 
 <body>
     <?php include("../component/header.php") ?>
-    <div class="container">
-        <form action="" method="post">
-            <label for="pass-lama">Password Awal</label>
-            <input class="input passwd" type="password" name="pass-lama" placeholder="Masukkan Password Awal" id="test1">
-            <label for="pass-baru">Password Baru</label>
-            <input class="input passwd" type="password" name="pass-baru" placeholder="Masukkan Password Baru" id="test1">
-            <label for="konfir-pass">Konfirmasi Password</label>
-            <input class="input passwd" type="password" name="konfir-pass" placeholder="Masukkan Ulang Password" id="test1">
-            <p>
-                <input class="show-pass" type="checkbox" id="test1" />
-                <label for="test1">Tampilkan Password</label>
-            </p>
-            <button class="buton" type="submit" name="btn-edit">Edit</button>
-        </form>
-    </div>
+    <main>
+        <div class="container">
+            <form action="" method="post">
+                <label for="pass-lama">Password Awal</label>
+                <input class="input passwd" type="password" name="pass-lama" placeholder="Masukkan Password Awal" id="test1">
+                <label for="pass-baru">Password Baru</label>
+                <input class="input passwd" type="password" name="pass-baru" placeholder="Masukkan Password Baru" id="test1">
+                <label for="konfir-pass">Konfirmasi Password</label>
+                <input class="input passwd" type="password" name="konfir-pass" placeholder="Masukkan Ulang Password" id="test1">
+                <p>
+                    <input class="show-pass" type="checkbox" id="test1" />
+                    <label for="test1">Tampilkan Password</label>
+                </p>
+                <button class="buton" type="submit" name="btn-edit">Edit</button>
+            </form>
+        </div>
+    </main>
+    <script src="../script.js"></script>
 </body>
 
 </html>

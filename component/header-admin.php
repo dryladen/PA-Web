@@ -2,7 +2,7 @@
 <header>
     <ul>
         <li>
-            <a href="/">
+            <a href="/admin">
                 <b>
                     OurAnimeList
                 </b>
@@ -35,7 +35,7 @@
         </li>
         <li>
             <a class="<?= $q === "index" ? "active-tab" : "" ?>" href="/admin/list-user?q=index">
-                User
+                List User
             </a>
         </li>
         <li style="float:right">
@@ -47,20 +47,6 @@
                         </svg></p>
                 </button>
             </form>
-        </li>
-        <li style="float:right">
-            <a class="<?= $q === "about" ? "active-tab" : "" ?>" href="/about/">
-                About
-            </a>
-        </li>
-        <li style="float:right" class="profile">
-            <a class="<?= $q === "profile" ? "active-tab" : "" ?>" href="/profile/">
-                <p><?= $user['username'] ?>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-person-fill" viewBox="0 0 16 16">
-                        <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                    </svg>
-                </p>
-            </a>
         </li>
     </ul>
 </header>

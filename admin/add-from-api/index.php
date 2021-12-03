@@ -94,22 +94,16 @@ if (isset($_POST["add-from-api"])) {
         a{
             color: cornflowerblue;
         }
-        /* p{
-            color: #1e1e1e;
+        header{
+            width: 100%;
         }
-        h4{
-            color: #1e1e1e;
-        }
-        h5{
-            color: #1e1e1e;
-        } */
 
     </style>
 </head>
 
 <body>
+    <?php include("../../component/header-admin.php") ?>
     <div class="container2">
-        <?php include("../../component/header-admin.php") ?>
         <a href="../../admin">Kembali</a>
         <div class="tombol">
             <a href="../../admin/add-from-api?type=anime&page=1&subtype=tv">

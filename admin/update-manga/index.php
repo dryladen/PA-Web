@@ -75,13 +75,18 @@ if (isset($_POST['delete'])) {
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
 
         }
 
         .container {
+            margin: 20px;
             padding: 16px;
             border: 3px solid #f1f1f1;
-            width: 800px;
+            width: 82%;
+        }
+        header{
+            width: 100%;
         }
 
         button {
@@ -128,77 +133,76 @@ if (isset($_POST['delete'])) {
 </head>
 
 <body>
-    <main class="main">
-        <div class="container">
-            <a href="../../admin">Beranda</a>
-            <!-- Manga Form -->
-            <form class="anime form" action="/admin/update-manga?id=<?= $id ?>" method="post">
-                <label>Judul Manga</label>
-                <input required class="input" value="<?= $manga['title'] ?>" type="text" name="nama-manga" placeholder="Nama Manga"> <br>
-                <label>Gambar</label>
-                <input class="input" type="url" value="<?= $manga['image'] ?>" name="url-img-manga" placeholder="https://example.com/gambar.jpg">
-                <label>Sinopsis</label>
-                <textarea class="input" value="<?= $manga['synopsis'] ?>" name="synopsis-manga" cols="30" rows="10"></textarea>
-                <label>Total Chapter</label>
-                <input class="input" value="<?= $manga['chapters'] === null ? 0 : $manga['chapters'] ?>" type="number" name="chapters-manga" placeholder="Banyak Chapter saat ini">
-                <label>Skor</label>
-                <input type="number" value="<?= $manga['score'] ?>" step="0.01" name="score-manga" class="input" placeholder="Skor manga">
-                <label>Volumes</label>
-                <input type="text" value="<?= $manga['volumes'] ?>" name="volumes-manga" class="input" placeholder="Volumes manga">
-                <label for="authorlist">Majalah </label>
-                <select class="select" name="magazine-manga">
-                    <option value=""> -- None -- </option>
-                    <?php foreach ($json->magazine as $magazine) : ?>
-                        <?php if ($manga['magazine'] !== $magazine->name) : ?>
-                            <option value="<?= $magazine->name ?>"><?= $magazine->name ?></option>
-                        <?php else : ?>
-                            <option selected value="<?= $magazine->name ?>"><?= $magazine->name ?></option>
-                        <?php endif ?>
-                    <?php endforeach ?>
-                </select>
-                <label for="authorlist">Author: </label>
-                <select class="select" name="author-name" id="authorlist">
-                    <option value="0"> -- None -- </option>
-                    <?php while ($author = mysqli_fetch_array($authors)) : ?>
-                        <?php if ($manga['author_id'] !== $author['id']) : ?>
-                            <option value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
-                        <?php else : ?>
-                            <option selected value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
-                        <?php endif ?>
-                    <?php endwhile ?>
-                </select>
-                <label for="authorlist">Genre </label> <br>
-                <?php foreach ($json->genre as $genre) :
-                    $genres = $mysqli->query("SELECT id, name, manga_id FROM genres WHERE manga_id='$id'");
-                    $isAdded = false;
-                    while ($result = mysqli_fetch_array($genres)) : ?>
-                        <script>
-                            console.log("<?= $result['name'] ?> === <?= $genre->name ?>")
-                        </script>
-                        <?php
-                        if ($result['name'] === $genre->name) {
-                            $isAdded = true;
-                            break;
-                        } else {
-                            $isAdded = false;
-                        }
-                        ?>
-                    <?php endwhile ?>
-                    <?php if ($isAdded) : ?>
-                        <label><input checked type="checkbox" value="<?= $genre->name ?>" name="genreManga[]" /> <?= $genre->name ?></label>
+    <?php include("../../component/header-admin.php") ?>
+    <div class="container">
+        <a href="../../admin">Beranda</a>
+        <!-- Manga Form -->
+        <form class="anime form" action="/admin/update-manga?id=<?= $id ?>" method="post">
+            <label>Judul Manga</label>
+            <input required class="input" value="<?= $manga['title'] ?>" type="text" name="nama-manga" placeholder="Nama Manga"> <br>
+            <label>Gambar</label>
+            <input class="input" type="url" value="<?= $manga['image'] ?>" name="url-img-manga" placeholder="https://example.com/gambar.jpg">
+            <label>Sinopsis</label>
+            <textarea class="input" value="<?= $manga['synopsis'] ?>" name="synopsis-manga" cols="30" rows="10"></textarea>
+            <label>Total Chapter</label>
+            <input class="input" value="<?= $manga['chapters'] === null ? 0 : $manga['chapters'] ?>" type="number" name="chapters-manga" placeholder="Banyak Chapter saat ini">
+            <label>Skor</label>
+            <input type="number" value="<?= $manga['score'] ?>" step="0.01" name="score-manga" class="input" placeholder="Skor manga">
+            <label>Volumes</label>
+            <input type="text" value="<?= $manga['volumes'] ?>" name="volumes-manga" class="input" placeholder="Volumes manga">
+            <label for="authorlist">Majalah </label>
+            <select class="select" name="magazine-manga">
+                <option value=""> -- None -- </option>
+                <?php foreach ($json->magazine as $magazine) : ?>
+                    <?php if ($manga['magazine'] !== $magazine->name) : ?>
+                        <option value="<?= $magazine->name ?>"><?= $magazine->name ?></option>
                     <?php else : ?>
-                        <label><input type="checkbox" value="<?= $genre->name ?>" name="genreManga[]" /> <?= $genre->name ?></label>
+                        <option selected value="<?= $magazine->name ?>"><?= $magazine->name ?></option>
                     <?php endif ?>
-                    <br>
                 <?php endforeach ?>
-                <button class="button" name="submit-manga" type="submit">Tambahkan Manga</button>
-            </form>
-            <form action="/admin/update-anime?id=<?= $id ?>" method="POST" class="form">
-                <button style="background-color: red; color: white" onclick="return confirm('Yakin Ingin menghapus data?')" class="button" type="submit" value="delete" name="delete">Hapus Data</button>
-            </form>
-        </div>
-
-    </main>
+            </select>
+            <label for="authorlist">Author: </label>
+            <select class="select" name="author-name" id="authorlist">
+                <option value="0"> -- None -- </option>
+                <?php while ($author = mysqli_fetch_array($authors)) : ?>
+                    <?php if ($manga['author_id'] !== $author['id']) : ?>
+                        <option value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
+                    <?php else : ?>
+                        <option selected value="<?= $author['id'] ?>"><?= $author['name'] ?></option>
+                    <?php endif ?>
+                <?php endwhile ?>
+            </select>
+            <label for="authorlist">Genre </label> <br>
+            <?php foreach ($json->genre as $genre) :
+                $genres = $mysqli->query("SELECT id, name, manga_id FROM genres WHERE manga_id='$id'");
+                $isAdded = false;
+                while ($result = mysqli_fetch_array($genres)) : ?>
+                    <script>
+                        console.log("<?= $result['name'] ?> === <?= $genre->name ?>")
+                    </script>
+                    <?php
+                    if ($result['name'] === $genre->name) {
+                        $isAdded = true;
+                        break;
+                    } else {
+                        $isAdded = false;
+                    }
+                    ?>
+                <?php endwhile ?>
+                <?php if ($isAdded) : ?>
+                    <label><input checked type="checkbox" value="<?= $genre->name ?>" name="genreManga[]" /> <?= $genre->name ?></label>
+                <?php else : ?>
+                    <label><input type="checkbox" value="<?= $genre->name ?>" name="genreManga[]" /> <?= $genre->name ?></label>
+                <?php endif ?>
+                <br>
+            <?php endforeach ?>
+            <button class="button" name="submit-manga" type="submit">Tambahkan Manga</button>
+        </form>
+        <form action="/admin/update-anime?id=<?= $id ?>" method="POST" class="form">
+            <button style="background-color: red; color: white" onclick="return confirm('Yakin Ingin menghapus data?')" class="button" type="submit" value="delete" name="delete">Hapus Data</button>
+        </form>
+    </div>
+    <?php include("../../component/footer.html") ?>
 </body>
 
 </html>

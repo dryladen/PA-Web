@@ -43,6 +43,9 @@ $users = $mysqli->query("SELECT * FROM users");
             background-color: #04AA6D;
             color: white;
         }
+        a {
+            color: cornflowerblue;
+        }
     </style>
     <title>List User</title>
 </head>

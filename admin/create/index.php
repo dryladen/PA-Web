@@ -85,11 +85,11 @@ if (isset($_POST['submit-manga'])) {
     }
 }
 // ! Insert Data Authors
-else if (isset($_POST['submit-author'])) {
+if (isset($_POST['submit-author'])) {
+
     $name = $_POST['nama-author'];
     $url_gambar = $_POST['url-img-author'];
-    // $insert = $mysqli->query("INSERT INTO authors (name, url_gambar) VALUES ('$name', '$url_gambar')");
-    // header("Location: /admin");
+    $insert = $mysqli->query("INSERT INTO authors (name, image) VALUES ('$name', '$url_gambar')");
 }
 
 ?>
@@ -112,9 +112,9 @@ else if (isset($_POST['submit-author'])) {
         }
 
         .container {
-            margin: 48px;
+            margin: 20px;
             padding: 16px;
-            width: 75%;
+            width: 82%;
             border: 3px solid #f1f1f1;
         }
 
@@ -153,6 +153,10 @@ else if (isset($_POST['submit-author'])) {
             margin: 8px 0;
             border: 1px solid cornflowerblue;
             box-sizing: border-box;
+        }
+
+        header{
+            width: 100%;
         }
 
         footer{

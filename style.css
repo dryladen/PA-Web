@@ -289,7 +289,7 @@ input[type=email], input[type=password], input[type=text] {
 /* Style the tab content */
 .tabcontent {
     display: none;
-    padding: 6px 12px;
+    padding: 20px 40px;
 }
 
 
@@ -317,7 +317,6 @@ header ul {
 header li {
     float: left;
     border-right: 1px solid #bbb;
-    height: 100%;
 }
 
 
@@ -356,7 +355,19 @@ header ul li button {
 }
 
 /* FOOTER */
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: red;
+    color: white;
+    text-align: center;
+}
 footer {
+    width: 100%;
+    left: 0;
+    bottom: 0;
     display: block;
     text-align: center;
     background-color: #333;

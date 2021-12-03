@@ -28,11 +28,6 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
             padding: 16px;
         }
 
-        .card img {
-            width: 344px;
-            height: 500px;
-        }
-
         a {
             color: black;
         }
@@ -46,40 +41,26 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
 <body>
     <?php include("../../component/header-admin.php") ?>
     <main class="container">
-        <h1>Admin</h1>
-        <a href="../admin/create/">
-            <button class="button">Tambah</button>
-        </a>
-        <a href="../admin/add-from-api?type=anime&page=1&subtype=tv">
-            <button class="button">Tambah dari API (tidak penting)</button>
-        </a>
-        <a href="../admin/add-top-season-api?year=2021&season=fall">
-            <button class="button">Tambah season API (tidak penting)</button>
-        </a>
-        <a href="../admin/list-manga">
-            <button class="button">List Manga</button>
-        </a>
-        <form action="" method="POST" class="form">
-            <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
-        </form>
-
-        <h2 class="header2">Author</h2>
-        <?php while ($author = mysqli_fetch_array($authors)) : ?>
-            <div class="card">
-                <img src="<?= $author["image"] ?>" alt="gambar">
-                <div class="description">
-                    <h3>
-                        <a href="../admin/update-anime?id=<?= $author["id"] ?>">
-                            <?= $author["name"] ?>
-                        </a>
-                    </h3>
+        <h2 class="header2 center">Author</h2>
+        <div class="grid">
+            <?php while ($author = mysqli_fetch_array($authors)) : ?>
+                <div class="card">
+                    <img src="<?= $author["image"] ?>" alt="gambar">
+                    <div class="description">
+                        <h3>
+                            <a href="../admin/update-authors?id=<?= $author["id"] ?>">
+                                <?= $author["name"] ?>
+                            </a>
+                        </h3>
+                    </div>
                 </div>
+            <?php endwhile ?>
             </div>
-        <?php endwhile ?>
     </main>
     <script>
         feather.replace()
     </script>
+    <?php include("../../component/footer.html") ?>
 </body>
 
 </html>

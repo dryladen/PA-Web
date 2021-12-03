@@ -40,17 +40,13 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
         .header2 {
             padding-top: 25px;
         }
-        h2{
-            text-align: center;
-        }
     </style>
 </head>
 
 <body>
     <?php include("../component/header-admin.php") ?>
     <main class="container">
-        <h1>Admin</h1>
-        <h2>Anime</h2>
+        <h2 class="center">Anime</h2>
         <div class="grid">
             <?php while ($anime = mysqli_fetch_array($animes)) : ?>
                 <div class="grid-items">

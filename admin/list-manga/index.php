@@ -50,23 +50,7 @@ $authors = $mysqli->query("SELECT * FROM authors ORDER BY name");
 <body>
     <?php include("../../component/header-admin.php") ?>
     <main class="container">
-        <h1>Admin</h1>
-        <a href="../admin/create/">
-            <button class="button">Tambah</button>
-        </a>
-        <a href="../admin/add-from-api?type=anime&page=1&subtype=tv">
-            <button class="button">Tambah dari API (tidak penting)</button>
-        </a>
-        <a href="../admin/add-top-season-api?year=2021&season=fall">
-            <button class="button">Tambah season API (tidak penting)</button>
-        </a>
-        <a href="../admin/">
-            <button class="button">Home</button>
-        </a>
-        <form action="" method="POST" class="form">
-            <button style="background-color: red; color: white" class="button" type="submit" value="logut" name="logout">Logout</button>
-        </form>
-        <h2>Manga</h2>
+        <h2 class="center">Manga</h2>
         <div class="grid">
             <?php while ($manga = mysqli_fetch_array($mangas)) : ?>
                 <div class="grid-items">
